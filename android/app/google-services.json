@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "593884950008",
+    "project_id": "fgmb-education",
+    "storage_bucket": "fgmb-education.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593884950008:android:b06555d44d9fa8a3e3fa0d",
+        "android_client_info": {
+          "package_name": "com.fgmb.fgmbeducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593884950008-ijcq7qdlhkuvlf6qjrf1j8dc3pbl140e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fgmb.fgmbeducation",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCu9jQIkIgBfuNsIUddp3ju_tZx8VvLDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593884950008-5mu5cl0shtu6506osag9n23kf7rr12kb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.macvin.fgmbeducation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593884950008:android:14c11c2918a26280e3fa0d",
+        "android_client_info": {
+          "package_name": "com.macvin.fgmbeducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCu9jQIkIgBfuNsIUddp3ju_tZx8VvLDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593884950008-5mu5cl0shtu6506osag9n23kf7rr12kb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.macvin.fgmbeducation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593884950008:android:da924c0b561318cae3fa0d",
+        "android_client_info": {
+          "package_name": "com.macvindev.fgmbeducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593884950008-0a5r3pp82a6lr2r1k2ihfmcvatodvbg4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macvindev.fgmbeducation",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCu9jQIkIgBfuNsIUddp3ju_tZx8VvLDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593884950008-5udtiuaeke5b7vonvtrkl66lo90lel6d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593884950008-5mu5cl0shtu6506osag9n23kf7rr12kb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.macvin.fgmbeducation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
