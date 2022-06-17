@@ -465,202 +465,179 @@ class _DailySuccessPlannerDetailWidgetState
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-                        child: InkWell(
-                          onTap: () async {
-                            logFirebaseEvent(
-                                'DAILY_SUCCESS_PLANNER_DETAIL_meetings_ON');
-                            logFirebaseEvent('meetings_Navigate-To');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    EditQuarterlyGoalsWidget(),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 8, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 8, 8),
-                                          child: Text(
-                                            'Meetings',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                          ),
-                                        ),
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 24,
-                                          borderWidth: 1,
-                                          buttonSize: 40,
-                                          icon: Icon(
-                                            Icons.add_box,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24,
-                                          ),
-                                          onPressed: () async {
-                                            logFirebaseEvent(
-                                                'DAILY_SUCCESS_PLANNER_DETAIL_add_box_ICN');
-                                            logFirebaseEvent(
-                                                'IconButton_Bottom-Sheet');
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.5,
-                                                    child: DailyMeetingWidget(
-                                                      date:
-                                                          dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                              .date,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 8, 0),
-                                    child: StreamBuilder<List<MeetingsRecord>>(
-                                      stream: queryMeetingsRecord(
-                                        queryBuilder: (meetingsRecord) =>
-                                            meetingsRecord
-                                                .where('userId',
-                                                    isEqualTo: currentUserUid)
-                                                .where('date',
-                                                    isEqualTo:
-                                                        dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                            .date)
-                                                .orderBy('dateTime'),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 40,
-                                              height: 40,
-                                              child: SpinKitFadingCube(
+                        child: Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 0, 8, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 8, 8),
+                                        child: Text(
+                                          'Meetings',
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                size: 40,
+                                                        .primaryText,
                                               ),
-                                            ),
-                                          );
-                                        }
-                                        List<MeetingsRecord>
-                                            columnMeetingsRecordList =
-                                            snapshot.data;
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: List.generate(
-                                              columnMeetingsRecordList.length,
-                                              (columnIndex) {
-                                            final columnMeetingsRecord =
-                                                columnMeetingsRecordList[
-                                                    columnIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  dateTimeFormat(
-                                                      'Hm',
-                                                      columnMeetingsRecord
-                                                          .dateTime),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                10, 0, 0, 0),
-                                                    child: Text(
-                                                      columnMeetingsRecord
-                                                          .meetingDetails,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                              ),
-                                                    ),
+                                        ),
+                                      ),
+                                      FlutterFlowIconButton(
+                                        borderColor: Colors.transparent,
+                                        borderRadius: 24,
+                                        borderWidth: 1,
+                                        buttonSize: 40,
+                                        icon: Icon(
+                                          Icons.add_box,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24,
+                                        ),
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'DAILY_SUCCESS_PLANNER_DETAIL_add_box_ICN');
+                                          logFirebaseEvent(
+                                              'IconButton_Bottom-Sheet');
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.5,
+                                                  child: DailyMeetingWidget(
+                                                    date:
+                                                        dailySuccessPlannerDetailDailySuccessPlannerRecord
+                                                            .date,
                                                   ),
                                                 ),
-                                              ],
-                                            );
-                                          }),
-                                        );
-                                      },
-                                    ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 0, 8, 0),
+                                  child: StreamBuilder<List<MeetingsRecord>>(
+                                    stream: queryMeetingsRecord(
+                                      queryBuilder: (meetingsRecord) =>
+                                          meetingsRecord
+                                              .where('userId',
+                                                  isEqualTo: currentUserUid)
+                                              .where('date',
+                                                  isEqualTo:
+                                                      dailySuccessPlannerDetailDailySuccessPlannerRecord
+                                                          .date)
+                                              .orderBy('dateTime'),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: SpinKitFadingCube(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<MeetingsRecord>
+                                          columnMeetingsRecordList =
+                                          snapshot.data;
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: List.generate(
+                                            columnMeetingsRecordList.length,
+                                            (columnIndex) {
+                                          final columnMeetingsRecord =
+                                              columnMeetingsRecordList[
+                                                  columnIndex];
+                                          return Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                dateTimeFormat(
+                                                    'Hm',
+                                                    columnMeetingsRecord
+                                                        .dateTime),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: Text(
+                                                    columnMeetingsRecord
+                                                        .meetingDetails,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
