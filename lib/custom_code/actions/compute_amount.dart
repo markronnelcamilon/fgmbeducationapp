@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 
 // Begin custom action code
 Future computeAmount(
-  double checkingAccount,
-  double percentage,
+  double? checkingAccount,
+  double? percentage,
 ) async {
   var total = 0.0;
-  total = checkingAccount * (percentage * .01);
+  total = checkingAccount! * (percentage! * .01);
   return total;
 }

@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CalculatorWidget extends StatefulWidget {
-  const CalculatorWidget({Key key}) : super(key: key);
+  const CalculatorWidget({Key? key}) : super(key: key);
 
   @override
   _CalculatorWidgetState createState() => _CalculatorWidgetState();
@@ -46,7 +46,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
           },
         ),
         title: Text(
-          'FGMB Calculator',
+          'IDEAL. Calculator',
           style: FlutterFlowTheme.of(context).title3,
         ),
         actions: [],

@@ -13,13 +13,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TransactionAddPersonalWidget extends StatefulWidget {
   const TransactionAddPersonalWidget({
-    Key key,
+    Key? key,
     this.dailyFinancialPlanner,
     this.uid,
   }) : super(key: key);
 
-  final DocumentReference dailyFinancialPlanner;
-  final String uid;
+  final DocumentReference? dailyFinancialPlanner;
+  final String? uid;
 
   @override
   _TransactionAddPersonalWidgetState createState() =>
@@ -28,16 +28,20 @@ class TransactionAddPersonalWidget extends StatefulWidget {
 
 class _TransactionAddPersonalWidgetState
     extends State<TransactionAddPersonalWidget> with TickerProviderStateMixin {
-  String needsOrWantsValue;
-  TextEditingController reasonController;
-  TextEditingController spentAtController;
-  TextEditingController textController1;
+  TextEditingController? reasonController;
+
+  TextEditingController? spentAtController;
+
+  TextEditingController? textController1;
+
+  String? needsOrWantsValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'textFieldOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 40),
@@ -52,6 +56,7 @@ class _TransactionAddPersonalWidgetState
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 170,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 80),
@@ -66,6 +71,7 @@ class _TransactionAddPersonalWidgetState
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 230,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 120),
@@ -118,9 +124,9 @@ class _TransactionAddPersonalWidgetState
         }
         List<DailyFinancialPlannerRecord>
             transactionAddPersonalDailyFinancialPlannerRecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final transactionAddPersonalDailyFinancialPlannerRecord =
@@ -201,6 +207,20 @@ class _TransactionAddPersonalWidgetState
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
+                                errorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedErrorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                                 contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     24, 24, 24, 24),
                                 prefixIcon: Icon(
@@ -221,7 +241,7 @@ class _TransactionAddPersonalWidgetState
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
                             ).animated([
-                              animationsMap['textFieldOnPageLoadAnimation1']
+                              animationsMap['textFieldOnPageLoadAnimation1']!
                             ]),
                           ),
                         ),
@@ -250,6 +270,20 @@ class _TransactionAddPersonalWidgetState
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               contentPadding: EdgeInsetsDirectional.fromSTEB(
                                   20, 24, 24, 24),
                             ),
@@ -259,8 +293,9 @@ class _TransactionAddPersonalWidgetState
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                     ),
-                          ).animated(
-                              [animationsMap['textFieldOnPageLoadAnimation2']]),
+                          ).animated([
+                            animationsMap['textFieldOnPageLoadAnimation2']!
+                          ]),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
@@ -299,6 +334,20 @@ class _TransactionAddPersonalWidgetState
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               contentPadding:
                                   EdgeInsetsDirectional.fromSTEB(20, 40, 24, 0),
                             ),
@@ -311,8 +360,9 @@ class _TransactionAddPersonalWidgetState
                                 ),
                             textAlign: TextAlign.start,
                             maxLines: 4,
-                          ).animated(
-                              [animationsMap['textFieldOnPageLoadAnimation3']]),
+                          ).animated([
+                            animationsMap['textFieldOnPageLoadAnimation3']!
+                          ]),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
@@ -362,21 +412,21 @@ class _TransactionAddPersonalWidgetState
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'TRANSACTION_ADD_PERSONAL_ADD_TRANSACTION');
-                                if ((needsOrWantsValue) == 'Needs') {
+                                if (needsOrWantsValue == 'Needs') {
                                   logFirebaseEvent('Button_Backend-Call');
 
                                   final dailyFinancialPlannerUpdateData = {
                                     ...createDailyFinancialPlannerRecordData(
                                       spendingNeeds:
                                           functions.addValueToSpendingNeeds(
-                                              transactionAddPersonalDailyFinancialPlannerRecord
+                                              transactionAddPersonalDailyFinancialPlannerRecord!
                                                   .spendingNeeds,
                                               double.parse(
-                                                  textController1.text)),
+                                                  textController1!.text)),
                                     ),
                                     'no_of_needs': FieldValue.increment(1),
                                   };
-                                  await transactionAddPersonalDailyFinancialPlannerRecord
+                                  await transactionAddPersonalDailyFinancialPlannerRecord!
                                       .reference
                                       .update(dailyFinancialPlannerUpdateData);
                                 } else {
@@ -386,14 +436,14 @@ class _TransactionAddPersonalWidgetState
                                     ...createDailyFinancialPlannerRecordData(
                                       spendingWants:
                                           functions.addValueToSpendingNeeds(
-                                              transactionAddPersonalDailyFinancialPlannerRecord
+                                              transactionAddPersonalDailyFinancialPlannerRecord!
                                                   .spendingWants,
                                               double.parse(
-                                                  textController1.text)),
+                                                  textController1!.text)),
                                     ),
                                     'no_of_wants': FieldValue.increment(1),
                                   };
-                                  await transactionAddPersonalDailyFinancialPlannerRecord
+                                  await transactionAddPersonalDailyFinancialPlannerRecord!
                                       .reference
                                       .update(dailyFinancialPlannerUpdateData);
                                 }
@@ -403,11 +453,11 @@ class _TransactionAddPersonalWidgetState
                                 final dailyFinancialTransactionCreateData =
                                     createDailyFinancialTransactionRecordData(
                                   uid: currentUserUid,
-                                  description: reasonController.text,
-                                  amount: double.parse(textController1.text),
+                                  description: reasonController!.text,
+                                  amount: double.parse(textController1!.text),
                                   wantsOrNeeds: needsOrWantsValue,
                                   date: getCurrentTimestamp,
-                                  spendAt: spentAtController.text,
+                                  spendAt: spentAtController!.text,
                                   businessOrPersonal: 'Personal',
                                   isMoneyOut: true,
                                 );
@@ -419,18 +469,18 @@ class _TransactionAddPersonalWidgetState
                                 final dailyFinancialPlannerUpdateData = {
                                   ...createDailyFinancialPlannerRecordData(
                                     totalSpending: functions.addToTotalSpeding(
-                                        transactionAddPersonalDailyFinancialPlannerRecord
+                                        transactionAddPersonalDailyFinancialPlannerRecord!
                                             .totalSpending,
-                                        double.parse(textController1.text)),
+                                        double.parse(textController1!.text)),
                                     spendingPersonal: functions.addMoneyToTotal(
-                                        double.parse(textController1.text),
-                                        transactionAddPersonalDailyFinancialPlannerRecord
+                                        double.parse(textController1!.text),
+                                        transactionAddPersonalDailyFinancialPlannerRecord!
                                             .spendingPersonal),
                                   ),
                                   'total_transaction':
                                       FieldValue.increment(1.0),
                                 };
-                                await transactionAddPersonalDailyFinancialPlannerRecord
+                                await transactionAddPersonalDailyFinancialPlannerRecord!
                                     .reference
                                     .update(dailyFinancialPlannerUpdateData);
                                 logFirebaseEvent('Button_Navigate-Back');
@@ -456,7 +506,7 @@ class _TransactionAddPersonalWidgetState
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 12,
+                                borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                           ],

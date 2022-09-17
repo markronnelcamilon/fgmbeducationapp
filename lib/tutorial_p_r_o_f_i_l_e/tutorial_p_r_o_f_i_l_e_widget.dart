@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TutorialPROFILEWidget extends StatefulWidget {
-  const TutorialPROFILEWidget({Key key}) : super(key: key);
+  const TutorialPROFILEWidget({Key? key}) : super(key: key);
 
   @override
   _TutorialPROFILEWidgetState createState() => _TutorialPROFILEWidgetState();
@@ -15,12 +15,13 @@ class TutorialPROFILEWidget extends StatefulWidget {
 
 class _TutorialPROFILEWidgetState extends State<TutorialPROFILEWidget>
     with TickerProviderStateMixin {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'imageOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         scale: 0.6,
@@ -90,7 +91,7 @@ class _TutorialPROFILEWidgetState extends State<TutorialPROFILEWidget>
                     width: 220,
                     height: 120,
                     fit: BoxFit.fitWidth,
-                  ).animated([animationsMap['imageOnPageLoadAnimation']]),
+                  ).animated([animationsMap['imageOnPageLoadAnimation']!]),
                 ],
               ),
             ),
@@ -349,7 +350,7 @@ class _TutorialPROFILEWidgetState extends State<TutorialPROFILEWidget>
                               count: 3,
                               axisDirection: Axis.horizontal,
                               onDotClicked: (i) {
-                                pageViewController.animateToPage(
+                                pageViewController!.animateToPage(
                                   i,
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease,

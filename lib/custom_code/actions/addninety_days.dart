@@ -12,7 +12,7 @@ Future addninetyDays() async {
   // Add your function code here!
   final firestoreInstance = FirebaseFirestore.instance;
   final firebaseAuth = FirebaseAuth.instance;
-  final uid = firebaseAuth.currentUser.uid.toString();
+  final uid = firebaseAuth.currentUser!.uid.toString();
 
   var today = DateTime.now();
   final DateFormat formatter = DateFormat('M/d/y');

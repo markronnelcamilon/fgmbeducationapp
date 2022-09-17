@@ -13,7 +13,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribePageWidget extends StatefulWidget {
-  const SubscribePageWidget({Key key}) : super(key: key);
+  const SubscribePageWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribePageWidgetState createState() => _SubscribePageWidgetState();
@@ -186,7 +186,7 @@ class _SubscribePageWidgetState extends State<SubscribePageWidget> {
                       final usersUpdateData = createUsersRecordData(
                         isSubscribed: true,
                       );
-                      await currentUserReference.update(usersUpdateData);
+                      await currentUserReference!.update(usersUpdateData);
                       logFirebaseEvent('Button_Backend-Call');
 
                       final goalBookCreateData = createGoalBookRecordData(
@@ -200,16 +200,6 @@ class _SubscribePageWidgetState extends State<SubscribePageWidget> {
                           .set(goalBookCreateData);
                       logFirebaseEvent('Button_Custom-Action');
                       await actions.dailySuccessPlanner();
-                      logFirebaseEvent('Button_Backend-Call');
-
-                      final quarterlyGoalsCreateData =
-                          createQuarterlyGoalsRecordData(
-                        uid: currentUserUid,
-                        goals: 'No quarterly goal yet',
-                      );
-                      await QuarterlyGoalsRecord.collection
-                          .doc()
-                          .set(quarterlyGoalsCreateData);
                       logFirebaseEvent('Button_Backend-Call');
 
                       final dailyFinancialPlannerCreateData =
@@ -259,7 +249,7 @@ class _SubscribePageWidgetState extends State<SubscribePageWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
@@ -283,7 +273,7 @@ class _SubscribePageWidgetState extends State<SubscribePageWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

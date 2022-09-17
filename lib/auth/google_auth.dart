@@ -7,14 +7,11 @@ import 'auth_util.dart';
 
 final _googleSignIn = GoogleSignIn();
 
-Future<User> signInWithGoogle(BuildContext context) async {
+Future<User?> signInWithGoogle(BuildContext context) async {
   final signInFunc = () async {
     if (kIsWeb) {
-      GoogleAuthProvider googleProvider = GoogleAuthProvider();
-      googleProvider
-          .addScope('https://www.googleapis.com/auth/contacts.readonly');
       // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithPopup(googleProvider);
+      return await FirebaseAuth.instance.signInWithPopup(GoogleAuthProvider());
     }
 
     await signOutWithGoogle().catchError((_) => null);

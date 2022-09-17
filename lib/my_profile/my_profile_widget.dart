@@ -18,11 +18,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyProfileWidget extends StatefulWidget {
   const MyProfileWidget({
-    Key key,
+    Key? key,
     this.userProfile,
   }) : super(key: key);
 
-  final DocumentReference userProfile;
+  final DocumentReference? userProfile;
 
   @override
   _MyProfileWidgetState createState() => _MyProfileWidgetState();
@@ -40,7 +40,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
-      stream: UsersRecord.getDocument(currentUserReference),
+      stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -55,7 +55,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
             ),
           );
         }
-        final myProfileUsersRecord = snapshot.data;
+        final myProfileUsersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -110,7 +110,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(
-                                        myProfileUsersRecord.photoUrl,
+                                        myProfileUsersRecord.photoUrl!,
                                       ),
                                     ),
                                   ),
@@ -205,7 +205,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                                           ),
                                     ),
                                     Text(
-                                      myProfileUsersRecord.email,
+                                      myProfileUsersRecord.email!,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -757,7 +757,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                                 color: Colors.transparent,
                                 width: 1,
                               ),
-                              borderRadius: 12,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),
@@ -790,7 +790,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                                 color: Colors.transparent,
                                 width: 1,
                               ),
-                              borderRadius: 12,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),

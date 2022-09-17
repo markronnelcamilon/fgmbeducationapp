@@ -12,13 +12,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditDailySuccessPlannerWidget extends StatefulWidget {
   const EditDailySuccessPlannerWidget({
-    Key key,
+    Key? key,
     this.date,
     this.dailySuccessPlannerDateRR,
   }) : super(key: key);
 
-  final DateTime date;
-  final DocumentReference dailySuccessPlannerDateRR;
+  final DateTime? date;
+  final DocumentReference? dailySuccessPlannerDateRR;
 
   @override
   _EditDailySuccessPlannerWidgetState createState() =>
@@ -27,11 +27,16 @@ class EditDailySuccessPlannerWidget extends StatefulWidget {
 
 class _EditDailySuccessPlannerWidgetState
     extends State<EditDailySuccessPlannerWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
-  TextEditingController textController3;
-  TextEditingController textController4;
-  TextEditingController textController5;
+  TextEditingController? textController1;
+
+  TextEditingController? textController2;
+
+  TextEditingController? textController3;
+
+  TextEditingController? textController4;
+
+  TextEditingController? textController5;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,7 +50,7 @@ class _EditDailySuccessPlannerWidgetState
   Widget build(BuildContext context) {
     return StreamBuilder<DailySuccessPlannerRecord>(
       stream: DailySuccessPlannerRecord.getDocument(
-          widget.dailySuccessPlannerDateRR),
+          widget.dailySuccessPlannerDateRR!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -60,7 +65,7 @@ class _EditDailySuccessPlannerWidgetState
             ),
           );
         }
-        final editDailySuccessPlannerDailySuccessPlannerRecord = snapshot.data;
+        final editDailySuccessPlannerDailySuccessPlannerRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -152,16 +157,31 @@ class _EditDailySuccessPlannerWidgetState
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                            suffixIcon: textController1.text.isNotEmpty
+                            suffixIcon: textController1!.text.isNotEmpty
                                 ? InkWell(
-                                    onTap: () => setState(
-                                      () => textController1?.clear(),
-                                    ),
+                                    onTap: () async {
+                                      textController1?.clear();
+                                      setState(() {});
+                                    },
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
@@ -212,16 +232,31 @@ class _EditDailySuccessPlannerWidgetState
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                            suffixIcon: textController2.text.isNotEmpty
+                            suffixIcon: textController2!.text.isNotEmpty
                                 ? InkWell(
-                                    onTap: () => setState(
-                                      () => textController2?.clear(),
-                                    ),
+                                    onTap: () async {
+                                      textController2?.clear();
+                                      setState(() {});
+                                    },
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
@@ -272,16 +307,31 @@ class _EditDailySuccessPlannerWidgetState
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                            suffixIcon: textController3.text.isNotEmpty
+                            suffixIcon: textController3!.text.isNotEmpty
                                 ? InkWell(
-                                    onTap: () => setState(
-                                      () => textController3?.clear(),
-                                    ),
+                                    onTap: () async {
+                                      textController3?.clear();
+                                      setState(() {});
+                                    },
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
@@ -332,16 +382,31 @@ class _EditDailySuccessPlannerWidgetState
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                            suffixIcon: textController4.text.isNotEmpty
+                            suffixIcon: textController4!.text.isNotEmpty
                                 ? InkWell(
-                                    onTap: () => setState(
-                                      () => textController4?.clear(),
-                                    ),
+                                    onTap: () async {
+                                      textController4?.clear();
+                                      setState(() {});
+                                    },
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
@@ -392,16 +457,31 @@ class _EditDailySuccessPlannerWidgetState
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                            suffixIcon: textController5.text.isNotEmpty
+                            suffixIcon: textController5!.text.isNotEmpty
                                 ? InkWell(
-                                    onTap: () => setState(
-                                      () => textController5?.clear(),
-                                    ),
+                                    onTap: () async {
+                                      textController5?.clear();
+                                      setState(() {});
+                                    },
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
@@ -458,7 +538,7 @@ class _EditDailySuccessPlannerWidgetState
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 12,
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),

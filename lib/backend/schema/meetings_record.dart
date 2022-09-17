@@ -11,36 +11,34 @@ abstract class MeetingsRecord
   static Serializer<MeetingsRecord> get serializer =>
       _$meetingsRecordSerializer;
 
-  @nullable
-  String get userId;
+  DateTime? get time;
 
-  @nullable
-  DateTime get dateTime;
+  String? get meetingDetails;
 
-  @nullable
-  String get meetingDetails;
-
-  @nullable
-  DateTime get date;
-
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(MeetingsRecordBuilder builder) => builder
-    ..userId = ''
-    ..meetingDetails = '';
+  DocumentReference get parentReference => reference.parent.parent!;
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('meetings');
+  static void _initializeBuilder(MeetingsRecordBuilder builder) =>
+      builder..meetingDetails = '';
+
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('meetings')
+          : FirebaseFirestore.instance.collectionGroup('meetings');
+
+  static DocumentReference createDoc(DocumentReference parent) =>
+      parent.collection('meetings').doc();
 
   static Stream<MeetingsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<MeetingsRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   MeetingsRecord._();
   factory MeetingsRecord([void Function(MeetingsRecordBuilder) updates]) =
@@ -49,19 +47,21 @@ abstract class MeetingsRecord
   static MeetingsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createMeetingsRecordData({
-  String userId,
-  DateTime dateTime,
-  String meetingDetails,
-  DateTime date,
-}) =>
-    serializers.toFirestore(
-        MeetingsRecord.serializer,
-        MeetingsRecord((m) => m
-          ..userId = userId
-          ..dateTime = dateTime
-          ..meetingDetails = meetingDetails
-          ..date = date));
+  DateTime? time,
+  String? meetingDetails,
+}) {
+  final firestoreData = serializers.toFirestore(
+    MeetingsRecord.serializer,
+    MeetingsRecord(
+      (m) => m
+        ..time = time
+        ..meetingDetails = meetingDetails,
+    ),
+  );
+
+  return firestoreData;
+}

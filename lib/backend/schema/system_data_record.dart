@@ -11,29 +11,23 @@ abstract class SystemDataRecord
   static Serializer<SystemDataRecord> get serializer =>
       _$systemDataRecordSerializer;
 
-  @nullable
   @BuiltValueField(wireName: 'privacy_policy_title')
-  String get privacyPolicyTitle;
+  String? get privacyPolicyTitle;
 
-  @nullable
   @BuiltValueField(wireName: 'privacy_policy')
-  String get privacyPolicy;
+  String? get privacyPolicy;
 
-  @nullable
-  String get dayChallengeDesc;
+  String? get dayChallengeDesc;
 
-  @nullable
-  String get goalBookDesc;
+  String? get goalBookDesc;
 
-  @nullable
-  String get financialPlannerDesc;
+  String? get financialPlannerDesc;
 
-  @nullable
-  String get successPlanner;
+  String? get successPlanner;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(SystemDataRecordBuilder builder) => builder
     ..privacyPolicyTitle = ''
@@ -48,11 +42,11 @@ abstract class SystemDataRecord
 
   static Stream<SystemDataRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<SystemDataRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   SystemDataRecord._();
   factory SystemDataRecord([void Function(SystemDataRecordBuilder) updates]) =
@@ -61,23 +55,29 @@ abstract class SystemDataRecord
   static SystemDataRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createSystemDataRecordData({
-  String privacyPolicyTitle,
-  String privacyPolicy,
-  String dayChallengeDesc,
-  String goalBookDesc,
-  String financialPlannerDesc,
-  String successPlanner,
-}) =>
-    serializers.toFirestore(
-        SystemDataRecord.serializer,
-        SystemDataRecord((s) => s
-          ..privacyPolicyTitle = privacyPolicyTitle
-          ..privacyPolicy = privacyPolicy
-          ..dayChallengeDesc = dayChallengeDesc
-          ..goalBookDesc = goalBookDesc
-          ..financialPlannerDesc = financialPlannerDesc
-          ..successPlanner = successPlanner));
+  String? privacyPolicyTitle,
+  String? privacyPolicy,
+  String? dayChallengeDesc,
+  String? goalBookDesc,
+  String? financialPlannerDesc,
+  String? successPlanner,
+}) {
+  final firestoreData = serializers.toFirestore(
+    SystemDataRecord.serializer,
+    SystemDataRecord(
+      (s) => s
+        ..privacyPolicyTitle = privacyPolicyTitle
+        ..privacyPolicy = privacyPolicy
+        ..dayChallengeDesc = dayChallengeDesc
+        ..goalBookDesc = goalBookDesc
+        ..financialPlannerDesc = financialPlannerDesc
+        ..successPlanner = successPlanner,
+    ),
+  );
+
+  return firestoreData;
+}

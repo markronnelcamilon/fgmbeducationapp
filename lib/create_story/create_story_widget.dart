@@ -16,15 +16,16 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateStoryWidget extends StatefulWidget {
-  const CreateStoryWidget({Key key}) : super(key: key);
+  const CreateStoryWidget({Key? key}) : super(key: key);
 
   @override
   _CreateStoryWidgetState createState() => _CreateStoryWidgetState();
 }
 
 class _CreateStoryWidgetState extends State<CreateStoryWidget> {
+  TextEditingController? textController;
+
   String uploadedFileUrl1 = '';
-  TextEditingController textController;
   String uploadedFileUrl2 = '';
   String uploadedFileUrl3 = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -52,7 +53,7 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                   height: MediaQuery.of(context).size.height * 0.8,
                   child: Stack(
                     children: [
-                      if (functions.hasUploadedMedia(uploadedFileUrl1) ?? true)
+                      if (functions.hasUploadedMedia(uploadedFileUrl1))
                         InkWell(
                           onTap: () async {
                             logFirebaseEvent(
@@ -77,11 +78,11 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                                           await uploadData(
                                               m.storagePath, m.bytes))))
                                   .where((u) => u != null)
+                                  .map((u) => u!)
                                   .toList();
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
-                              if (downloadUrls != null &&
-                                  downloadUrls.length == selectedMedia.length) {
+                              if (downloadUrls.length == selectedMedia.length) {
                                 setState(() =>
                                     uploadedFileUrl1 = downloadUrls.first);
                                 showUploadMessage(
@@ -105,7 +106,7 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                             ),
                           ),
                         ),
-                      if (functions.hasUploadedMedia(uploadedFileUrl1) ?? true)
+                      if (functions.hasUploadedMedia(uploadedFileUrl1))
                         FlutterFlowMediaDisplay(
                           path: uploadedFileUrl1,
                           imageBuilder: (path) => Image.network(
@@ -191,6 +192,26 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
                                       contentPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               20, 20, 20, 20),
@@ -246,10 +267,10 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                                         await uploadData(
                                             m.storagePath, m.bytes))))
                                 .where((u) => u != null)
+                                .map((u) => u!)
                                 .toList();
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (downloadUrls != null &&
-                                downloadUrls.length == selectedMedia.length) {
+                            if (downloadUrls.length == selectedMedia.length) {
                               setState(
                                   () => uploadedFileUrl2 = downloadUrls.first);
                               showUploadMessage(
@@ -297,12 +318,12 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                                             await uploadData(
                                                 m.storagePath, m.bytes))))
                                     .where((u) => u != null)
+                                    .map((u) => u!)
                                     .toList();
                                 ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar();
-                                if (downloadUrls != null &&
-                                    downloadUrls.length ==
-                                        selectedMedia.length) {
+                                if (downloadUrls.length ==
+                                    selectedMedia.length) {
                                   setState(() =>
                                       uploadedFileUrl3 = downloadUrls.first);
                                   showUploadMessage(
@@ -354,7 +375,7 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                             user: currentUserReference,
                             storyVideo: uploadedFileUrl2,
                             storyPhoto: uploadedFileUrl3,
-                            storyDescription: textController.text,
+                            storyDescription: textController!.text,
                             storyPostedAt: getCurrentTimestamp,
                             isOwner: true,
                             privacy: 'Public',
@@ -389,7 +410,7 @@ class _CreateStoryWidgetState extends State<CreateStoryWidget> {
                             color: Colors.transparent,
                             width: 1,
                           ),
-                          borderRadius: 20,
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ],

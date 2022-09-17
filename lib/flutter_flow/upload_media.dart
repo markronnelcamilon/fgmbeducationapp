@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
@@ -23,12 +24,12 @@ enum MediaSource {
   camera,
 }
 
-Future<List<SelectedMedia>> selectMediaWithSourceBottomSheet({
-  BuildContext context,
-  double maxWidth,
-  double maxHeight,
-  int imageQuality,
-  bool allowPhoto,
+Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
+  required BuildContext context,
+  double? maxWidth,
+  double? maxHeight,
+  int? imageQuality,
+  required bool allowPhoto,
   bool allowVideo = false,
   String pickerFontFamily = 'Roboto',
   Color textColor = const Color(0xFF111417),
@@ -60,24 +61,26 @@ Future<List<SelectedMedia>> selectMediaWithSourceBottomSheet({
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-              child: ListTile(
-                title: Text(
-                  'Choose Source',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(
-                    pickerFontFamily,
-                    color: textColor.withOpacity(0.65),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
+            if (!kIsWeb) ...[
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: ListTile(
+                  title: Text(
+                    'Choose Source',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.getFont(
+                      pickerFontFamily,
+                      color: textColor.withOpacity(0.65),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
+                    ),
                   ),
+                  tileColor: backgroundColor,
+                  dense: false,
                 ),
-                tileColor: backgroundColor,
-                dense: false,
               ),
-            ),
-            const Divider(),
+              const Divider(),
+            ],
             if (allowPhoto && allowVideo) ...[
               createUploadMediaListTile(
                 'Gallery (Photo)',
@@ -98,9 +101,11 @@ Future<List<SelectedMedia>> selectMediaWithSourceBottomSheet({
                 'Gallery',
                 MediaSource.videoGallery,
               ),
-            const Divider(),
-            createUploadMediaListTile('Camera', MediaSource.camera),
-            const Divider(),
+            if (!kIsWeb) ...[
+              const Divider(),
+              createUploadMediaListTile('Camera', MediaSource.camera),
+              const Divider(),
+            ],
             const SizedBox(height: 10),
           ],
         );
@@ -118,10 +123,10 @@ Future<List<SelectedMedia>> selectMediaWithSourceBottomSheet({
   );
 }
 
-Future<List<SelectedMedia>> selectMedia({
-  double maxWidth,
-  double maxHeight,
-  int imageQuality,
+Future<List<SelectedMedia>?> selectMedia({
+  double? maxWidth,
+  double? maxHeight,
+  int? imageQuality,
   bool isVideo = false,
   MediaSource mediaSource = MediaSource.camera,
   bool multiImage = false,
@@ -163,7 +168,7 @@ Future<List<SelectedMedia>> selectMedia({
   if (mediaBytes == null) {
     return null;
   }
-  final path = storagePath(currentUserUid, pickedMedia.name, isVideo);
+  final path = storagePath(currentUserUid, pickedMedia!.name, isVideo);
   return [SelectedMedia(path, mediaBytes)];
 }
 
@@ -179,7 +184,7 @@ bool validateFileFormat(String filePath, BuildContext context) {
   return false;
 }
 
-Future<SelectedMedia> selectFile({
+Future<SelectedMedia?> selectFile({
   List<String> allowedExtensions = const ['pdf'],
 }) async {
   final pickedFiles = await FilePicker.platform.pickFiles(
@@ -192,14 +197,14 @@ Future<SelectedMedia> selectFile({
   }
 
   final file = pickedFiles.files.first;
-  if (file?.bytes == null) {
+  if (file.bytes == null) {
     return null;
   }
   final path = storagePath(currentUserUid, file.name, false);
-  return SelectedMedia(path, file.bytes);
+  return SelectedMedia(path, file.bytes!);
 }
 
-String storagePath(String uid, String filePath, bool isVideo, [int index]) {
+String storagePath(String uid, String filePath, bool isVideo, [int? index]) {
   final timestamp = DateTime.now().microsecondsSinceEpoch;
   // Workaround fixed by https://github.com/flutter/plugins/pull/3685
   // (not yet in stable).

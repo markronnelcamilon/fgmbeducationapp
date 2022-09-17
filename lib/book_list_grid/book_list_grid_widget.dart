@@ -10,15 +10,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:text_search/text_search.dart';
 
 class BookListGridWidget extends StatefulWidget {
-  const BookListGridWidget({Key key}) : super(key: key);
+  const BookListGridWidget({Key? key}) : super(key: key);
 
   @override
   _BookListGridWidgetState createState() => _BookListGridWidgetState();
 }
 
 class _BookListGridWidgetState extends State<BookListGridWidget> {
+  TextEditingController? textController;
+
   List<BookListRecord> simpleSearchResults = [];
-  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -85,11 +86,32 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                   topRight: Radius.circular(4.0),
                 ),
               ),
-              suffixIcon: textController.text.isNotEmpty
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0x00000000),
+                  width: 1,
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
+                ),
+              ),
+              focusedErrorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0x00000000),
+                  width: 1,
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
+                ),
+              ),
+              suffixIcon: textController!.text.isNotEmpty
                   ? InkWell(
-                      onTap: () => setState(
-                        () => textController?.clear(),
-                      ),
+                      onTap: () async {
+                        textController?.clear();
+                        setState(() {});
+                      },
                       child: Icon(
                         Icons.clear,
                         color: FlutterFlowTheme.of(context).primaryText,
@@ -125,12 +147,12 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                       (records) => simpleSearchResults = TextSearch(
                         records
                             .map(
-                              (record) => TextSearchItem(
-                                  record, [record.bookName, record.bookAuthor]),
+                              (record) => TextSearchItem(record,
+                                  [record.bookName!, record.bookAuthor!]),
                             )
                             .toList(),
                       )
-                          .search(textController.text)
+                          .search(textController!.text)
                           .map((r) => r.object)
                           .toList(),
                     )
@@ -165,7 +187,7 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                 ),
               );
             }
-            List<BookListRecord> listViewBookListRecordList = snapshot.data;
+            List<BookListRecord> listViewBookListRecordList = snapshot.data!;
             return ListView.builder(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.vertical,
@@ -179,7 +201,7 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                     onTap: () async {
                       logFirebaseEvent('BOOK_LIST_GRID_PAGE_menuItem_ON_TAP');
                       logFirebaseEvent('menuItem_Launch-U-R-L');
-                      await launchURL(listViewBookListRecord.amazonLink);
+                      await launchURL(listViewBookListRecord.amazonLink!);
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -204,7 +226,7 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: Image.network(
-                                  listViewBookListRecord.bookImage,
+                                  listViewBookListRecord.bookImage!,
                                   width: 60,
                                   height: 100,
                                   fit: BoxFit.cover,
@@ -221,7 +243,7 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      listViewBookListRecord.bookName,
+                                      listViewBookListRecord.bookName!,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle1
                                           .override(
@@ -237,7 +259,7 @@ class _BookListGridWidgetState extends State<BookListGridWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 8, 0),
                                         child: AutoSizeText(
-                                          listViewBookListRecord.bookAuthor
+                                          listViewBookListRecord.bookAuthor!
                                               .maybeHandleOverflow(
                                             maxChars: 70,
                                             replacement: '…',

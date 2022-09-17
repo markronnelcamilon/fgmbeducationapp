@@ -8,11 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DeletePostWidget extends StatefulWidget {
   const DeletePostWidget({
-    Key key,
+    Key? key,
     this.postDetails,
   }) : super(key: key);
 
-  final UserPostRecord postDetails;
+  final UserPostRecord? postDetails;
 
   @override
   _DeletePostWidgetState createState() => _DeletePostWidgetState();
@@ -51,7 +51,7 @@ class _DeletePostWidgetState extends State<DeletePostWidget> {
                 onPressed: () async {
                   logFirebaseEvent('DELETE_POST_COMP_DELETE_POST_BTN_ON_TAP');
                   logFirebaseEvent('Button_Backend-Call');
-                  await widget.postDetails.reference.delete();
+                  await widget.postDetails!.reference.delete();
                 },
                 text: 'Delete Post',
                 options: FFButtonOptions(
@@ -66,7 +66,7 @@ class _DeletePostWidgetState extends State<DeletePostWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -91,7 +91,7 @@ class _DeletePostWidgetState extends State<DeletePostWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

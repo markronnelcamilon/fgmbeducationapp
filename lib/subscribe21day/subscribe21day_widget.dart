@@ -13,7 +13,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Subscribe21dayWidget extends StatefulWidget {
-  const Subscribe21dayWidget({Key key}) : super(key: key);
+  const Subscribe21dayWidget({Key? key}) : super(key: key);
 
   @override
   _Subscribe21dayWidgetState createState() => _Subscribe21dayWidgetState();
@@ -83,9 +83,10 @@ class _Subscribe21dayWidgetState extends State<Subscribe21dayWidget> {
                   ),
                 );
               }
-              List<SystemDataRecord> columnSystemDataRecordList = snapshot.data;
+              List<SystemDataRecord> columnSystemDataRecordList =
+                  snapshot.data!;
               // Return an empty Container when the document does not exist.
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data!.isEmpty) {
                 return Container();
               }
               final columnSystemDataRecord =
@@ -110,7 +111,7 @@ class _Subscribe21dayWidgetState extends State<Subscribe21dayWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                     child: Text(
-                      columnSystemDataRecord.dayChallengeDesc,
+                      columnSystemDataRecord!.dayChallengeDesc!,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).secondaryText,

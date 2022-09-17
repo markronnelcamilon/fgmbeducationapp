@@ -13,17 +13,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DayChallengeListWidget extends StatefulWidget {
   const DayChallengeListWidget({
-    Key key,
+    Key? key,
     this.day,
     this.date,
     this.taskDoneList,
     this.completed,
   }) : super(key: key);
 
-  final String day;
-  final DateTime date;
-  final DocumentReference taskDoneList;
-  final bool completed;
+  final String? day;
+  final DateTime? date;
+  final DocumentReference? taskDoneList;
+  final bool? completed;
 
   @override
   _DayChallengeListWidgetState createState() => _DayChallengeListWidgetState();
@@ -54,9 +54,9 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
           );
         }
         List<DayChallenge21Record> containerDayChallenge21RecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final containerDayChallenge21Record =
@@ -104,9 +104,9 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                   );
                 }
                 List<ChallengeDay21Record> columnChallengeDay21RecordList =
-                    snapshot.data;
+                    snapshot.data!;
                 // Return an empty Container when the document does not exist.
-                if (snapshot.data.isEmpty) {
+                if (snapshot.data!.isEmpty) {
                   return Container();
                 }
                 final columnChallengeDay21Record =
@@ -139,9 +139,9 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                           );
                         }
                         List<Task21Record> columnTask21RecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
+                        if (snapshot.data!.isEmpty) {
                           return Container();
                         }
                         final columnTask21Record =
@@ -167,7 +167,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.day,
+                                    widget.day!,
                                     style: FlutterFlowTheme.of(context)
                                         .title3
                                         .override(
@@ -198,8 +198,8 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                       .where('day', isEqualTo: widget.day)
                                       .where('uid', isEqualTo: currentUserUid)
                                       .where('dayChallengeID',
-                                          isEqualTo:
-                                              columnTask21Record.dayChallengeID)
+                                          isEqualTo: columnTask21Record!
+                                              .dayChallengeID)
                                       .orderBy('label'),
                                 ),
                                 builder: (context, snapshot) {
@@ -219,7 +219,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                   }
                                   List<Task21Record>
                                       taskColumnTask21RecordList =
-                                      snapshot.data;
+                                      snapshot.data!;
                                   return Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: List.generate(
@@ -239,18 +239,17 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                                     0, 0, 8, 0),
                                             child: ToggleIcon(
                                               onPressed: () async {
-                                                final task21UpdateData =
-                                                    createTask21RecordData(
-                                                  taskState:
+                                                final task21UpdateData = {
+                                                  'taskState':
                                                       !taskColumnTask21Record
-                                                          .taskState,
-                                                );
+                                                          .taskState!,
+                                                };
                                                 await taskColumnTask21Record
                                                     .reference
                                                     .update(task21UpdateData);
                                               },
                                               value: taskColumnTask21Record
-                                                  .taskState,
+                                                  .taskState!,
                                               onIcon: Icon(
                                                 Icons.check_circle_sharp,
                                                 color:
@@ -273,7 +272,8 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                taskColumnTask21Record.taskName,
+                                                taskColumnTask21Record
+                                                    .taskName!,
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .subtitle2
@@ -301,13 +301,13 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                 color: Color(0x00EEEEEE),
                               ),
                               child: Visibility(
-                                visible: (functions.showCompleteButton(
-                                        columnTask21Record.taskState,
-                                        columnTask21Record.taskState,
-                                        columnTask21Record.taskState,
-                                        columnTask21Record.taskState,
-                                        columnTask21Record.taskState,
-                                        true)) ==
+                                visible: functions.showCompleteButton(
+                                        columnTask21Record!.taskState,
+                                        columnTask21Record!.taskState,
+                                        columnTask21Record!.taskState,
+                                        columnTask21Record!.taskState,
+                                        columnTask21Record!.taskState,
+                                        true) ==
                                     true,
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -316,7 +316,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                     onPressed: () async {
                                       logFirebaseEvent(
                                           'DAY_CHALLENGE_LIST_COMPLETE_TASK_BTN_ON_');
-                                      if ((widget.day) == 'Day 21') {
+                                      if (widget.day == 'Day 21') {
                                         logFirebaseEvent('Button_Backend-Call');
 
                                         final challengeDay21UpdateData = {
@@ -325,7 +325,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                           ),
                                           'counter': FieldValue.increment(1),
                                         };
-                                        await columnChallengeDay21Record
+                                        await columnChallengeDay21Record!
                                             .reference
                                             .update(challengeDay21UpdateData);
                                       } else {
@@ -337,7 +337,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                           ),
                                           'counter': FieldValue.increment(1),
                                         };
-                                        await columnChallengeDay21Record
+                                        await columnChallengeDay21Record!
                                             .reference
                                             .update(challengeDay21UpdateData);
                                       }
@@ -348,7 +348,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                           createDayChallenge21RecordData(
                                         completed: true,
                                       );
-                                      await containerDayChallenge21Record
+                                      await containerDayChallenge21Record!
                                           .reference
                                           .update(dayChallenge21UpdateData);
                                       logFirebaseEvent('Button_Navigate-Back');
@@ -374,7 +374,7 @@ class _DayChallengeListWidgetState extends State<DayChallengeListWidget> {
                                         color: Colors.transparent,
                                         width: 1,
                                       ),
-                                      borderRadius: 12,
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                   ),
                                 ),

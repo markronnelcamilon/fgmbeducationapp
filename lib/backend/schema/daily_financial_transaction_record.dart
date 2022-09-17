@@ -13,35 +13,27 @@ abstract class DailyFinancialTransactionRecord
   static Serializer<DailyFinancialTransactionRecord> get serializer =>
       _$dailyFinancialTransactionRecordSerializer;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
-  String get description;
+  String? get description;
 
-  @nullable
-  double get amount;
+  double? get amount;
 
-  @nullable
   @BuiltValueField(wireName: 'wants_or_needs')
-  String get wantsOrNeeds;
+  String? get wantsOrNeeds;
 
-  @nullable
-  DateTime get date;
+  DateTime? get date;
 
-  @nullable
-  String get spendAt;
+  String? get spendAt;
 
-  @nullable
   @BuiltValueField(wireName: 'business_or_personal')
-  String get businessOrPersonal;
+  String? get businessOrPersonal;
 
-  @nullable
-  bool get isMoneyOut;
+  bool? get isMoneyOut;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(
           DailyFinancialTransactionRecordBuilder builder) =>
@@ -60,12 +52,12 @@ abstract class DailyFinancialTransactionRecord
   static Stream<DailyFinancialTransactionRecord> getDocument(
           DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<DailyFinancialTransactionRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   DailyFinancialTransactionRecord._();
   factory DailyFinancialTransactionRecord(
@@ -75,27 +67,33 @@ abstract class DailyFinancialTransactionRecord
   static DailyFinancialTransactionRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createDailyFinancialTransactionRecordData({
-  String uid,
-  String description,
-  double amount,
-  String wantsOrNeeds,
-  DateTime date,
-  String spendAt,
-  String businessOrPersonal,
-  bool isMoneyOut,
-}) =>
-    serializers.toFirestore(
-        DailyFinancialTransactionRecord.serializer,
-        DailyFinancialTransactionRecord((d) => d
-          ..uid = uid
-          ..description = description
-          ..amount = amount
-          ..wantsOrNeeds = wantsOrNeeds
-          ..date = date
-          ..spendAt = spendAt
-          ..businessOrPersonal = businessOrPersonal
-          ..isMoneyOut = isMoneyOut));
+  String? uid,
+  String? description,
+  double? amount,
+  String? wantsOrNeeds,
+  DateTime? date,
+  String? spendAt,
+  String? businessOrPersonal,
+  bool? isMoneyOut,
+}) {
+  final firestoreData = serializers.toFirestore(
+    DailyFinancialTransactionRecord.serializer,
+    DailyFinancialTransactionRecord(
+      (d) => d
+        ..uid = uid
+        ..description = description
+        ..amount = amount
+        ..wantsOrNeeds = wantsOrNeeds
+        ..date = date
+        ..spendAt = spendAt
+        ..businessOrPersonal = businessOrPersonal
+        ..isMoneyOut = isMoneyOut,
+    ),
+  );
+
+  return firestoreData;
+}

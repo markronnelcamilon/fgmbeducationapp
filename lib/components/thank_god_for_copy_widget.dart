@@ -11,24 +11,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThankGodForCopyWidget extends StatefulWidget {
   const ThankGodForCopyWidget({
-    Key key,
+    Key? key,
     this.thankedGodForRR,
   }) : super(key: key);
 
-  final DailySuccessPlannerRecord thankedGodForRR;
+  final DailySuccessPlannerRecord? thankedGodForRR;
 
   @override
   _ThankGodForCopyWidgetState createState() => _ThankGodForCopyWidgetState();
 }
 
 class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
-  TextEditingController iThankedGodForTFController;
+  TextEditingController? iThankedGodForTFController;
 
   @override
   void initState() {
     super.initState();
     iThankedGodForTFController =
-        TextEditingController(text: widget.thankedGodForRR.iThanGodFor);
+        TextEditingController(text: widget.thankedGodForRR!.iThanGodFor);
   }
 
   @override
@@ -90,7 +90,6 @@ class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
                 ),
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Name',
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: FlutterFlowTheme.of(context).alternate,
@@ -111,12 +110,33 @@ class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
                       topRight: Radius.circular(4.0),
                     ),
                   ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
                   contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                  suffixIcon: iThankedGodForTFController.text.isNotEmpty
+                  suffixIcon: iThankedGodForTFController!.text.isNotEmpty
                       ? InkWell(
-                          onTap: () => setState(
-                            () => iThankedGodForTFController?.clear(),
-                          ),
+                          onTap: () async {
+                            iThankedGodForTFController?.clear();
+                            setState(() {});
+                          },
                           child: Icon(
                             Icons.clear,
                             color: Color(0xFF757575),
@@ -140,9 +160,9 @@ class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
 
                   final dailySuccessPlannerUpdateData =
                       createDailySuccessPlannerRecordData(
-                    iThanGodFor: iThankedGodForTFController.text,
+                    iThanGodFor: iThankedGodForTFController!.text,
                   );
-                  await widget.thankedGodForRR.reference
+                  await widget.thankedGodForRR!.reference
                       .update(dailySuccessPlannerUpdateData);
                   logFirebaseEvent('Button_Navigate-Back');
                   Navigator.pop(context);
@@ -160,7 +180,7 @@ class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -185,7 +205,7 @@ class _ThankGodForCopyWidgetState extends State<ThankGodForCopyWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DailySuccessPlannerWidget extends StatefulWidget {
-  const DailySuccessPlannerWidget({Key key}) : super(key: key);
+  const DailySuccessPlannerWidget({Key? key}) : super(key: key);
 
   @override
   _DailySuccessPlannerWidgetState createState() =>
@@ -91,7 +91,8 @@ class _DailySuccessPlannerWidgetState extends State<DailySuccessPlannerWidget> {
                         );
                       }
                       List<DailySuccessPlannerRecord>
-                          gridViewDailySuccessPlannerRecordList = snapshot.data;
+                          gridViewDailySuccessPlannerRecordList =
+                          snapshot.data!;
                       return GridView.builder(
                         padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -141,8 +142,10 @@ class _DailySuccessPlannerWidgetState extends State<DailySuccessPlannerWidget> {
                                       size: 30,
                                     ),
                                   Text(
-                                    dateTimeFormat('yMMMd',
-                                        gridViewDailySuccessPlannerRecord.date),
+                                    dateTimeFormat(
+                                        'yMMMd',
+                                        gridViewDailySuccessPlannerRecord
+                                            .date!),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1

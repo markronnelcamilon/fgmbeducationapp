@@ -13,13 +13,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TransactionAddWidget extends StatefulWidget {
   const TransactionAddWidget({
-    Key key,
+    Key? key,
     this.dailyFinancialPlanner,
     this.uid,
   }) : super(key: key);
 
-  final DocumentReference dailyFinancialPlanner;
-  final String uid;
+  final DocumentReference? dailyFinancialPlanner;
+  final String? uid;
 
   @override
   _TransactionAddWidgetState createState() => _TransactionAddWidgetState();
@@ -27,16 +27,20 @@ class TransactionAddWidget extends StatefulWidget {
 
 class _TransactionAddWidgetState extends State<TransactionAddWidget>
     with TickerProviderStateMixin {
-  String needsOrWantsValue;
-  TextEditingController reasonController;
-  TextEditingController spentAtController;
-  TextEditingController textController1;
+  TextEditingController? reasonController;
+
+  TextEditingController? spentAtController;
+
+  TextEditingController? textController1;
+
+  String? needsOrWantsValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'textFieldOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 40),
@@ -51,6 +55,7 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 170,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 80),
@@ -65,6 +70,7 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 230,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 120),
@@ -116,9 +122,9 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
           );
         }
         List<DailyFinancialPlannerRecord>
-            transactionAddDailyFinancialPlannerRecordList = snapshot.data;
+            transactionAddDailyFinancialPlannerRecordList = snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final transactionAddDailyFinancialPlannerRecord =
@@ -199,6 +205,20 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
+                                errorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedErrorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                                 contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     24, 24, 24, 24),
                                 prefixIcon: Icon(
@@ -226,7 +246,7 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 return null;
                               },
                             ).animated([
-                              animationsMap['textFieldOnPageLoadAnimation1']
+                              animationsMap['textFieldOnPageLoadAnimation1']!
                             ]),
                           ),
                         ),
@@ -255,6 +275,20 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               contentPadding: EdgeInsetsDirectional.fromSTEB(
                                   20, 24, 24, 24),
                             ),
@@ -265,8 +299,9 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                 ),
-                          ).animated(
-                              [animationsMap['textFieldOnPageLoadAnimation2']]),
+                          ).animated([
+                            animationsMap['textFieldOnPageLoadAnimation2']!
+                          ]),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
@@ -300,6 +335,20 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               contentPadding:
                                   EdgeInsetsDirectional.fromSTEB(20, 40, 24, 0),
                             ),
@@ -312,8 +361,9 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 ),
                             textAlign: TextAlign.start,
                             maxLines: 4,
-                          ).animated(
-                              [animationsMap['textFieldOnPageLoadAnimation3']]),
+                          ).animated([
+                            animationsMap['textFieldOnPageLoadAnimation3']!
+                          ]),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
@@ -363,21 +413,21 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'TRANSACTION_ADD_ADD_TRANSACTION_BTN_ON_T');
-                                if ((needsOrWantsValue) == 'Needs') {
+                                if (needsOrWantsValue == 'Needs') {
                                   logFirebaseEvent('Button_Backend-Call');
 
                                   final dailyFinancialPlannerUpdateData = {
                                     ...createDailyFinancialPlannerRecordData(
                                       spendingNeeds:
                                           functions.addValueToSpendingNeeds(
-                                              transactionAddDailyFinancialPlannerRecord
+                                              transactionAddDailyFinancialPlannerRecord!
                                                   .spendingNeeds,
                                               double.parse(
-                                                  textController1.text)),
+                                                  textController1!.text)),
                                     ),
                                     'no_of_needs': FieldValue.increment(1),
                                   };
-                                  await transactionAddDailyFinancialPlannerRecord
+                                  await transactionAddDailyFinancialPlannerRecord!
                                       .reference
                                       .update(dailyFinancialPlannerUpdateData);
                                 } else {
@@ -387,14 +437,14 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                     ...createDailyFinancialPlannerRecordData(
                                       spendingWants:
                                           functions.addValueToSpendingNeeds(
-                                              transactionAddDailyFinancialPlannerRecord
+                                              transactionAddDailyFinancialPlannerRecord!
                                                   .spendingWants,
                                               double.parse(
-                                                  textController1.text)),
+                                                  textController1!.text)),
                                     ),
                                     'no_of_wants': FieldValue.increment(1),
                                   };
-                                  await transactionAddDailyFinancialPlannerRecord
+                                  await transactionAddDailyFinancialPlannerRecord!
                                       .reference
                                       .update(dailyFinancialPlannerUpdateData);
                                 }
@@ -404,11 +454,11 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 final dailyFinancialTransactionCreateData =
                                     createDailyFinancialTransactionRecordData(
                                   uid: currentUserUid,
-                                  description: reasonController.text,
-                                  amount: double.parse(textController1.text),
+                                  description: reasonController!.text,
+                                  amount: double.parse(textController1!.text),
                                   wantsOrNeeds: needsOrWantsValue,
                                   date: getCurrentTimestamp,
-                                  spendAt: spentAtController.text,
+                                  spendAt: spentAtController!.text,
                                   businessOrPersonal: 'Business',
                                   isMoneyOut: true,
                                 );
@@ -420,19 +470,19 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                 final dailyFinancialPlannerUpdateData = {
                                   ...createDailyFinancialPlannerRecordData(
                                     totalSpending: functions.addToTotalSpeding(
-                                        transactionAddDailyFinancialPlannerRecord
+                                        transactionAddDailyFinancialPlannerRecord!
                                             .spendingBusiness,
-                                        double.parse(textController1.text)),
+                                        double.parse(textController1!.text)),
                                     spendingBusiness:
                                         functions.addMoneyToTotalBusiness(
-                                            double.parse(textController1.text),
-                                            transactionAddDailyFinancialPlannerRecord
+                                            double.parse(textController1!.text),
+                                            transactionAddDailyFinancialPlannerRecord!
                                                 .spendingBusiness),
                                   ),
                                   'total_transaction':
                                       FieldValue.increment(1.0),
                                 };
-                                await transactionAddDailyFinancialPlannerRecord
+                                await transactionAddDailyFinancialPlannerRecord!
                                     .reference
                                     .update(dailyFinancialPlannerUpdateData);
                                 logFirebaseEvent('Button_Navigate-Back');
@@ -458,7 +508,7 @@ class _TransactionAddWidgetState extends State<TransactionAddWidget>
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 12,
+                                borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                           ],

@@ -11,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribeGoalBookWidget extends StatefulWidget {
-  const SubscribeGoalBookWidget({Key key}) : super(key: key);
+  const SubscribeGoalBookWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribeGoalBookWidgetState createState() =>
@@ -31,7 +31,7 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
-      stream: UsersRecord.getDocument(currentUserReference),
+      stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -46,7 +46,7 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
             ),
           );
         }
-        final subscribeGoalBookUsersRecord = snapshot.data;
+        final subscribeGoalBookUsersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -100,9 +100,9 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
                     );
                   }
                   List<SystemDataRecord> columnSystemDataRecordList =
-                      snapshot.data;
+                      snapshot.data!;
                   // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Container();
                   }
                   final columnSystemDataRecord =
@@ -136,7 +136,7 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                         child: Text(
-                          columnSystemDataRecord.goalBookDesc,
+                          columnSystemDataRecord!.goalBookDesc!,
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(
@@ -206,7 +206,7 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
                                 color: Colors.transparent,
                                 width: 1,
                               ),
-                              borderRadius: 12,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),
@@ -252,7 +252,7 @@ class _SubscribeGoalBookWidgetState extends State<SubscribeGoalBookWidget> {
                                 color: Colors.transparent,
                                 width: 1,
                               ),
-                              borderRadius: 12,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),

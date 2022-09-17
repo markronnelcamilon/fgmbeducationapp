@@ -11,24 +11,19 @@ abstract class BookListRecord
   static Serializer<BookListRecord> get serializer =>
       _$bookListRecordSerializer;
 
-  @nullable
-  String get bookName;
+  String? get bookName;
 
-  @nullable
-  String get amazonLink;
+  String? get amazonLink;
 
-  @nullable
-  String get bookAuthor;
+  String? get bookAuthor;
 
-  @nullable
-  String get bookImage;
+  String? get bookImage;
 
-  @nullable
-  bool get isFeatured;
+  bool? get isFeatured;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(BookListRecordBuilder builder) => builder
     ..bookName = ''
@@ -42,11 +37,11 @@ abstract class BookListRecord
 
   static Stream<BookListRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<BookListRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   BookListRecord._();
   factory BookListRecord([void Function(BookListRecordBuilder) updates]) =
@@ -55,21 +50,27 @@ abstract class BookListRecord
   static BookListRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createBookListRecordData({
-  String bookName,
-  String amazonLink,
-  String bookAuthor,
-  String bookImage,
-  bool isFeatured,
-}) =>
-    serializers.toFirestore(
-        BookListRecord.serializer,
-        BookListRecord((b) => b
-          ..bookName = bookName
-          ..amazonLink = amazonLink
-          ..bookAuthor = bookAuthor
-          ..bookImage = bookImage
-          ..isFeatured = isFeatured));
+  String? bookName,
+  String? amazonLink,
+  String? bookAuthor,
+  String? bookImage,
+  bool? isFeatured,
+}) {
+  final firestoreData = serializers.toFirestore(
+    BookListRecord.serializer,
+    BookListRecord(
+      (b) => b
+        ..bookName = bookName
+        ..amazonLink = amazonLink
+        ..bookAuthor = bookAuthor
+        ..bookImage = bookImage
+        ..isFeatured = isFeatured,
+    ),
+  );
+
+  return firestoreData;
+}

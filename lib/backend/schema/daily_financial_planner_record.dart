@@ -12,64 +12,50 @@ abstract class DailyFinancialPlannerRecord
   static Serializer<DailyFinancialPlannerRecord> get serializer =>
       _$dailyFinancialPlannerRecordSerializer;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
   @BuiltValueField(wireName: 'starting_balance')
-  double get startingBalance;
+  double? get startingBalance;
 
-  @nullable
   @BuiltValueField(wireName: 'total_spending')
-  double get totalSpending;
+  double? get totalSpending;
 
-  @nullable
   @BuiltValueField(wireName: 'total_transaction')
-  double get totalTransaction;
+  double? get totalTransaction;
 
-  @nullable
   @BuiltValueField(wireName: 'no_of_wants')
-  int get noOfWants;
+  int? get noOfWants;
 
-  @nullable
   @BuiltValueField(wireName: 'no_of_needs')
-  int get noOfNeeds;
+  int? get noOfNeeds;
 
-  @nullable
   @BuiltValueField(wireName: 'spending_wants')
-  double get spendingWants;
+  double? get spendingWants;
 
-  @nullable
   @BuiltValueField(wireName: 'spending_needs')
-  double get spendingNeeds;
+  double? get spendingNeeds;
 
-  @nullable
   @BuiltValueField(wireName: 'end_of_day_balance')
-  double get endOfDayBalance;
+  double? get endOfDayBalance;
 
-  @nullable
   @BuiltValueField(wireName: 'subscription_id')
-  String get subscriptionId;
+  String? get subscriptionId;
 
-  @nullable
   @BuiltValueField(wireName: 'spending_business')
-  double get spendingBusiness;
+  double? get spendingBusiness;
 
-  @nullable
   @BuiltValueField(wireName: 'allowcation_business')
-  double get allowcationBusiness;
+  double? get allowcationBusiness;
 
-  @nullable
   @BuiltValueField(wireName: 'spending_personal')
-  double get spendingPersonal;
+  double? get spendingPersonal;
 
-  @nullable
   @BuiltValueField(wireName: 'allocation_personal')
-  double get allocationPersonal;
+  double? get allocationPersonal;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(DailyFinancialPlannerRecordBuilder builder) =>
       builder
@@ -94,12 +80,12 @@ abstract class DailyFinancialPlannerRecord
   static Stream<DailyFinancialPlannerRecord> getDocument(
           DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<DailyFinancialPlannerRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   DailyFinancialPlannerRecord._();
   factory DailyFinancialPlannerRecord(
@@ -109,39 +95,45 @@ abstract class DailyFinancialPlannerRecord
   static DailyFinancialPlannerRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createDailyFinancialPlannerRecordData({
-  String uid,
-  double startingBalance,
-  double totalSpending,
-  double totalTransaction,
-  int noOfWants,
-  int noOfNeeds,
-  double spendingWants,
-  double spendingNeeds,
-  double endOfDayBalance,
-  String subscriptionId,
-  double spendingBusiness,
-  double allowcationBusiness,
-  double spendingPersonal,
-  double allocationPersonal,
-}) =>
-    serializers.toFirestore(
-        DailyFinancialPlannerRecord.serializer,
-        DailyFinancialPlannerRecord((d) => d
-          ..uid = uid
-          ..startingBalance = startingBalance
-          ..totalSpending = totalSpending
-          ..totalTransaction = totalTransaction
-          ..noOfWants = noOfWants
-          ..noOfNeeds = noOfNeeds
-          ..spendingWants = spendingWants
-          ..spendingNeeds = spendingNeeds
-          ..endOfDayBalance = endOfDayBalance
-          ..subscriptionId = subscriptionId
-          ..spendingBusiness = spendingBusiness
-          ..allowcationBusiness = allowcationBusiness
-          ..spendingPersonal = spendingPersonal
-          ..allocationPersonal = allocationPersonal));
+  String? uid,
+  double? startingBalance,
+  double? totalSpending,
+  double? totalTransaction,
+  int? noOfWants,
+  int? noOfNeeds,
+  double? spendingWants,
+  double? spendingNeeds,
+  double? endOfDayBalance,
+  String? subscriptionId,
+  double? spendingBusiness,
+  double? allowcationBusiness,
+  double? spendingPersonal,
+  double? allocationPersonal,
+}) {
+  final firestoreData = serializers.toFirestore(
+    DailyFinancialPlannerRecord.serializer,
+    DailyFinancialPlannerRecord(
+      (d) => d
+        ..uid = uid
+        ..startingBalance = startingBalance
+        ..totalSpending = totalSpending
+        ..totalTransaction = totalTransaction
+        ..noOfWants = noOfWants
+        ..noOfNeeds = noOfNeeds
+        ..spendingWants = spendingWants
+        ..spendingNeeds = spendingNeeds
+        ..endOfDayBalance = endOfDayBalance
+        ..subscriptionId = subscriptionId
+        ..spendingBusiness = spendingBusiness
+        ..allowcationBusiness = allowcationBusiness
+        ..spendingPersonal = spendingPersonal
+        ..allocationPersonal = allocationPersonal,
+    ),
+  );
+
+  return firestoreData;
+}

@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DailyFinancialTrackerListWidget extends StatefulWidget {
-  const DailyFinancialTrackerListWidget({Key key}) : super(key: key);
+  const DailyFinancialTrackerListWidget({Key? key}) : super(key: key);
 
   @override
   _DailyFinancialTrackerListWidgetState createState() =>
@@ -52,9 +52,9 @@ class _DailyFinancialTrackerListWidgetState
         }
         List<DailyFinancialPlannerRecord>
             dailyFinancialTrackerListDailyFinancialPlannerRecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final dailyFinancialTrackerListDailyFinancialPlannerRecord =
@@ -165,7 +165,7 @@ class _DailyFinancialTrackerListWidgetState
                             }
                             List<DailyFinancialTransactionRecord>
                                 columnDailyFinancialTransactionRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: List.generate(
@@ -191,8 +191,8 @@ class _DailyFinancialTrackerListWidgetState
                                       children: [
                                         Stack(
                                           children: [
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 false)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -203,8 +203,8 @@ class _DailyFinancialTrackerListWidgetState
                                                   size: 24,
                                                 ),
                                               ),
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 true)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -231,7 +231,7 @@ class _DailyFinancialTrackerListWidgetState
                                               children: [
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .spendAt,
+                                                      .spendAt!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .subtitle1
@@ -247,7 +247,7 @@ class _DailyFinancialTrackerListWidgetState
                                                 ),
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .description,
+                                                      .description!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -279,7 +279,7 @@ class _DailyFinancialTrackerListWidgetState
                                               Text(
                                                 formatNumber(
                                                   columnDailyFinancialTransactionRecord
-                                                      .amount,
+                                                      .amount!,
                                                   formatType:
                                                       FormatType.decimal,
                                                   decimalType:
@@ -305,7 +305,7 @@ class _DailyFinancialTrackerListWidgetState
                                                   dateTimeFormat(
                                                       'yMMMd',
                                                       columnDailyFinancialTransactionRecord
-                                                          .date),
+                                                          .date!),
                                                   textAlign: TextAlign.end,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -358,7 +358,7 @@ class _DailyFinancialTrackerListWidgetState
                             }
                             List<DailyFinancialTransactionRecord>
                                 columnDailyFinancialTransactionRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: List.generate(
@@ -384,8 +384,8 @@ class _DailyFinancialTrackerListWidgetState
                                       children: [
                                         Stack(
                                           children: [
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 false)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -396,8 +396,8 @@ class _DailyFinancialTrackerListWidgetState
                                                   size: 24,
                                                 ),
                                               ),
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 true)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -424,7 +424,7 @@ class _DailyFinancialTrackerListWidgetState
                                               children: [
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .spendAt,
+                                                      .spendAt!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .subtitle1
@@ -440,7 +440,7 @@ class _DailyFinancialTrackerListWidgetState
                                                 ),
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .description,
+                                                      .description!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -472,7 +472,7 @@ class _DailyFinancialTrackerListWidgetState
                                               Text(
                                                 formatNumber(
                                                   columnDailyFinancialTransactionRecord
-                                                      .amount,
+                                                      .amount!,
                                                   formatType:
                                                       FormatType.decimal,
                                                   decimalType:
@@ -498,7 +498,7 @@ class _DailyFinancialTrackerListWidgetState
                                                   dateTimeFormat(
                                                       'yMMMd',
                                                       columnDailyFinancialTransactionRecord
-                                                          .date),
+                                                          .date!),
                                                   textAlign: TextAlign.end,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -551,7 +551,7 @@ class _DailyFinancialTrackerListWidgetState
                             }
                             List<DailyFinancialTransactionRecord>
                                 columnDailyFinancialTransactionRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: List.generate(
@@ -577,8 +577,8 @@ class _DailyFinancialTrackerListWidgetState
                                       children: [
                                         Stack(
                                           children: [
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 false)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -589,8 +589,8 @@ class _DailyFinancialTrackerListWidgetState
                                                   size: 24,
                                                 ),
                                               ),
-                                            if ((columnDailyFinancialTransactionRecord
-                                                    .isMoneyOut) ==
+                                            if (columnDailyFinancialTransactionRecord
+                                                    .isMoneyOut ==
                                                 true)
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -617,7 +617,7 @@ class _DailyFinancialTrackerListWidgetState
                                               children: [
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .spendAt,
+                                                      .spendAt!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .subtitle1
@@ -633,7 +633,7 @@ class _DailyFinancialTrackerListWidgetState
                                                 ),
                                                 Text(
                                                   columnDailyFinancialTransactionRecord
-                                                      .description,
+                                                      .description!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -665,7 +665,7 @@ class _DailyFinancialTrackerListWidgetState
                                               Text(
                                                 formatNumber(
                                                   columnDailyFinancialTransactionRecord
-                                                      .amount,
+                                                      .amount!,
                                                   formatType:
                                                       FormatType.decimal,
                                                   decimalType:
@@ -691,7 +691,7 @@ class _DailyFinancialTrackerListWidgetState
                                                   dateTimeFormat(
                                                       'yMMMd',
                                                       columnDailyFinancialTransactionRecord
-                                                          .date),
+                                                          .date!),
                                                   textAlign: TextAlign.end,
                                                   style: FlutterFlowTheme.of(
                                                           context)

@@ -10,18 +10,23 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterAccountWidget extends StatefulWidget {
-  const RegisterAccountWidget({Key key}) : super(key: key);
+  const RegisterAccountWidget({Key? key}) : super(key: key);
 
   @override
   _RegisterAccountWidgetState createState() => _RegisterAccountWidgetState();
 }
 
 class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
-  TextEditingController emailAddressController;
-  TextEditingController passwordCreateController;
-  bool passwordCreateVisibility;
-  TextEditingController passwordConfirmController;
-  bool passwordConfirmVisibility;
+  TextEditingController? emailAddressController;
+
+  TextEditingController? passwordCreateController;
+
+  late bool passwordCreateVisibility;
+
+  TextEditingController? passwordConfirmController;
+
+  late bool passwordConfirmVisibility;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -135,7 +140,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         .override(
                                           fontFamily: 'Lexend Deca',
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
+                                              .primaryText,
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -149,6 +154,20 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
@@ -189,7 +208,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Lexend Deca',
-                                          color: Color(0x98FFFFFF),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -203,6 +223,20 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
@@ -258,7 +292,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Lexend Deca',
-                                          color: Color(0x98FFFFFF),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -272,6 +307,20 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
@@ -330,8 +379,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
 
                                     final user = await createAccountWithEmail(
                                       context,
-                                      emailAddressController.text,
-                                      passwordCreateController.text,
+                                      emailAddressController!.text,
+                                      passwordCreateController!.text,
                                     );
                                     if (user == null) {
                                       return;
@@ -368,7 +417,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       color: Colors.transparent,
                                       width: 1,
                                     ),
-                                    borderRadius: 30,
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                 ),
                               ),
@@ -435,7 +484,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                               color: Colors.transparent,
                                               width: 1,
                                             ),
-                                            borderRadius: 12,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
                                           ),
                                         ),
                                         Text(

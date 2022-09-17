@@ -10,13 +10,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ImageMoveBackToVBWidget extends StatefulWidget {
   const ImageMoveBackToVBWidget({
-    Key key,
+    Key? key,
     this.isAchievement,
     this.imageRR,
   }) : super(key: key);
 
-  final bool isAchievement;
-  final DocumentReference imageRR;
+  final bool? isAchievement;
+  final DocumentReference? imageRR;
 
   @override
   _ImageMoveBackToVBWidgetState createState() =>
@@ -84,7 +84,7 @@ class _ImageMoveBackToVBWidgetState extends State<ImageMoveBackToVBWidget> {
                       final visionBoardUpdateData = createVisionBoardRecordData(
                         isAchievement: false,
                       );
-                      await widget.imageRR.update(visionBoardUpdateData);
+                      await widget.imageRR!.update(visionBoardUpdateData);
                       logFirebaseEvent('Button_Navigate-Back');
                       Navigator.pop(context);
                     },
@@ -107,7 +107,7 @@ class _ImageMoveBackToVBWidgetState extends State<ImageMoveBackToVBWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   Padding(
@@ -117,7 +117,7 @@ class _ImageMoveBackToVBWidgetState extends State<ImageMoveBackToVBWidget> {
                         logFirebaseEvent(
                             'IMAGE_MOVE_BACK_TO_V_B_DELETE_IMAGE_BTN_');
                         logFirebaseEvent('Button_Backend-Call');
-                        await widget.imageRR.delete();
+                        await widget.imageRR!.delete();
                         logFirebaseEvent('Button_Navigate-Back');
                         Navigator.pop(context);
                       },
@@ -141,7 +141,7 @@ class _ImageMoveBackToVBWidgetState extends State<ImageMoveBackToVBWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 8,
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

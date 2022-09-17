@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PrivacyPolicyWidget extends StatefulWidget {
-  const PrivacyPolicyWidget({Key key}) : super(key: key);
+  const PrivacyPolicyWidget({Key? key}) : super(key: key);
 
   @override
   _PrivacyPolicyWidgetState createState() => _PrivacyPolicyWidgetState();
@@ -44,9 +44,9 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
           );
         }
         List<SystemDataRecord> privacyPolicySystemDataRecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final privacyPolicySystemDataRecord =
@@ -82,7 +82,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
           body: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
             child: StreamBuilder<UsersRecord>(
-              stream: UsersRecord.getDocument(currentUserReference),
+              stream: UsersRecord.getDocument(currentUserReference!),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
                 if (!snapshot.hasData) {
@@ -97,7 +97,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                     ),
                   );
                 }
-                final columnUsersRecord = snapshot.data;
+                final columnUsersRecord = snapshot.data!;
                 return SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -109,8 +109,8 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                           children: [
                             Expanded(
                               child: Text(
-                                privacyPolicySystemDataRecord
-                                    .privacyPolicyTitle,
+                                privacyPolicySystemDataRecord!
+                                    .privacyPolicyTitle!,
                                 style: FlutterFlowTheme.of(context)
                                     .title1
                                     .override(
@@ -130,7 +130,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                           children: [
                             Expanded(
                               child: Text(
-                                privacyPolicySystemDataRecord.privacyPolicy,
+                                privacyPolicySystemDataRecord!.privacyPolicy!,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(

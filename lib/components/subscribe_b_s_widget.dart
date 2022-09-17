@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribeBSWidget extends StatefulWidget {
-  const SubscribeBSWidget({Key key}) : super(key: key);
+  const SubscribeBSWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribeBSWidgetState createState() => _SubscribeBSWidgetState();
@@ -152,7 +152,7 @@ class _SubscribeBSWidgetState extends State<SubscribeBSWidget> {
                     final usersUpdateData = createUsersRecordData(
                       isSubscribed: true,
                     );
-                    await currentUserReference.update(usersUpdateData);
+                    await currentUserReference!.update(usersUpdateData);
                   },
                   text: 'Subscribe \$9.95/mo',
                   options: FFButtonOptions(
@@ -169,7 +169,7 @@ class _SubscribeBSWidgetState extends State<SubscribeBSWidget> {
                       color: Colors.transparent,
                       width: 1,
                     ),
-                    borderRadius: 30,
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
               ),
@@ -194,7 +194,7 @@ class _SubscribeBSWidgetState extends State<SubscribeBSWidget> {
                       color: Colors.transparent,
                       width: 1,
                     ),
-                    borderRadius: 30,
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
               ),

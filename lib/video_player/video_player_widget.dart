@@ -9,11 +9,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   const VideoPlayerWidget({
-    Key key,
+    Key? key,
     this.videoID,
   }) : super(key: key);
 
-  final String videoID;
+  final String? videoID;
 
   @override
   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
@@ -50,9 +50,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
             ),
           );
         }
-        List<VideoRecord> videoPlayerVideoRecordList = snapshot.data;
+        List<VideoRecord> videoPlayerVideoRecordList = snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final videoPlayerVideoRecord = videoPlayerVideoRecordList.isNotEmpty
@@ -91,7 +91,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   FlutterFlowVideoPlayer(
-                    path: videoPlayerVideoRecord.video,
+                    path: videoPlayerVideoRecord!.video!,
                     videoType: VideoType.network,
                     autoPlay: false,
                     looping: true,
@@ -108,7 +108,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: Text(
-                            videoPlayerVideoRecord.videoTitle,
+                            videoPlayerVideoRecord!.videoTitle!,
                             style: FlutterFlowTheme.of(context).title3.override(
                                   fontFamily: 'Lexend Deca',
                                   color:
@@ -117,7 +117,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                           ),
                         ),
                         Text(
-                          videoPlayerVideoRecord.videoDesription,
+                          videoPlayerVideoRecord!.videoDesription!,
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(

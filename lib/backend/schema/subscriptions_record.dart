@@ -11,18 +11,15 @@ abstract class SubscriptionsRecord
   static Serializer<SubscriptionsRecord> get serializer =>
       _$subscriptionsRecordSerializer;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
-  String get subscriptionName;
+  String? get subscriptionName;
 
-  @nullable
-  DateTime get dateSubscribed;
+  DateTime? get dateSubscribed;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(SubscriptionsRecordBuilder builder) => builder
     ..uid = ''
@@ -33,11 +30,11 @@ abstract class SubscriptionsRecord
 
   static Stream<SubscriptionsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<SubscriptionsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   SubscriptionsRecord._();
   factory SubscriptionsRecord(
@@ -47,17 +44,23 @@ abstract class SubscriptionsRecord
   static SubscriptionsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createSubscriptionsRecordData({
-  String uid,
-  String subscriptionName,
-  DateTime dateSubscribed,
-}) =>
-    serializers.toFirestore(
-        SubscriptionsRecord.serializer,
-        SubscriptionsRecord((s) => s
-          ..uid = uid
-          ..subscriptionName = subscriptionName
-          ..dateSubscribed = dateSubscribed));
+  String? uid,
+  String? subscriptionName,
+  DateTime? dateSubscribed,
+}) {
+  final firestoreData = serializers.toFirestore(
+    SubscriptionsRecord.serializer,
+    SubscriptionsRecord(
+      (s) => s
+        ..uid = uid
+        ..subscriptionName = subscriptionName
+        ..dateSubscribed = dateSubscribed,
+    ),
+  );
+
+  return firestoreData;
+}

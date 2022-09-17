@@ -11,36 +11,27 @@ abstract class TransactionsRecord
   static Serializer<TransactionsRecord> get serializer =>
       _$transactionsRecordSerializer;
 
-  @nullable
-  String get transactionName;
+  String? get transactionName;
 
-  @nullable
-  String get transactionAmount;
+  String? get transactionAmount;
 
-  @nullable
-  DateTime get transactionTime;
+  DateTime? get transactionTime;
 
-  @nullable
-  String get transactionPlace;
+  String? get transactionPlace;
 
-  @nullable
-  DocumentReference get category;
+  DocumentReference? get category;
 
-  @nullable
-  DocumentReference get user;
+  DocumentReference? get user;
 
-  @nullable
-  BuiltList<String> get categoryName;
+  BuiltList<String>? get categoryName;
 
-  @nullable
-  String get transactionReason;
+  String? get transactionReason;
 
-  @nullable
-  DocumentReference get budgetAssociated;
+  DocumentReference? get budgetAssociated;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TransactionsRecordBuilder builder) => builder
     ..transactionName = ''
@@ -54,11 +45,11 @@ abstract class TransactionsRecord
 
   static Stream<TransactionsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<TransactionsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   TransactionsRecord._();
   factory TransactionsRecord(
@@ -68,28 +59,34 @@ abstract class TransactionsRecord
   static TransactionsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createTransactionsRecordData({
-  String transactionName,
-  String transactionAmount,
-  DateTime transactionTime,
-  String transactionPlace,
-  DocumentReference category,
-  DocumentReference user,
-  String transactionReason,
-  DocumentReference budgetAssociated,
-}) =>
-    serializers.toFirestore(
-        TransactionsRecord.serializer,
-        TransactionsRecord((t) => t
-          ..transactionName = transactionName
-          ..transactionAmount = transactionAmount
-          ..transactionTime = transactionTime
-          ..transactionPlace = transactionPlace
-          ..category = category
-          ..user = user
-          ..categoryName = null
-          ..transactionReason = transactionReason
-          ..budgetAssociated = budgetAssociated));
+  String? transactionName,
+  String? transactionAmount,
+  DateTime? transactionTime,
+  String? transactionPlace,
+  DocumentReference? category,
+  DocumentReference? user,
+  String? transactionReason,
+  DocumentReference? budgetAssociated,
+}) {
+  final firestoreData = serializers.toFirestore(
+    TransactionsRecord.serializer,
+    TransactionsRecord(
+      (t) => t
+        ..transactionName = transactionName
+        ..transactionAmount = transactionAmount
+        ..transactionTime = transactionTime
+        ..transactionPlace = transactionPlace
+        ..category = category
+        ..user = user
+        ..categoryName = null
+        ..transactionReason = transactionReason
+        ..budgetAssociated = budgetAssociated,
+    ),
+  );
+
+  return firestoreData;
+}

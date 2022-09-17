@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class VisionBoardWidget extends StatefulWidget {
-  const VisionBoardWidget({Key key}) : super(key: key);
+  const VisionBoardWidget({Key? key}) : super(key: key);
 
   @override
   _VisionBoardWidgetState createState() => _VisionBoardWidgetState();
@@ -159,7 +159,7 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                 }
                                 List<VisionBoardRecord>
                                     gridViewVisionBoardRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 return GridView.builder(
                                   padding: EdgeInsets.zero,
                                   gridDelegate:
@@ -193,12 +193,12 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                                   FlutterFlowExpandedImageView(
                                                 image: Image.network(
                                                   gridViewVisionBoardRecord
-                                                      .image,
+                                                      .image!,
                                                   fit: BoxFit.contain,
                                                 ),
                                                 allowRotation: false,
                                                 tag: gridViewVisionBoardRecord
-                                                    .image,
+                                                    .image!,
                                                 useHeroAnimation: true,
                                               ),
                                             ),
@@ -236,13 +236,13 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                           );
                                         },
                                         child: Hero(
-                                          tag: gridViewVisionBoardRecord.image,
+                                          tag: gridViewVisionBoardRecord.image!,
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: Image.network(
-                                              gridViewVisionBoardRecord.image,
+                                              gridViewVisionBoardRecord.image!,
                                               width: 100,
                                               height: 100,
                                               fit: BoxFit.cover,
@@ -288,7 +288,8 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                 );
                               }
                               List<VisionBoardRecord>
-                                  gridViewVisionBoardRecordList = snapshot.data;
+                                  gridViewVisionBoardRecordList =
+                                  snapshot.data!;
                               return InkWell(
                                 onLongPress: () async {
                                   logFirebaseEvent(
@@ -346,12 +347,12 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                                   FlutterFlowExpandedImageView(
                                                 image: Image.network(
                                                   gridViewVisionBoardRecord
-                                                      .image,
+                                                      .image!,
                                                   fit: BoxFit.contain,
                                                 ),
                                                 allowRotation: false,
                                                 tag: gridViewVisionBoardRecord
-                                                    .image,
+                                                    .image!,
                                                 useHeroAnimation: true,
                                               ),
                                             ),
@@ -390,13 +391,13 @@ class _VisionBoardWidgetState extends State<VisionBoardWidget> {
                                           );
                                         },
                                         child: Hero(
-                                          tag: gridViewVisionBoardRecord.image,
+                                          tag: gridViewVisionBoardRecord.image!,
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: Image.network(
-                                              gridViewVisionBoardRecord.image,
+                                              gridViewVisionBoardRecord.image!,
                                               width: 100,
                                               height: 100,
                                               fit: BoxFit.cover,

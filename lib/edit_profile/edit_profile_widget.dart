@@ -15,23 +15,27 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({
-    Key key,
+    Key? key,
     this.userProfile,
   }) : super(key: key);
 
-  final DocumentReference userProfile;
+  final DocumentReference? userProfile;
 
   @override
   _EditProfileWidgetState createState() => _EditProfileWidgetState();
 }
 
 class _EditProfileWidgetState extends State<EditProfileWidget> {
-  DateTime datePicked;
+  TextEditingController? yourAddressController;
+
+  TextEditingController? yourEmailController;
+
+  TextEditingController? yourNameController;
+
+  TextEditingController? yourTitleController;
+
   String uploadedFileUrl = '';
-  TextEditingController yourTitleController;
-  TextEditingController yourNameController;
-  TextEditingController yourEmailController;
-  TextEditingController yourAddressController;
+  DateTime? datePicked;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,7 +50,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
-      stream: UsersRecord.getDocument(currentUserReference),
+      stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -61,7 +65,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           );
         }
-        final editProfileUsersRecord = snapshot.data;
+        final editProfileUsersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -144,10 +148,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   .map((m) async => await uploadData(
                                       m.storagePath, m.bytes))))
                               .where((u) => u != null)
+                              .map((u) => u!)
                               .toList();
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          if (downloadUrls != null &&
-                              downloadUrls.length == selectedMedia.length) {
+                          if (downloadUrls.length == selectedMedia.length) {
                             setState(
                                 () => uploadedFileUrl = downloadUrls.first);
                             showUploadMessage(
@@ -179,7 +183,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 8,
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
@@ -213,6 +217,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).alternate,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -264,6 +282,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         filled: true,
                         fillColor:
                             FlutterFlowTheme.of(context).secondaryBackground,
@@ -305,6 +337,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).alternate,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -358,6 +404,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           filled: true,
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -395,7 +455,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                             child: Text(
                               dateTimeFormat(
-                                  'yMMMd', editProfileUsersRecord.birthday),
+                                  'yMMMd', editProfileUsersRecord.birthday!),
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -431,7 +491,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   (l) =>
                                       l.name ==
                                       FFLocalizations.of(context).languageCode,
-                                  orElse: null,
+                                  orElse: () => LocaleType.en,
                                 ),
                               );
                             },
@@ -450,7 +510,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
                         final usersUpdateData = createUsersRecordData(
                           displayName: yourNameController?.text ?? '',
-                          email: yourEmailController.text,
+                          email: yourEmailController!.text,
                           userTitle: valueOrDefault<String>(
                             yourTitleController?.text ?? '',
                             'Badass Geek',
@@ -458,7 +518,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           photoUrl: uploadedFileUrl,
                           password: '',
                           birthday: datePicked,
-                          address: yourAddressController.text,
+                          address: yourAddressController!.text,
                         );
                         await editProfileUsersRecord.reference
                             .update(usersUpdateData);
@@ -480,7 +540,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 30,
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),

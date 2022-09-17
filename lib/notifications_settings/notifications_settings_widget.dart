@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NotificationsSettingsWidget extends StatefulWidget {
-  const NotificationsSettingsWidget({Key key}) : super(key: key);
+  const NotificationsSettingsWidget({Key? key}) : super(key: key);
 
   @override
   _NotificationsSettingsWidgetState createState() =>
@@ -17,9 +17,9 @@ class NotificationsSettingsWidget extends StatefulWidget {
 
 class _NotificationsSettingsWidgetState
     extends State<NotificationsSettingsWidget> {
-  bool switchListTileValue1;
-  bool switchListTileValue2;
-  bool switchListTileValue3;
+  bool? switchListTileValue1;
+  bool? switchListTileValue2;
+  bool? switchListTileValue3;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -66,7 +66,7 @@ class _NotificationsSettingsWidgetState
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
           child: StreamBuilder<UsersRecord>(
-            stream: UsersRecord.getDocument(currentUserReference),
+            stream: UsersRecord.getDocument(currentUserReference!),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -81,7 +81,7 @@ class _NotificationsSettingsWidgetState
                   ),
                 );
               }
-              final columnUsersRecord = snapshot.data;
+              final columnUsersRecord = snapshot.data!;
               return Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -213,7 +213,7 @@ class _NotificationsSettingsWidgetState
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 30,
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),

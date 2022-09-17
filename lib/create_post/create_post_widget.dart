@@ -15,15 +15,16 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreatePostWidget extends StatefulWidget {
-  const CreatePostWidget({Key key}) : super(key: key);
+  const CreatePostWidget({Key? key}) : super(key: key);
 
   @override
   _CreatePostWidgetState createState() => _CreatePostWidgetState();
 }
 
 class _CreatePostWidgetState extends State<CreatePostWidget> {
+  TextEditingController? textController;
+
   String uploadedFileUrl = '';
-  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -92,9 +93,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                             children: [
                               Stack(
                                 children: [
-                                  if (!(functions
-                                          .hasUploadedMedia(uploadedFileUrl)) ??
-                                      true)
+                                  if (!functions
+                                      .hasUploadedMedia(uploadedFileUrl))
                                     InkWell(
                                       onTap: () async {
                                         logFirebaseEvent(
@@ -123,12 +123,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                                               m.storagePath,
                                                               m.bytes))))
                                                   .where((u) => u != null)
+                                                  .map((u) => u!)
                                                   .toList();
                                           ScaffoldMessenger.of(context)
                                               .hideCurrentSnackBar();
-                                          if (downloadUrls != null &&
-                                              downloadUrls.length ==
-                                                  selectedMedia.length) {
+                                          if (downloadUrls.length ==
+                                              selectedMedia.length) {
                                             setState(() => uploadedFileUrl =
                                                 downloadUrls.first);
                                             showUploadMessage(
@@ -170,8 +170,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                       ),
                                     ),
                                   if (functions
-                                          .hasUploadedMedia(uploadedFileUrl) ??
-                                      true)
+                                      .hasUploadedMedia(uploadedFileUrl))
                                     FlutterFlowMediaDisplay(
                                       path: uploadedFileUrl,
                                       imageBuilder: (path) => Image.network(
@@ -216,7 +215,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                                 createUserPostRecordData(
                                               postPhoto: uploadedFileUrl,
                                               postDescription:
-                                                  textController.text,
+                                                  textController!.text,
                                               postUser: currentUserReference,
                                               timePosted: getCurrentTimestamp,
                                               postOwner: true,
@@ -261,6 +260,23 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 32, 20, 12),
@@ -300,7 +316,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                         final userPostCreateData = createUserPostRecordData(
                           postPhoto: uploadedFileUrl,
                           postTitle: '',
-                          postDescription: textController.text,
+                          postDescription: textController!.text,
                           postUser: currentUserReference,
                           timePosted: getCurrentTimestamp,
                         );
@@ -327,7 +343,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 8,
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

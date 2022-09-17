@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GoalBookWidget extends StatefulWidget {
-  const GoalBookWidget({Key key}) : super(key: key);
+  const GoalBookWidget({Key? key}) : super(key: key);
 
   @override
   _GoalBookWidgetState createState() => _GoalBookWidgetState();
@@ -140,7 +140,7 @@ class _GoalBookWidgetState extends State<GoalBookWidget> {
               ),
             );
           }
-          List<GoalListRecord> mainContainerGoalListRecordList = snapshot.data;
+          List<GoalListRecord> mainContainerGoalListRecordList = snapshot.data!;
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: List.generate(mainContainerGoalListRecordList.length,
@@ -179,14 +179,15 @@ class _GoalBookWidgetState extends State<GoalBookWidget> {
                   ],
                   child: ListTile(
                     title: Text(
-                      dateTimeFormat('yMMMd', mainContainerGoalListRecord.date),
+                      dateTimeFormat(
+                          'yMMMd', mainContainerGoalListRecord.date!),
                       style: FlutterFlowTheme.of(context).subtitle1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                     ),
                     subtitle: Text(
-                      dateTimeFormat('EEEE', mainContainerGoalListRecord.date),
+                      dateTimeFormat('EEEE', mainContainerGoalListRecord.date!),
                       style: FlutterFlowTheme.of(context).subtitle2.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).secondaryText,

@@ -12,21 +12,17 @@ abstract class BusinessAllocationRecord
   static Serializer<BusinessAllocationRecord> get serializer =>
       _$businessAllocationRecordSerializer;
 
-  @nullable
-  double get allocationDeductionPercentage;
+  double? get allocationDeductionPercentage;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
-  double get amount;
+  double? get amount;
 
-  @nullable
-  String get allocationDeduction;
+  String? get allocationDeduction;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(BusinessAllocationRecordBuilder builder) =>
       builder
@@ -40,12 +36,12 @@ abstract class BusinessAllocationRecord
 
   static Stream<BusinessAllocationRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<BusinessAllocationRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   BusinessAllocationRecord._();
   factory BusinessAllocationRecord(
@@ -55,19 +51,25 @@ abstract class BusinessAllocationRecord
   static BusinessAllocationRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createBusinessAllocationRecordData({
-  double allocationDeductionPercentage,
-  String uid,
-  double amount,
-  String allocationDeduction,
-}) =>
-    serializers.toFirestore(
-        BusinessAllocationRecord.serializer,
-        BusinessAllocationRecord((b) => b
-          ..allocationDeductionPercentage = allocationDeductionPercentage
-          ..uid = uid
-          ..amount = amount
-          ..allocationDeduction = allocationDeduction));
+  double? allocationDeductionPercentage,
+  String? uid,
+  double? amount,
+  String? allocationDeduction,
+}) {
+  final firestoreData = serializers.toFirestore(
+    BusinessAllocationRecord.serializer,
+    BusinessAllocationRecord(
+      (b) => b
+        ..allocationDeductionPercentage = allocationDeductionPercentage
+        ..uid = uid
+        ..amount = amount
+        ..allocationDeduction = allocationDeduction,
+    ),
+  );
+
+  return firestoreData;
+}

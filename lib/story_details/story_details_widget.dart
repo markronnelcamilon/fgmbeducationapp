@@ -11,18 +11,18 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class StoryDetailsWidget extends StatefulWidget {
   const StoryDetailsWidget({
-    Key key,
+    Key? key,
     this.initialStoryIndex,
   }) : super(key: key);
 
-  final int initialStoryIndex;
+  final int? initialStoryIndex;
 
   @override
   _StoryDetailsWidgetState createState() => _StoryDetailsWidgetState();
 }
 
 class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -66,7 +66,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                       );
                     }
                     List<UserStoriesRecord> pageViewUserStoriesRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     return Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -90,7 +90,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                     child: Stack(
                                       children: [
                                         Image.network(
-                                          pageViewUserStoriesRecord.storyPhoto,
+                                          pageViewUserStoriesRecord.storyPhoto!,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           height: MediaQuery.of(context)
@@ -123,7 +123,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                       stream: UsersRecord
                                                           .getDocument(
                                                               pageViewUserStoriesRecord
-                                                                  .user),
+                                                                  .user!),
                                                       builder:
                                                           (context, snapshot) {
                                                         // Customize what your widget looks like when it's loading.
@@ -143,7 +143,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                           );
                                                         }
                                                         final userInfoUsersRecord =
-                                                            snapshot.data;
+                                                            snapshot.data!;
                                                         return Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -161,7 +161,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                               child:
                                                                   Image.network(
                                                                 userInfoUsersRecord
-                                                                    .photoUrl,
+                                                                    .photoUrl!,
                                                               ),
                                                             ),
                                                             Expanded(
@@ -185,7 +185,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                                             0),
                                                                     child: Text(
                                                                       userInfoUsersRecord
-                                                                          .displayName,
+                                                                          .displayName!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -208,7 +208,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                                             0),
                                                                     child: Text(
                                                                       userInfoUsersRecord
-                                                                          .userTitle,
+                                                                          .userTitle!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -361,7 +361,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                                                 16, 16, 16, 16),
                                                     child: Text(
                                                       pageViewUserStoriesRecord
-                                                          .storyDescription,
+                                                          .storyDescription!,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -403,7 +403,7 @@ class _StoryDetailsWidgetState extends State<StoryDetailsWidget> {
                                 count: pageViewUserStoriesRecordList.length,
                                 axisDirection: Axis.vertical,
                                 onDotClicked: (i) {
-                                  pageViewController.animateToPage(
+                                  pageViewController!.animateToPage(
                                     i,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease,

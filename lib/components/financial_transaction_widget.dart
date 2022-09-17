@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FinancialTransactionWidget extends StatefulWidget {
-  const FinancialTransactionWidget({Key key}) : super(key: key);
+  const FinancialTransactionWidget({Key? key}) : super(key: key);
 
   @override
   _FinancialTransactionWidgetState createState() =>

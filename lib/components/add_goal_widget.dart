@@ -10,20 +10,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddGoalWidget extends StatefulWidget {
   const AddGoalWidget({
-    Key key,
+    Key? key,
     this.userID,
     this.goalID,
   }) : super(key: key);
 
-  final String userID;
-  final String goalID;
+  final String? userID;
+  final String? goalID;
 
   @override
   _AddGoalWidgetState createState() => _AddGoalWidgetState();
 }
 
 class _AddGoalWidgetState extends State<AddGoalWidget> {
-  TextEditingController goalDetailsController;
+  TextEditingController? goalDetailsController;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
         child: StreamBuilder<UsersRecord>(
-          stream: UsersRecord.getDocument(currentUserReference),
+          stream: UsersRecord.getDocument(currentUserReference!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -57,7 +57,7 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                 ),
               );
             }
-            final columnUsersRecord = snapshot.data;
+            final columnUsersRecord = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -87,7 +87,6 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'Details',
-                        labelStyle: FlutterFlowTheme.of(context).bodyText1,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).alternate,
@@ -98,6 +97,20 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).alternate,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -149,7 +162,7 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 8,
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                         FFButtonWidget(
@@ -160,7 +173,7 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                             final goalsCreateData = createGoalsRecordData(
                               userID: currentUserUid,
                               date: columnUsersRecord.createdTime,
-                              goalDetails: goalDetailsController.text,
+                              goalDetails: goalDetailsController!.text,
                               isToggled: false,
                               goalID: widget.goalID,
                             );
@@ -186,7 +199,7 @@ class _AddGoalWidgetState extends State<AddGoalWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 8,
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ],

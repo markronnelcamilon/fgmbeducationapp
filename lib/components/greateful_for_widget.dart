@@ -11,24 +11,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GreatefulForWidget extends StatefulWidget {
   const GreatefulForWidget({
-    Key key,
+    Key? key,
     this.gratefulRR,
   }) : super(key: key);
 
-  final DailySuccessPlannerRecord gratefulRR;
+  final DailySuccessPlannerRecord? gratefulRR;
 
   @override
   _GreatefulForWidgetState createState() => _GreatefulForWidgetState();
 }
 
 class _GreatefulForWidgetState extends State<GreatefulForWidget> {
-  TextEditingController gratefulForTFController;
+  TextEditingController? gratefulForTFController;
 
   @override
   void initState() {
     super.initState();
     gratefulForTFController =
-        TextEditingController(text: widget.gratefulRR.greatfulFor);
+        TextEditingController(text: widget.gratefulRR!.greatfulFor);
   }
 
   @override
@@ -111,12 +111,33 @@ class _GreatefulForWidgetState extends State<GreatefulForWidget> {
                       topRight: Radius.circular(4.0),
                     ),
                   ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
                   contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                  suffixIcon: gratefulForTFController.text.isNotEmpty
+                  suffixIcon: gratefulForTFController!.text.isNotEmpty
                       ? InkWell(
-                          onTap: () => setState(
-                            () => gratefulForTFController?.clear(),
-                          ),
+                          onTap: () async {
+                            gratefulForTFController?.clear();
+                            setState(() {});
+                          },
                           child: Icon(
                             Icons.clear,
                             color: Color(0xFF757575),
@@ -140,9 +161,9 @@ class _GreatefulForWidgetState extends State<GreatefulForWidget> {
 
                   final dailySuccessPlannerUpdateData =
                       createDailySuccessPlannerRecordData(
-                    greatfulFor: gratefulForTFController.text,
+                    greatfulFor: gratefulForTFController!.text,
                   );
-                  await widget.gratefulRR.reference
+                  await widget.gratefulRR!.reference
                       .update(dailySuccessPlannerUpdateData);
                   logFirebaseEvent('Button_Navigate-Back');
                   Navigator.pop(context);
@@ -160,7 +181,7 @@ class _GreatefulForWidgetState extends State<GreatefulForWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -185,7 +206,7 @@ class _GreatefulForWidgetState extends State<GreatefulForWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

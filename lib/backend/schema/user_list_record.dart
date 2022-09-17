@@ -11,15 +11,13 @@ abstract class UserListRecord
   static Serializer<UserListRecord> get serializer =>
       _$userListRecordSerializer;
 
-  @nullable
-  DocumentReference get userName;
+  DocumentReference? get userName;
 
-  @nullable
-  BuiltList<String> get users;
+  BuiltList<String>? get users;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UserListRecordBuilder builder) =>
       builder..users = ListBuilder();
@@ -29,11 +27,11 @@ abstract class UserListRecord
 
   static Stream<UserListRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<UserListRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UserListRecord._();
   factory UserListRecord([void Function(UserListRecordBuilder) updates]) =
@@ -42,14 +40,20 @@ abstract class UserListRecord
   static UserListRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createUserListRecordData({
-  DocumentReference userName,
-}) =>
-    serializers.toFirestore(
-        UserListRecord.serializer,
-        UserListRecord((u) => u
-          ..userName = userName
-          ..users = null));
+  DocumentReference? userName,
+}) {
+  final firestoreData = serializers.toFirestore(
+    UserListRecord.serializer,
+    UserListRecord(
+      (u) => u
+        ..userName = userName
+        ..users = null,
+    ),
+  );
+
+  return firestoreData;
+}

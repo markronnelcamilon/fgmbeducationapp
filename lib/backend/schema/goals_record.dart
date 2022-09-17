@@ -9,27 +9,21 @@ part 'goals_record.g.dart';
 abstract class GoalsRecord implements Built<GoalsRecord, GoalsRecordBuilder> {
   static Serializer<GoalsRecord> get serializer => _$goalsRecordSerializer;
 
-  @nullable
-  String get userID;
+  String? get userID;
 
-  @nullable
-  String get goalDetails;
+  String? get goalDetails;
 
-  @nullable
-  bool get isToggled;
+  bool? get isToggled;
 
-  @nullable
-  String get goalID;
+  String? get goalID;
 
-  @nullable
-  DateTime get date;
+  DateTime? get date;
 
-  @nullable
-  DateTime get dateCreated;
+  DateTime? get dateCreated;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(GoalsRecordBuilder builder) => builder
     ..userID = ''
@@ -42,11 +36,11 @@ abstract class GoalsRecord implements Built<GoalsRecord, GoalsRecordBuilder> {
 
   static Stream<GoalsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<GoalsRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   GoalsRecord._();
   factory GoalsRecord([void Function(GoalsRecordBuilder) updates]) =
@@ -55,23 +49,29 @@ abstract class GoalsRecord implements Built<GoalsRecord, GoalsRecordBuilder> {
   static GoalsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createGoalsRecordData({
-  String userID,
-  String goalDetails,
-  bool isToggled,
-  String goalID,
-  DateTime date,
-  DateTime dateCreated,
-}) =>
-    serializers.toFirestore(
-        GoalsRecord.serializer,
-        GoalsRecord((g) => g
-          ..userID = userID
-          ..goalDetails = goalDetails
-          ..isToggled = isToggled
-          ..goalID = goalID
-          ..date = date
-          ..dateCreated = dateCreated));
+  String? userID,
+  String? goalDetails,
+  bool? isToggled,
+  String? goalID,
+  DateTime? date,
+  DateTime? dateCreated,
+}) {
+  final firestoreData = serializers.toFirestore(
+    GoalsRecord.serializer,
+    GoalsRecord(
+      (g) => g
+        ..userID = userID
+        ..goalDetails = goalDetails
+        ..isToggled = isToggled
+        ..goalID = goalID
+        ..date = date
+        ..dateCreated = dateCreated,
+    ),
+  );
+
+  return firestoreData;
+}

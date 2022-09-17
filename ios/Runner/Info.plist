@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>FGMB Education</string>
+	<string>Ideal</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>FGMB Education</string>
+	<string>Ideal</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -28,7 +28,7 @@
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>com.googleusercontent.apps.593884950008-lsr66fckbp0o9krdkojippdb756c41ri</string>
+                <string>com.googleusercontent.apps.807787441192-b0k4q3smp7ug87ce3f1u41hv5ol724kj</string>
                 
             </array>
         </dict>
@@ -42,11 +42,12 @@
 	<true/>
 
 	<key>NSCameraUsageDescription</key>
-	<string>In order to take a picture or video, this app requires permission to access the camera.</string>
+      <string>In order to take a picture or video, this app requires permission to access the camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>In order to record audio for video, this app requires permission to access the microphone.</string>
+      <string>In order to record audio for video, this app requires permission to access the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>In order to upload media, this app requires permission to access the photo library.</string>
+      <string>In order to upload media, this app requires permission to access the photo library.</string>
+
     <key>UIBackgroundModes</key>
     <array>
         <string>fetch</string>

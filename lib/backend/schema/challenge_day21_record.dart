@@ -11,42 +11,31 @@ abstract class ChallengeDay21Record
   static Serializer<ChallengeDay21Record> get serializer =>
       _$challengeDay21RecordSerializer;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
-  DateTime get startDate;
+  DateTime? get startDate;
 
-  @nullable
-  DateTime get endDate21;
+  DateTime? get endDate21;
 
-  @nullable
-  DateTime get endDate90;
+  DateTime? get endDate90;
 
-  @nullable
-  bool get ninetyDays;
+  bool? get ninetyDays;
 
-  @nullable
-  int get dayChallenge;
+  int? get dayChallenge;
 
-  @nullable
-  int get list21;
+  int? get list21;
 
-  @nullable
-  int get counter;
+  int? get counter;
 
-  @nullable
-  bool get isArchive;
+  bool? get isArchive;
 
-  @nullable
-  String get dayChallengeID;
+  String? get dayChallengeID;
 
-  @nullable
-  bool get taskDone;
+  bool? get taskDone;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(ChallengeDay21RecordBuilder builder) => builder
     ..uid = ''
@@ -63,11 +52,11 @@ abstract class ChallengeDay21Record
 
   static Stream<ChallengeDay21Record> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<ChallengeDay21Record> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   ChallengeDay21Record._();
   factory ChallengeDay21Record(
@@ -77,33 +66,39 @@ abstract class ChallengeDay21Record
   static ChallengeDay21Record getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createChallengeDay21RecordData({
-  String uid,
-  DateTime startDate,
-  DateTime endDate21,
-  DateTime endDate90,
-  bool ninetyDays,
-  int dayChallenge,
-  int list21,
-  int counter,
-  bool isArchive,
-  String dayChallengeID,
-  bool taskDone,
-}) =>
-    serializers.toFirestore(
-        ChallengeDay21Record.serializer,
-        ChallengeDay21Record((c) => c
-          ..uid = uid
-          ..startDate = startDate
-          ..endDate21 = endDate21
-          ..endDate90 = endDate90
-          ..ninetyDays = ninetyDays
-          ..dayChallenge = dayChallenge
-          ..list21 = list21
-          ..counter = counter
-          ..isArchive = isArchive
-          ..dayChallengeID = dayChallengeID
-          ..taskDone = taskDone));
+  String? uid,
+  DateTime? startDate,
+  DateTime? endDate21,
+  DateTime? endDate90,
+  bool? ninetyDays,
+  int? dayChallenge,
+  int? list21,
+  int? counter,
+  bool? isArchive,
+  String? dayChallengeID,
+  bool? taskDone,
+}) {
+  final firestoreData = serializers.toFirestore(
+    ChallengeDay21Record.serializer,
+    ChallengeDay21Record(
+      (c) => c
+        ..uid = uid
+        ..startDate = startDate
+        ..endDate21 = endDate21
+        ..endDate90 = endDate90
+        ..ninetyDays = ninetyDays
+        ..dayChallenge = dayChallenge
+        ..list21 = list21
+        ..counter = counter
+        ..isArchive = isArchive
+        ..dayChallengeID = dayChallengeID
+        ..taskDone = taskDone,
+    ),
+  );
+
+  return firestoreData;
+}

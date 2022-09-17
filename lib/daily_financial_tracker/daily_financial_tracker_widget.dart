@@ -15,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DailyFinancialTrackerWidget extends StatefulWidget {
-  const DailyFinancialTrackerWidget({Key key}) : super(key: key);
+  const DailyFinancialTrackerWidget({Key? key}) : super(key: key);
 
   @override
   _DailyFinancialTrackerWidgetState createState() =>
@@ -28,6 +28,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -42,6 +43,7 @@ class _DailyFinancialTrackerWidgetState
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 50,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 51),
@@ -55,6 +57,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -68,6 +71,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -81,6 +85,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -94,10 +99,10 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation6': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
-      delay: 50,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
-        offset: Offset(0, 51),
+        offset: Offset(0, 49),
         opacity: 0,
       ),
       finalState: AnimationState(
@@ -108,6 +113,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation7': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -121,6 +127,7 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation8': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 49),
@@ -134,75 +141,11 @@ class _DailyFinancialTrackerWidgetState
     'containerOnPageLoadAnimation9': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 49),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'containerOnPageLoadAnimation10': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 49),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'containerOnPageLoadAnimation11': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
       delay: 80,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 69),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'containerOnPageLoadAnimation12': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 49),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'containerOnPageLoadAnimation13': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 49),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'containerOnPageLoadAnimation14': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 49),
         opacity: 0,
       ),
       finalState: AnimationState(
@@ -250,9 +193,9 @@ class _DailyFinancialTrackerWidgetState
         }
         List<DailyFinancialPlannerRecord>
             dailyFinancialTrackerDailyFinancialPlannerRecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final dailyFinancialTrackerDailyFinancialPlannerRecord =
@@ -384,8 +327,8 @@ class _DailyFinancialTrackerWidgetState
                                       0, 8, 0, 12),
                                   child: Text(
                                     formatNumber(
-                                      dailyFinancialTrackerDailyFinancialPlannerRecord
-                                          .startingBalance,
+                                      dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                          .startingBalance!,
                                       formatType: FormatType.decimal,
                                       decimalType: DecimalType.periodDecimal,
                                       currency: '\$',
@@ -404,7 +347,7 @@ class _DailyFinancialTrackerWidgetState
                             ),
                           ),
                         ).animated(
-                            [animationsMap['containerOnPageLoadAnimation1']]),
+                            [animationsMap['containerOnPageLoadAnimation1']!]),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.44,
                           height: 120,
@@ -437,8 +380,8 @@ class _DailyFinancialTrackerWidgetState
                                       0, 8, 0, 12),
                                   child: Text(
                                     formatNumber(
-                                      dailyFinancialTrackerDailyFinancialPlannerRecord
-                                          .totalSpending,
+                                      dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                          .totalSpending!,
                                       formatType: FormatType.decimal,
                                       decimalType: DecimalType.periodDecimal,
                                       currency: '\$',
@@ -457,7 +400,7 @@ class _DailyFinancialTrackerWidgetState
                             ),
                           ),
                         ).animated(
-                            [animationsMap['containerOnPageLoadAnimation2']]),
+                            [animationsMap['containerOnPageLoadAnimation2']!]),
                       ],
                     ),
                   ),
@@ -496,8 +439,8 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                                 Text(
                                   formatNumber(
-                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                        .allowcationBusiness,
+                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                        .allowcationBusiness!,
                                     formatType: FormatType.decimal,
                                     decimalType: DecimalType.periodDecimal,
                                     currency: '\$',
@@ -524,8 +467,8 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                                 Text(
                                   formatNumber(
-                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                        .spendingBusiness,
+                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                        .spendingBusiness!,
                                     formatType: FormatType.decimal,
                                     decimalType: DecimalType.periodDecimal,
                                     currency: '\$',
@@ -553,7 +496,7 @@ class _DailyFinancialTrackerWidgetState
                             ),
                           ),
                         ).animated(
-                            [animationsMap['containerOnPageLoadAnimation3']]),
+                            [animationsMap['containerOnPageLoadAnimation3']!]),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.44,
                           height: 120,
@@ -583,8 +526,8 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                                 Text(
                                   formatNumber(
-                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                        .allocationPersonal,
+                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                        .allocationPersonal!,
                                     formatType: FormatType.decimal,
                                     decimalType: DecimalType.periodDecimal,
                                     currency: '\$',
@@ -611,8 +554,8 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                                 Text(
                                   formatNumber(
-                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                        .spendingPersonal,
+                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                        .spendingPersonal!,
                                     formatType: FormatType.decimal,
                                     decimalType: DecimalType.periodDecimal,
                                     currency: '\$',
@@ -640,187 +583,7 @@ class _DailyFinancialTrackerWidgetState
                             ),
                           ),
                         ).animated(
-                            [animationsMap['containerOnPageLoadAnimation4']]),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total',
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 12),
-                                      child: Text(
-                                        dailyFinancialTrackerDailyFinancialPlannerRecord
-                                            .totalTransaction
-                                            .toString(),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title3
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation5']
-                            ]),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Wants',
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 12),
-                                      child: Text(
-                                        dailyFinancialTrackerDailyFinancialPlannerRecord
-                                            .noOfWants
-                                            .toString(),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title3
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation6']
-                            ]),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Needs',
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 12),
-                                      child: Text(
-                                        dailyFinancialTrackerDailyFinancialPlannerRecord
-                                            .noOfNeeds
-                                            .toString(),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title3
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation7']
-                            ]),
-                          ),
-                        ),
+                            [animationsMap['containerOnPageLoadAnimation4']!]),
                       ],
                     ),
                   ),
@@ -851,38 +614,60 @@ class _DailyFinancialTrackerWidgetState
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: custom_widgets.FinancialPercentage(
-                                        width: 100,
-                                        height: 100,
-                                        backgroundColor: Colors.white,
-                                        title1: 'Total',
-                                        title1Color:
-                                            FlutterFlowTheme.of(context)
-                                                .errorRed,
-                                        title2: 'Wants',
-                                        title2Color: Color(0xFF0D6600),
-                                        title3: 'Needs',
-                                        title3Color:
-                                            FlutterFlowTheme.of(context)
-                                                .lineColor,
-                                        title4: 'Hello',
-                                        title4Color:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                        value1: 10.0,
-                                        value2: 10.0,
-                                        value3: 10.0,
-                                        value4: 10.0,
-                                      ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Spending Wants',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 8, 0, 12),
+                                          child: Text(
+                                            formatNumber(
+                                              dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                  .spendingWants!,
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.periodDecimal,
+                                              currency: '\$',
+                                            ),
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title3
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ),
                             ).animated([
-                              animationsMap['containerOnPageLoadAnimation8']
+                              animationsMap['containerOnPageLoadAnimation5']!
                             ]),
                           ),
                         ),
@@ -936,8 +721,8 @@ class _DailyFinancialTrackerWidgetState
                                                   0, 8, 0, 12),
                                           child: Text(
                                             formatNumber(
-                                              dailyFinancialTrackerDailyFinancialPlannerRecord
-                                                  .spendingNeeds,
+                                              dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                  .spendingNeeds!,
                                               formatType: FormatType.decimal,
                                               decimalType:
                                                   DecimalType.periodDecimal,
@@ -960,7 +745,7 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                               ),
                             ).animated([
-                              animationsMap['containerOnPageLoadAnimation9']
+                              animationsMap['containerOnPageLoadAnimation6']!
                             ]),
                           ),
                         ),
@@ -1032,9 +817,9 @@ class _DailyFinancialTrackerWidgetState
                                           child: Text(
                                             functions
                                                 .endOfDayBalance(
-                                                    dailyFinancialTrackerDailyFinancialPlannerRecord
+                                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
                                                         .startingBalance,
-                                                    dailyFinancialTrackerDailyFinancialPlannerRecord
+                                                    dailyFinancialTrackerDailyFinancialPlannerRecord!
                                                         .totalSpending)
                                                 .toString(),
                                             textAlign: TextAlign.start,
@@ -1054,7 +839,227 @@ class _DailyFinancialTrackerWidgetState
                                 ),
                               ),
                             ).animated([
-                              animationsMap['containerOnPageLoadAnimation10']
+                              animationsMap['containerOnPageLoadAnimation7']!
+                            ]),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 0, 0),
+                                    child: Container(
+                                      width: 180,
+                                      height: 250,
+                                      child: custom_widgets.PieChartSample1(
+                                        width: 180,
+                                        height: 250,
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                        title1: 'Wants',
+                                        title1Color:
+                                            FlutterFlowTheme.of(context)
+                                                .customColor3,
+                                        title2: 'Needs',
+                                        title2Color: Color(0xFF1C4F87),
+                                        title3Color: Color(0xFF007E05),
+                                        value1:
+                                            dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                .noOfWants
+                                                ?.toDouble(),
+                                        value2:
+                                            dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                .noOfNeeds
+                                                ?.toDouble(),
+                                        value3:
+                                            dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                .totalTransaction,
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 4, 0),
+                                            child: Text(
+                                              'Total',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 20,
+                                                  ),
+                                            ),
+                                          ),
+                                          Text(
+                                            dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                .totalTransaction!
+                                                .toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontSize: 20,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 4, 0),
+                                            child: Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF1C4F87),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 4, 0),
+                                            child: Text(
+                                              'Needs',
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                  ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 8, 0, 12),
+                                            child: Text(
+                                              dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                  .noOfNeeds!
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .title3
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 4, 0),
+                                            child: Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .customColor3,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 4, 0),
+                                            child: Text(
+                                              'Wants',
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                  ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 8, 0, 12),
+                                            child: Text(
+                                              dailyFinancialTrackerDailyFinancialPlannerRecord!
+                                                  .noOfWants!
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .title3
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ).animated([
+                              animationsMap['containerOnPageLoadAnimation8']!
                             ]),
                           ),
                         ),
@@ -1184,7 +1189,7 @@ class _DailyFinancialTrackerWidgetState
                                   }
                                   List<DailyFinancialTransactionRecord>
                                       transactionListDailyFinancialTransactionRecordList =
-                                      snapshot.data;
+                                      snapshot.data!;
                                   if (transactionListDailyFinancialTransactionRecordList
                                       .isEmpty) {
                                     return Center(
@@ -1224,8 +1229,8 @@ class _DailyFinancialTrackerWidgetState
                                             children: [
                                               Stack(
                                                 children: [
-                                                  if ((transactionListDailyFinancialTransactionRecord
-                                                          .isMoneyOut) ==
+                                                  if (transactionListDailyFinancialTransactionRecord
+                                                          .isMoneyOut ==
                                                       false)
                                                     Padding(
                                                       padding:
@@ -1240,8 +1245,8 @@ class _DailyFinancialTrackerWidgetState
                                                         size: 24,
                                                       ),
                                                     ),
-                                                  if ((transactionListDailyFinancialTransactionRecord
-                                                          .isMoneyOut) ==
+                                                  if (transactionListDailyFinancialTransactionRecord
+                                                          .isMoneyOut ==
                                                       true)
                                                     Padding(
                                                       padding:
@@ -1274,7 +1279,7 @@ class _DailyFinancialTrackerWidgetState
                                                     children: [
                                                       Text(
                                                         transactionListDailyFinancialTransactionRecord
-                                                            .spendAt,
+                                                            .spendAt!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1290,7 +1295,7 @@ class _DailyFinancialTrackerWidgetState
                                                       ),
                                                       Text(
                                                         transactionListDailyFinancialTransactionRecord
-                                                            .description,
+                                                            .description!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1322,7 +1327,7 @@ class _DailyFinancialTrackerWidgetState
                                                     Text(
                                                       formatNumber(
                                                         transactionListDailyFinancialTransactionRecord
-                                                            .amount,
+                                                            .amount!,
                                                         formatType:
                                                             FormatType.decimal,
                                                         decimalType: DecimalType
@@ -1351,7 +1356,7 @@ class _DailyFinancialTrackerWidgetState
                                                         dateTimeFormat(
                                                             'M/d H:mm',
                                                             transactionListDailyFinancialTransactionRecord
-                                                                .date),
+                                                                .date!),
                                                         textAlign:
                                                             TextAlign.end,
                                                         style:
@@ -1384,266 +1389,7 @@ class _DailyFinancialTrackerWidgetState
                         ),
                       ),
                     ).animated(
-                        [animationsMap['containerOnPageLoadAnimation11']]),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Spending Wants',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 12,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 0, 12),
-                                          child: Text(
-                                            formatNumber(
-                                              dailyFinancialTrackerDailyFinancialPlannerRecord
-                                                  .spendingWants,
-                                              formatType: FormatType.decimal,
-                                              decimalType:
-                                                  DecimalType.periodDecimal,
-                                              currency: '\$',
-                                            ),
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation12']
-                            ]),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Spending Needs',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 12,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 0, 12),
-                                          child: Text(
-                                            formatNumber(
-                                              dailyFinancialTrackerDailyFinancialPlannerRecord
-                                                  .spendingNeeds,
-                                              formatType: FormatType.decimal,
-                                              decimalType:
-                                                  DecimalType.periodDecimal,
-                                              currency: '\$',
-                                            ),
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation13']
-                            ]),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.44,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'End of the Day Balance',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 12,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 4, 12),
-                                          child: Text(
-                                            '\$',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 0, 12),
-                                          child: Text(
-                                            functions
-                                                .endOfDayBalance(
-                                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                                        .startingBalance,
-                                                    dailyFinancialTrackerDailyFinancialPlannerRecord
-                                                        .totalSpending)
-                                                .toString(),
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).animated([
-                              animationsMap['containerOnPageLoadAnimation14']
-                            ]),
-                          ),
-                        ),
-                      ],
-                    ),
+                        [animationsMap['containerOnPageLoadAnimation9']!]),
                   ),
                 ],
               ),

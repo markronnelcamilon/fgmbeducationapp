@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 
 // Begin custom action code
 Future addToTotalSpending(
-  double value,
+  double? value,
   double totalSpending,
 ) async {
   // Add your function code here!
-  var total = value + totalSpending;
+  var total = value! + totalSpending;
   return total;
 }

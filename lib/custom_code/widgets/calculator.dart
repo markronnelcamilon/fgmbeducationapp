@@ -11,15 +11,15 @@ import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({
-    Key key,
+    Key? key,
     this.width,
     this.height,
     this.calculator,
   }) : super(key: key);
 
-  final double width;
-  final double height;
-  final double calculator;
+  final double? width;
+  final double? height;
+  final double? calculator;
 
   @override
   _CalculatorState createState() => _CalculatorState();

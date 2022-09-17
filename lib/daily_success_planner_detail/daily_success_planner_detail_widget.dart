@@ -1,9 +1,9 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/daily_affiramation_b_s_widget.dart';
 import '../components/daily_meeting_widget.dart';
 import '../components/greateful_for_widget.dart';
 import '../components/thank_god_for_copy_widget.dart';
+import '../daily_time_record/daily_time_record_widget.dart';
 import '../edit_daily_success_planner/edit_daily_success_planner_widget.dart';
 import '../edit_quarterly_goals/edit_quarterly_goals_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -18,11 +18,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DailySuccessPlannerDetailWidget extends StatefulWidget {
   const DailySuccessPlannerDetailWidget({
-    Key key,
+    Key? key,
     this.dailySuccessPlannerRR,
   }) : super(key: key);
 
-  final DocumentReference dailySuccessPlannerRR;
+  final DocumentReference? dailySuccessPlannerRR;
 
   @override
   _DailySuccessPlannerDetailWidgetState createState() =>
@@ -44,7 +44,7 @@ class _DailySuccessPlannerDetailWidgetState
   Widget build(BuildContext context) {
     return StreamBuilder<DailySuccessPlannerRecord>(
       stream:
-          DailySuccessPlannerRecord.getDocument(widget.dailySuccessPlannerRR),
+          DailySuccessPlannerRecord.getDocument(widget.dailySuccessPlannerRR!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -60,7 +60,7 @@ class _DailySuccessPlannerDetailWidgetState
           );
         }
         final dailySuccessPlannerDetailDailySuccessPlannerRecord =
-            snapshot.data;
+            snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -84,7 +84,7 @@ class _DailySuccessPlannerDetailWidgetState
             ),
             title: Text(
               dateTimeFormat('yMMMd',
-                  dailySuccessPlannerDetailDailySuccessPlannerRecord.date),
+                  dailySuccessPlannerDetailDailySuccessPlannerRecord.date!),
               style: FlutterFlowTheme.of(context).title3,
             ),
             actions: [],
@@ -120,12 +120,11 @@ class _DailySuccessPlannerDetailWidgetState
                                   children: [
                                     ToggleIcon(
                                       onPressed: () async {
-                                        final dailySuccessPlannerUpdateData =
-                                            createDailySuccessPlannerRecordData(
-                                          writeDownGoals:
+                                        final dailySuccessPlannerUpdateData = {
+                                          'write_down_goals':
                                               !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                  .writeDownGoals,
-                                        );
+                                                  .writeDownGoals!,
+                                        };
                                         await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                             .reference
                                             .update(
@@ -133,7 +132,7 @@ class _DailySuccessPlannerDetailWidgetState
                                       },
                                       value:
                                           dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                              .writeDownGoals,
+                                              .writeDownGoals!,
                                       onIcon: Icon(
                                         Icons.check_box,
                                         color: FlutterFlowTheme.of(context)
@@ -164,12 +163,11 @@ class _DailySuccessPlannerDetailWidgetState
                                   children: [
                                     ToggleIcon(
                                       onPressed: () async {
-                                        final dailySuccessPlannerUpdateData =
-                                            createDailySuccessPlannerRecordData(
-                                          readTenPages:
+                                        final dailySuccessPlannerUpdateData = {
+                                          'read_ten_pages':
                                               !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                  .readTenPages,
-                                        );
+                                                  .readTenPages!,
+                                        };
                                         await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                             .reference
                                             .update(
@@ -177,7 +175,7 @@ class _DailySuccessPlannerDetailWidgetState
                                       },
                                       value:
                                           dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                              .readTenPages,
+                                              .readTenPages!,
                                       onIcon: Icon(
                                         Icons.check_box,
                                         color: FlutterFlowTheme.of(context)
@@ -287,7 +285,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         8, 0, 8, 0),
                                     child: Text(
                                       dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                          .greatfulFor,
+                                          .greatfulFor!,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -299,166 +297,6 @@ class _DailySuccessPlannerDetailWidgetState
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 8, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 8, 8),
-                                        child: Text(
-                                          'Quarterly Goals',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .subtitle2
-                                              .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                        ),
-                                      ),
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 24,
-                                        borderWidth: 1,
-                                        buttonSize: 40,
-                                        icon: Icon(
-                                          Icons.edit,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24,
-                                        ),
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'DAILY_SUCCESS_PLANNER_DETAIL_edit_ICN_ON');
-                                          logFirebaseEvent(
-                                              'IconButton_Navigate-To');
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditQuarterlyGoalsWidget(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                StreamBuilder<List<QuarterlyGoalsRecord>>(
-                                  stream: queryQuarterlyGoalsRecord(
-                                    queryBuilder: (quarterlyGoalsRecord) =>
-                                        quarterlyGoalsRecord
-                                            .where('uid',
-                                                isEqualTo: currentUserUid)
-                                            .orderBy('date', descending: true),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitFadingCube(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<QuarterlyGoalsRecord>
-                                        columnQuarterlyGoalsRecordList =
-                                        snapshot.data;
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: List.generate(
-                                          columnQuarterlyGoalsRecordList.length,
-                                          (columnIndex) {
-                                        final columnQuarterlyGoalsRecord =
-                                            columnQuarterlyGoalsRecordList[
-                                                columnIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                columnQuarterlyGoalsRecord
-                                                    .label,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText2
-                                                    .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                    ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 8),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    columnQuarterlyGoalsRecord
-                                                        .goals,
-                                                    'No quarterly goal yet',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }),
-                                    );
-                                  },
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -521,6 +359,9 @@ class _DailySuccessPlannerDetailWidgetState
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
+                                            barrierColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
                                             context: context,
                                             builder: (context) {
                                               return Padding(
@@ -532,9 +373,8 @@ class _DailySuccessPlannerDetailWidgetState
                                                           .height *
                                                       0.5,
                                                   child: DailyMeetingWidget(
-                                                    date:
-                                                        dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                            .date,
+                                                    dailySuccessPlannerRR: widget
+                                                        .dailySuccessPlannerRR,
                                                   ),
                                                 ),
                                               );
@@ -550,15 +390,9 @@ class _DailySuccessPlannerDetailWidgetState
                                       8, 0, 8, 0),
                                   child: StreamBuilder<List<MeetingsRecord>>(
                                     stream: queryMeetingsRecord(
-                                      queryBuilder: (meetingsRecord) =>
-                                          meetingsRecord
-                                              .where('userId',
-                                                  isEqualTo: currentUserUid)
-                                              .where('date',
-                                                  isEqualTo:
-                                                      dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                          .date)
-                                              .orderBy('dateTime'),
+                                      parent:
+                                          dailySuccessPlannerDetailDailySuccessPlannerRecord
+                                              .reference,
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -578,7 +412,7 @@ class _DailySuccessPlannerDetailWidgetState
                                       }
                                       List<MeetingsRecord>
                                           columnMeetingsRecordList =
-                                          snapshot.data;
+                                          snapshot.data!;
                                       return Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment:
@@ -595,10 +429,8 @@ class _DailySuccessPlannerDetailWidgetState
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                dateTimeFormat(
-                                                    'Hm',
-                                                    columnMeetingsRecord
-                                                        .dateTime),
+                                                dateTimeFormat('Hm',
+                                                    columnMeetingsRecord.time!),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -616,7 +448,7 @@ class _DailySuccessPlannerDetailWidgetState
                                                       .fromSTEB(10, 0, 0, 0),
                                                   child: Text(
                                                     columnMeetingsRecord
-                                                        .meetingDetails,
+                                                        .meetingDetails!,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -638,6 +470,93 @@ class _DailySuccessPlannerDetailWidgetState
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                        child: InkWell(
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'DAILY_SUCCESS_PLANNER_DETAIL_dailyTime_O');
+                            logFirebaseEvent('dailyTime_Navigate-To');
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DailyTimeRecordWidget(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 8, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 8, 8, 8),
+                                          child: Text(
+                                            'Daily Time Record',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                          ),
+                                        ),
+                                        FlutterFlowIconButton(
+                                          borderColor: Colors.transparent,
+                                          borderRadius: 24,
+                                          borderWidth: 1,
+                                          buttonSize: 40,
+                                          icon: Icon(
+                                            Icons.access_time,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24,
+                                          ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'DAILY_SUCCESS_PLANNER_DETAIL_access_time');
+                                            logFirebaseEvent(
+                                                'IconButton_Navigate-To');
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditQuarterlyGoalsWidget(),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -696,11 +615,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            task01:
+                                              {
+                                            'task01':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .task01,
-                                          );
+                                                    .task01!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -708,7 +627,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .task01,
+                                                .task01!,
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: FlutterFlowTheme.of(context)
@@ -745,11 +664,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            task02:
+                                              {
+                                            'task02':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .task02,
-                                          );
+                                                    .task02!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -757,7 +676,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .task02,
+                                                .task02!,
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: FlutterFlowTheme.of(context)
@@ -794,11 +713,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            task03:
+                                              {
+                                            'task03':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .task03,
-                                          );
+                                                    .task03!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -806,7 +725,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .task03,
+                                                .task03!,
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: FlutterFlowTheme.of(context)
@@ -843,11 +762,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            task04:
+                                              {
+                                            'task04':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .task04,
-                                          );
+                                                    .task04!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -855,7 +774,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .task04,
+                                                .task04!,
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: FlutterFlowTheme.of(context)
@@ -892,11 +811,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            task05:
+                                              {
+                                            'task05':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .task05,
-                                          );
+                                                    .task05!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -904,7 +823,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .task05,
+                                                .task05!,
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: FlutterFlowTheme.of(context)
@@ -1029,7 +948,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         ),
                                         Text(
                                           dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                              .iThanGodFor,
+                                              .iThanGodFor!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -1128,7 +1047,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         ),
                                         Text(
                                           dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                              .dailyAffirmatin,
+                                              .dailyAffirmatin!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -1242,11 +1161,11 @@ class _DailySuccessPlannerDetailWidgetState
                                       ToggleIcon(
                                         onPressed: () async {
                                           final dailySuccessPlannerUpdateData =
-                                              createDailySuccessPlannerRecordData(
-                                            didWinTheDay:
+                                              {
+                                            'did_win_the_day':
                                                 !dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                    .didWinTheDay,
-                                          );
+                                                    .didWinTheDay!,
+                                          };
                                           await dailySuccessPlannerDetailDailySuccessPlannerRecord
                                               .reference
                                               .update(
@@ -1254,7 +1173,7 @@ class _DailySuccessPlannerDetailWidgetState
                                         },
                                         value:
                                             dailySuccessPlannerDetailDailySuccessPlannerRecord
-                                                .didWinTheDay,
+                                                .didWinTheDay!,
                                         onIcon: Icon(
                                           Icons.check_circle,
                                           color: FlutterFlowTheme.of(context)
@@ -1269,166 +1188,6 @@ class _DailySuccessPlannerDetailWidgetState
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 8, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 8, 8),
-                                        child: Text(
-                                          'Daily Time Record',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .subtitle2
-                                              .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                        ),
-                                      ),
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 24,
-                                        borderWidth: 1,
-                                        buttonSize: 40,
-                                        icon: Icon(
-                                          Icons.edit,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24,
-                                        ),
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'DAILY_SUCCESS_PLANNER_DETAIL_edit_ICN_ON');
-                                          logFirebaseEvent(
-                                              'IconButton_Navigate-To');
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditQuarterlyGoalsWidget(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 8, 0),
-                                  child:
-                                      StreamBuilder<List<QuarterlyGoalsRecord>>(
-                                    stream: queryQuarterlyGoalsRecord(
-                                      queryBuilder: (quarterlyGoalsRecord) =>
-                                          quarterlyGoalsRecord
-                                              .where('uid',
-                                                  isEqualTo: currentUserUid)
-                                              .orderBy('date',
-                                                  descending: true),
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 40,
-                                            height: 40,
-                                            child: SpinKitFadingCube(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 40,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<QuarterlyGoalsRecord>
-                                          columnQuarterlyGoalsRecordList =
-                                          snapshot.data;
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: List.generate(
-                                            columnQuarterlyGoalsRecordList
-                                                .length, (columnIndex) {
-                                          final columnQuarterlyGoalsRecord =
-                                              columnQuarterlyGoalsRecordList[
-                                                  columnIndex];
-                                          return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 2),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 10, 0),
-                                                  child: Text(
-                                                    'Time',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Details',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                      );
-                                    },
                                   ),
                                 ),
                               ],

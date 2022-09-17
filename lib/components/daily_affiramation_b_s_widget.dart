@@ -11,11 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DailyAffiramationBSWidget extends StatefulWidget {
   const DailyAffiramationBSWidget({
-    Key key,
+    Key? key,
     this.dailyAffirmationRR,
   }) : super(key: key);
 
-  final DailySuccessPlannerRecord dailyAffirmationRR;
+  final DailySuccessPlannerRecord? dailyAffirmationRR;
 
   @override
   _DailyAffiramationBSWidgetState createState() =>
@@ -23,13 +23,13 @@ class DailyAffiramationBSWidget extends StatefulWidget {
 }
 
 class _DailyAffiramationBSWidgetState extends State<DailyAffiramationBSWidget> {
-  TextEditingController dailyAffirmationTFController;
+  TextEditingController? dailyAffirmationTFController;
 
   @override
   void initState() {
     super.initState();
     dailyAffirmationTFController =
-        TextEditingController(text: widget.dailyAffirmationRR.dailyAffirmatin);
+        TextEditingController(text: widget.dailyAffirmationRR!.dailyAffirmatin);
   }
 
   @override
@@ -111,12 +111,33 @@ class _DailyAffiramationBSWidgetState extends State<DailyAffiramationBSWidget> {
                       topRight: Radius.circular(4.0),
                     ),
                   ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
                   contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                  suffixIcon: dailyAffirmationTFController.text.isNotEmpty
+                  suffixIcon: dailyAffirmationTFController!.text.isNotEmpty
                       ? InkWell(
-                          onTap: () => setState(
-                            () => dailyAffirmationTFController?.clear(),
-                          ),
+                          onTap: () async {
+                            dailyAffirmationTFController?.clear();
+                            setState(() {});
+                          },
                           child: Icon(
                             Icons.clear,
                             color: Color(0xFF757575),
@@ -140,9 +161,9 @@ class _DailyAffiramationBSWidgetState extends State<DailyAffiramationBSWidget> {
 
                   final dailySuccessPlannerUpdateData =
                       createDailySuccessPlannerRecordData(
-                    dailyAffirmatin: dailyAffirmationTFController.text,
+                    dailyAffirmatin: dailyAffirmationTFController!.text,
                   );
-                  await widget.dailyAffirmationRR.reference
+                  await widget.dailyAffirmationRR!.reference
                       .update(dailySuccessPlannerUpdateData);
                   logFirebaseEvent('Button_Navigate-Back');
                   Navigator.pop(context);
@@ -160,7 +181,7 @@ class _DailyAffiramationBSWidgetState extends State<DailyAffiramationBSWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -185,7 +206,7 @@ class _DailyAffiramationBSWidgetState extends State<DailyAffiramationBSWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

@@ -12,15 +12,13 @@ abstract class TransactionCategoriesRecord
   static Serializer<TransactionCategoriesRecord> get serializer =>
       _$transactionCategoriesRecordSerializer;
 
-  @nullable
-  DocumentReference get user;
+  DocumentReference? get user;
 
-  @nullable
-  BuiltList<String> get categoryName;
+  BuiltList<String>? get categoryName;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TransactionCategoriesRecordBuilder builder) =>
       builder..categoryName = ListBuilder();
@@ -31,12 +29,12 @@ abstract class TransactionCategoriesRecord
   static Stream<TransactionCategoriesRecord> getDocument(
           DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<TransactionCategoriesRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   TransactionCategoriesRecord._();
   factory TransactionCategoriesRecord(
@@ -46,14 +44,20 @@ abstract class TransactionCategoriesRecord
   static TransactionCategoriesRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createTransactionCategoriesRecordData({
-  DocumentReference user,
-}) =>
-    serializers.toFirestore(
-        TransactionCategoriesRecord.serializer,
-        TransactionCategoriesRecord((t) => t
-          ..user = user
-          ..categoryName = null));
+  DocumentReference? user,
+}) {
+  final firestoreData = serializers.toFirestore(
+    TransactionCategoriesRecord.serializer,
+    TransactionCategoriesRecord(
+      (t) => t
+        ..user = user
+        ..categoryName = null,
+    ),
+  );
+
+  return firestoreData;
+}

@@ -17,7 +17,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommunityWidget extends StatefulWidget {
-  const CommunityWidget({Key key}) : super(key: key);
+  const CommunityWidget({Key? key}) : super(key: key);
 
   @override
   _CommunityWidgetState createState() => _CommunityWidgetState();
@@ -29,6 +29,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
     'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 0),
@@ -76,23 +77,22 @@ class _CommunityWidgetState extends State<CommunityWidget>
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (!(Theme.of(context).brightness == Brightness.dark) ??
-                      true)
+                  if (!(Theme.of(context).brightness == Brightness.dark))
                     Align(
                       alignment: AlignmentDirectional(0, 0),
                       child: Image.asset(
-                        'assets/images/fgmb_light_mode.png',
+                        'assets/images/Ideal_(2).png',
                         width: 100,
                         height: 40,
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  if (Theme.of(context).brightness == Brightness.dark ?? true)
+                  if (Theme.of(context).brightness == Brightness.dark)
                     Image.asset(
-                      'assets/images/fgmb_logo_dark_mode.png',
+                      'assets/images/Ideal_(2).png',
                       width: 100,
                       height: 40,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                 ],
               ),
@@ -192,7 +192,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                         );
                       }
                       List<UserStoriesRecord> listViewUserStoriesRecordList =
-                          snapshot.data;
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -201,14 +201,14 @@ class _CommunityWidgetState extends State<CommunityWidget>
                           final listViewUserStoriesRecord =
                               listViewUserStoriesRecordList[listViewIndex];
                           return Visibility(
-                            visible: (listViewUserStoriesRecord.dayCompleted) ==
-                                (functions.myDayCondition(getCurrentTimestamp)),
+                            visible: listViewUserStoriesRecord.dayCompleted ==
+                                functions.myDayCondition(getCurrentTimestamp),
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                               child: StreamBuilder<UsersRecord>(
                                 stream: UsersRecord.getDocument(
-                                    listViewUserStoriesRecord.user),
+                                    listViewUserStoriesRecord.user!),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -224,7 +224,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                       ),
                                     );
                                   }
-                                  final columnUsersRecord = snapshot.data;
+                                  final columnUsersRecord = snapshot.data!;
                                   return InkWell(
                                     onTap: () async {
                                       logFirebaseEvent(
@@ -256,11 +256,11 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            columnUsersRecord.photoUrl,
+                                            columnUsersRecord.photoUrl!,
                                           ),
                                         ),
                                         Text(
-                                          columnUsersRecord.displayName,
+                                          columnUsersRecord.displayName!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -303,7 +303,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                       );
                     }
                     List<UserPostRecord> socialFeedUserPostRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     return Column(
                       mainAxisSize: MainAxisSize.max,
                       children:
@@ -315,7 +315,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
                           child: StreamBuilder<UsersRecord>(
                             stream: UsersRecord.getDocument(
-                                socialFeedUserPostRecord.postUser),
+                                socialFeedUserPostRecord.postUser!),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
@@ -331,7 +331,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                   ),
                                 );
                               }
-                              final userPostUsersRecord = snapshot.data;
+                              final userPostUsersRecord = snapshot.data!;
                               return InkWell(
                                 onTap: () async {
                                   logFirebaseEvent(
@@ -389,7 +389,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                       ),
                                                       child: Image.network(
                                                         userPostUsersRecord
-                                                            .photoUrl,
+                                                            .photoUrl!,
                                                       ),
                                                     ),
                                                   ),
@@ -402,7 +402,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                     children: [
                                                       Text(
                                                         userPostUsersRecord
-                                                            .displayName,
+                                                            .displayName!,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -423,7 +423,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                             dateTimeFormat(
                                                                 'relative',
                                                                 socialFeedUserPostRecord
-                                                                    .timePosted),
+                                                                    .timePosted!),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -478,7 +478,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                     .fromSTEB(8, 8, 8, 8),
                                                 child: Text(
                                                   socialFeedUserPostRecord
-                                                      .postDescription,
+                                                      .postDescription!,
                                                   textAlign: TextAlign.start,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -498,7 +498,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                         ),
                                         CachedNetworkImage(
                                           imageUrl: socialFeedUserPostRecord
-                                              .postPhoto,
+                                              .postPhoto!,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           fit: BoxFit.cover,
@@ -526,12 +526,11 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                                   8, 0, 0, 0),
                                                       child: Stack(
                                                         children: [
-                                                          if (!(socialFeedUserPostRecord
-                                                                  .likes
-                                                                  .toList()
-                                                                  .contains(
-                                                                      currentUserReference)) ??
-                                                              true)
+                                                          if (!socialFeedUserPostRecord
+                                                              .likes!
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference))
                                                             InkWell(
                                                               onTap: () async {
                                                                 logFirebaseEvent(
@@ -562,11 +561,10 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                               ),
                                                             ),
                                                           if (socialFeedUserPostRecord
-                                                                  .likes
-                                                                  .toList()
-                                                                  ?.contains(
-                                                                      currentUserReference) ??
-                                                              true)
+                                                              .likes!
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference))
                                                             InkWell(
                                                               onTap: () async {
                                                                 logFirebaseEvent(
@@ -648,7 +646,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                                         valueOrDefault<String>(
                                                           socialFeedUserPostRecord
                                                               .numComments
-                                                              .toString(),
+                                                              ?.toString(),
                                                           '0',
                                                         ),
                                                         style:
@@ -675,7 +673,7 @@ class _CommunityWidgetState extends State<CommunityWidget>
                                   ),
                                 ),
                               ).animated([
-                                animationsMap['containerOnPageLoadAnimation']
+                                animationsMap['containerOnPageLoadAnimation']!
                               ]);
                             },
                           ),

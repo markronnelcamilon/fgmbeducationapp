@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BusinessAllocationWidget extends StatefulWidget {
-  const BusinessAllocationWidget({Key key}) : super(key: key);
+  const BusinessAllocationWidget({Key? key}) : super(key: key);
 
   @override
   _BusinessAllocationWidgetState createState() =>
@@ -20,7 +20,8 @@ class BusinessAllocationWidget extends StatefulWidget {
 }
 
 class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -86,9 +87,9 @@ class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
               );
             }
             List<DailyFinancialPlannerRecord>
-                columnDailyFinancialPlannerRecordList = snapshot.data;
+                columnDailyFinancialPlannerRecordList = snapshot.data!;
             // Return an empty Container when the document does not exist.
-            if (snapshot.data.isEmpty) {
+            if (snapshot.data!.isEmpty) {
               return Container();
             }
             final columnDailyFinancialPlannerRecord =
@@ -267,28 +268,63 @@ class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
                                                                 4.0),
                                                       ),
                                                     ),
+                                                    errorBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                4.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                4.0),
+                                                      ),
+                                                    ),
+                                                    focusedErrorBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                4.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                4.0),
+                                                      ),
+                                                    ),
                                                     contentPadding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 20, 20, 20, 20),
-                                                    suffixIcon:
-                                                        textController
-                                                                .text.isNotEmpty
-                                                            ? InkWell(
-                                                                onTap: () =>
-                                                                    setState(
-                                                                  () => textController
-                                                                      ?.clear(),
-                                                                ),
-                                                                child: Icon(
-                                                                  Icons.clear,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  size: 18,
-                                                                ),
-                                                              )
-                                                            : null,
+                                                    suffixIcon: textController!
+                                                            .text.isNotEmpty
+                                                        ? InkWell(
+                                                            onTap: () async {
+                                                              textController
+                                                                  ?.clear();
+                                                              setState(() {});
+                                                            },
+                                                            child: Icon(
+                                                              Icons.clear,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                              size: 18,
+                                                            ),
+                                                          )
+                                                        : null,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -383,7 +419,7 @@ class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
                           final dailyFinancialTransactionCreateData =
                               createDailyFinancialTransactionRecordData(
                             uid: currentUserUid,
-                            amount: double.parse(textController.text),
+                            amount: double.parse(textController!.text),
                             date: getCurrentTimestamp,
                             businessOrPersonal: 'Business',
                             isMoneyOut: false,
@@ -399,15 +435,15 @@ class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
                               createDailyFinancialPlannerRecordData(
                             allowcationBusiness:
                                 functions.addMoneyToTotalBusiness(
-                                    double.parse(textController.text),
-                                    columnDailyFinancialPlannerRecord
+                                    double.parse(textController!.text),
+                                    columnDailyFinancialPlannerRecord!
                                         .allowcationBusiness),
                             startingBalance: functions.addMoneyToTotal(
-                                double.parse(textController.text),
-                                columnDailyFinancialPlannerRecord
+                                double.parse(textController!.text),
+                                columnDailyFinancialPlannerRecord!
                                     .startingBalance),
                           );
-                          await columnDailyFinancialPlannerRecord.reference
+                          await columnDailyFinancialPlannerRecord!.reference
                               .update(dailyFinancialPlannerUpdateData);
                           logFirebaseEvent('Button_Navigate-Back');
                           Navigator.pop(context);
@@ -426,7 +462,7 @@ class _BusinessAllocationWidgetState extends State<BusinessAllocationWidget> {
                             color: Colors.transparent,
                             width: 1,
                           ),
-                          borderRadius: 12,
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),

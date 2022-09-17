@@ -11,11 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DayChallenge90MenuWidget extends StatefulWidget {
   const DayChallenge90MenuWidget({
-    Key key,
+    Key? key,
     this.dayChallengeDocID,
   }) : super(key: key);
 
-  final String dayChallengeDocID;
+  final String? dayChallengeDocID;
 
   @override
   _DayChallenge90MenuWidgetState createState() =>
@@ -47,9 +47,9 @@ class _DayChallenge90MenuWidgetState extends State<DayChallenge90MenuWidget> {
           );
         }
         List<ChallengeDay21Record> containerChallengeDay21RecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final containerChallengeDay21Record =
@@ -93,14 +93,14 @@ class _DayChallenge90MenuWidgetState extends State<DayChallenge90MenuWidget> {
                     onPressed: () async {
                       logFirebaseEvent(
                           'DAY_CHALLENGE90_MENU_ARCHIVE_BTN_ON_TAP');
-                      if (containerChallengeDay21Record.taskDone) {
+                      if (containerChallengeDay21Record!.taskDone!) {
                         logFirebaseEvent('Button_Backend-Call');
 
                         final challengeDay21UpdateData =
                             createChallengeDay21RecordData(
                           isArchive: true,
                         );
-                        await containerChallengeDay21Record.reference
+                        await containerChallengeDay21Record!.reference
                             .update(challengeDay21UpdateData);
                         logFirebaseEvent('Button_Show-Snack-Bar');
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -131,7 +131,7 @@ class _DayChallenge90MenuWidgetState extends State<DayChallenge90MenuWidget> {
                             createChallengeDay21RecordData(
                           isArchive: false,
                         );
-                        await containerChallengeDay21Record.reference
+                        await containerChallengeDay21Record!.reference
                             .update(challengeDay21UpdateData);
                         logFirebaseEvent('Button_Show-Snack-Bar');
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -170,7 +170,7 @@ class _DayChallenge90MenuWidgetState extends State<DayChallenge90MenuWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

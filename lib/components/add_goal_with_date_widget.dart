@@ -13,11 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddGoalWithDateWidget extends StatefulWidget {
   const AddGoalWithDateWidget({
-    Key key,
+    Key? key,
     this.userID,
   }) : super(key: key);
 
-  final String userID;
+  final String? userID;
 
   @override
   _AddGoalWithDateWidgetState createState() => _AddGoalWithDateWidgetState();
@@ -25,11 +25,12 @@ class AddGoalWithDateWidget extends StatefulWidget {
 
 class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
     with TickerProviderStateMixin {
-  DateTime datePicked;
+  DateTime? datePicked;
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 90),
@@ -45,6 +46,7 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 150,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 20),
@@ -60,6 +62,7 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 150,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 20),
@@ -93,7 +96,7 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
         child: StreamBuilder<UsersRecord>(
-          stream: UsersRecord.getDocument(currentUserReference),
+          stream: UsersRecord.getDocument(currentUserReference!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -108,7 +111,7 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
                 ),
               );
             }
-            final columnUsersRecord = snapshot.data;
+            final columnUsersRecord = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -144,13 +147,13 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
                           onConfirm: (date) {
                             setState(() => datePicked = date);
                           },
-                          currentTime: datePicked,
+                          currentTime: datePicked!,
                           minTime: DateTime(0, 0, 0),
                           locale: LocaleType.values.firstWhere(
                             (l) =>
                                 l.name ==
                                 FFLocalizations.of(context).languageCode,
-                            orElse: null,
+                            orElse: () => LocaleType.en,
                           ),
                         );
                       },
@@ -244,7 +247,8 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
                           ),
                         ),
                       ),
-                    ).animated([animationsMap['containerOnPageLoadAnimation']]),
+                    ).animated(
+                        [animationsMap['containerOnPageLoadAnimation']!]),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 20),
@@ -279,10 +283,10 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 8,
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ).animated(
-                            [animationsMap['buttonOnPageLoadAnimation1']]),
+                            [animationsMap['buttonOnPageLoadAnimation1']!]),
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
@@ -317,10 +321,10 @@ class _AddGoalWithDateWidgetState extends State<AddGoalWithDateWidget>
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 8,
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ).animated(
-                            [animationsMap['buttonOnPageLoadAnimation2']]),
+                            [animationsMap['buttonOnPageLoadAnimation2']!]),
                       ],
                     ),
                   ),

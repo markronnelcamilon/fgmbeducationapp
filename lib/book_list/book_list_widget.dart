@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class BookListWidget extends StatefulWidget {
-  const BookListWidget({Key key}) : super(key: key);
+  const BookListWidget({Key? key}) : super(key: key);
 
   @override
   _BookListWidgetState createState() => _BookListWidgetState();
@@ -123,7 +123,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                           );
                         }
                         List<BookListRecord> listViewBookListRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.horizontal,
@@ -140,7 +140,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                                       'BOOK_LIST_PAGE_Container_zwatbqhf_ON_TAP');
                                   logFirebaseEvent('Container_Launch-U-R-L');
                                   await launchURL(
-                                      listViewBookListRecord.amazonLink);
+                                      listViewBookListRecord.amazonLink!);
                                 },
                                 child: Container(
                                   width: 100,
@@ -168,26 +168,27 @@ class _BookListWidgetState extends State<BookListWidget> {
                                                 image: CachedNetworkImage(
                                                   imageUrl:
                                                       listViewBookListRecord
-                                                          .bookImage,
+                                                          .bookImage!,
                                                   fit: BoxFit.contain,
                                                 ),
                                                 allowRotation: false,
                                                 tag: listViewBookListRecord
-                                                    .bookImage,
+                                                    .bookImage!,
                                                 useHeroAnimation: true,
                                               ),
                                             ),
                                           );
                                         },
                                         child: Hero(
-                                          tag: listViewBookListRecord.bookImage,
+                                          tag:
+                                              listViewBookListRecord.bookImage!,
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: CachedNetworkImage(
                                               imageUrl: listViewBookListRecord
-                                                  .bookImage,
+                                                  .bookImage!,
                                               width: 100,
                                               height: 140,
                                               fit: BoxFit.cover,
@@ -196,7 +197,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                                         ),
                                       ),
                                       Text(
-                                        listViewBookListRecord.bookName,
+                                        listViewBookListRecord.bookName!,
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -210,7 +211,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                                             ),
                                       ),
                                       Text(
-                                        listViewBookListRecord.bookAuthor,
+                                        listViewBookListRecord.bookAuthor!,
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -300,7 +301,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                           );
                         }
                         List<BookListRecord> listViewBookListRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.horizontal,
@@ -317,7 +318,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                                       'BOOK_LIST_PAGE_Container_le0gp2g3_ON_TAP');
                                   logFirebaseEvent('Container_Launch-U-R-L');
                                   await launchURL(
-                                      listViewBookListRecord.amazonLink);
+                                      listViewBookListRecord.amazonLink!);
                                 },
                                 child: Container(
                                   width: 100,
@@ -333,14 +334,14 @@ class _BookListWidgetState extends State<BookListWidget> {
                                         borderRadius: BorderRadius.circular(10),
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                              listViewBookListRecord.bookImage,
+                                              listViewBookListRecord.bookImage!,
                                           width: 100,
                                           height: 140,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       AutoSizeText(
-                                        listViewBookListRecord.bookName,
+                                        listViewBookListRecord.bookName!,
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -354,7 +355,7 @@ class _BookListWidgetState extends State<BookListWidget> {
                                             ),
                                       ),
                                       Text(
-                                        listViewBookListRecord.bookAuthor,
+                                        listViewBookListRecord.bookAuthor!,
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1

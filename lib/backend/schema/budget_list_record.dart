@@ -11,15 +11,13 @@ abstract class BudgetListRecord
   static Serializer<BudgetListRecord> get serializer =>
       _$budgetListRecordSerializer;
 
-  @nullable
-  BuiltList<String> get budget;
+  BuiltList<String>? get budget;
 
-  @nullable
-  DocumentReference get budgetUser;
+  DocumentReference? get budgetUser;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(BudgetListRecordBuilder builder) =>
       builder..budget = ListBuilder();
@@ -29,11 +27,11 @@ abstract class BudgetListRecord
 
   static Stream<BudgetListRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<BudgetListRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   BudgetListRecord._();
   factory BudgetListRecord([void Function(BudgetListRecordBuilder) updates]) =
@@ -42,14 +40,20 @@ abstract class BudgetListRecord
   static BudgetListRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createBudgetListRecordData({
-  DocumentReference budgetUser,
-}) =>
-    serializers.toFirestore(
-        BudgetListRecord.serializer,
-        BudgetListRecord((b) => b
-          ..budget = null
-          ..budgetUser = budgetUser));
+  DocumentReference? budgetUser,
+}) {
+  final firestoreData = serializers.toFirestore(
+    BudgetListRecord.serializer,
+    BudgetListRecord(
+      (b) => b
+        ..budget = null
+        ..budgetUser = budgetUser,
+    ),
+  );
+
+  return firestoreData;
+}

@@ -11,18 +11,15 @@ abstract class GoalBookRecord
   static Serializer<GoalBookRecord> get serializer =>
       _$goalBookRecordSerializer;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
-  DateTime get dateCreated;
+  DateTime? get dateCreated;
 
-  @nullable
-  String get goalBookID;
+  String? get goalBookID;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(GoalBookRecordBuilder builder) => builder
     ..uid = ''
@@ -33,11 +30,11 @@ abstract class GoalBookRecord
 
   static Stream<GoalBookRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<GoalBookRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   GoalBookRecord._();
   factory GoalBookRecord([void Function(GoalBookRecordBuilder) updates]) =
@@ -46,17 +43,23 @@ abstract class GoalBookRecord
   static GoalBookRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createGoalBookRecordData({
-  String uid,
-  DateTime dateCreated,
-  String goalBookID,
-}) =>
-    serializers.toFirestore(
-        GoalBookRecord.serializer,
-        GoalBookRecord((g) => g
-          ..uid = uid
-          ..dateCreated = dateCreated
-          ..goalBookID = goalBookID));
+  String? uid,
+  DateTime? dateCreated,
+  String? goalBookID,
+}) {
+  final firestoreData = serializers.toFirestore(
+    GoalBookRecord.serializer,
+    GoalBookRecord(
+      (g) => g
+        ..uid = uid
+        ..dateCreated = dateCreated
+        ..goalBookID = goalBookID,
+    ),
+  );
+
+  return firestoreData;
+}

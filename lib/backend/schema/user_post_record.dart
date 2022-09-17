@@ -11,33 +11,25 @@ abstract class UserPostRecord
   static Serializer<UserPostRecord> get serializer =>
       _$userPostRecordSerializer;
 
-  @nullable
-  String get postPhoto;
+  String? get postPhoto;
 
-  @nullable
-  String get postTitle;
+  String? get postTitle;
 
-  @nullable
-  String get postDescription;
+  String? get postDescription;
 
-  @nullable
-  DocumentReference get postUser;
+  DocumentReference? get postUser;
 
-  @nullable
-  DateTime get timePosted;
+  DateTime? get timePosted;
 
-  @nullable
-  BuiltList<DocumentReference> get likes;
+  BuiltList<DocumentReference>? get likes;
 
-  @nullable
-  int get numComments;
+  int? get numComments;
 
-  @nullable
-  bool get postOwner;
+  bool? get postOwner;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UserPostRecordBuilder builder) => builder
     ..postPhoto = ''
@@ -52,11 +44,11 @@ abstract class UserPostRecord
 
   static Stream<UserPostRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<UserPostRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UserPostRecord._();
   factory UserPostRecord([void Function(UserPostRecordBuilder) updates]) =
@@ -65,26 +57,32 @@ abstract class UserPostRecord
   static UserPostRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createUserPostRecordData({
-  String postPhoto,
-  String postTitle,
-  String postDescription,
-  DocumentReference postUser,
-  DateTime timePosted,
-  int numComments,
-  bool postOwner,
-}) =>
-    serializers.toFirestore(
-        UserPostRecord.serializer,
-        UserPostRecord((u) => u
-          ..postPhoto = postPhoto
-          ..postTitle = postTitle
-          ..postDescription = postDescription
-          ..postUser = postUser
-          ..timePosted = timePosted
-          ..likes = null
-          ..numComments = numComments
-          ..postOwner = postOwner));
+  String? postPhoto,
+  String? postTitle,
+  String? postDescription,
+  DocumentReference? postUser,
+  DateTime? timePosted,
+  int? numComments,
+  bool? postOwner,
+}) {
+  final firestoreData = serializers.toFirestore(
+    UserPostRecord.serializer,
+    UserPostRecord(
+      (u) => u
+        ..postPhoto = postPhoto
+        ..postTitle = postTitle
+        ..postDescription = postDescription
+        ..postUser = postUser
+        ..timePosted = timePosted
+        ..likes = null
+        ..numComments = numComments
+        ..postOwner = postOwner,
+    ),
+  );
+
+  return firestoreData;
+}

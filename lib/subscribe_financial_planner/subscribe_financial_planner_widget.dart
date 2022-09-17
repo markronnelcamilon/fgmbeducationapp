@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribeFinancialPlannerWidget extends StatefulWidget {
-  const SubscribeFinancialPlannerWidget({Key key}) : super(key: key);
+  const SubscribeFinancialPlannerWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribeFinancialPlannerWidgetState createState() =>
@@ -84,9 +84,10 @@ class _SubscribeFinancialPlannerWidgetState
                   ),
                 );
               }
-              List<SystemDataRecord> columnSystemDataRecordList = snapshot.data;
+              List<SystemDataRecord> columnSystemDataRecordList =
+                  snapshot.data!;
               // Return an empty Container when the document does not exist.
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data!.isEmpty) {
                 return Container();
               }
               final columnSystemDataRecord =
@@ -120,7 +121,7 @@ class _SubscribeFinancialPlannerWidgetState
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                     child: Text(
-                      columnSystemDataRecord.financialPlannerDesc,
+                      columnSystemDataRecord!.financialPlannerDesc!,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -193,7 +194,7 @@ class _SubscribeFinancialPlannerWidgetState
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 12,
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
@@ -229,7 +230,7 @@ class _SubscribeFinancialPlannerWidgetState
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 12,
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),

@@ -13,17 +13,20 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddBooksWidget extends StatefulWidget {
-  const AddBooksWidget({Key key}) : super(key: key);
+  const AddBooksWidget({Key? key}) : super(key: key);
 
   @override
   _AddBooksWidgetState createState() => _AddBooksWidgetState();
 }
 
 class _AddBooksWidgetState extends State<AddBooksWidget> {
+  TextEditingController? bookAuthorController;
+
+  TextEditingController? bookNameController;
+
+  TextEditingController? bookLinkController;
+
   String uploadedFileUrl = '';
-  TextEditingController bookAuthorController;
-  TextEditingController bookNameController;
-  TextEditingController bookLinkController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -110,11 +113,11 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                                           await uploadData(
                                               m.storagePath, m.bytes))))
                                   .where((u) => u != null)
+                                  .map((u) => u!)
                                   .toList();
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
-                              if (downloadUrls != null &&
-                                  downloadUrls.length == selectedMedia.length) {
+                              if (downloadUrls.length == selectedMedia.length) {
                                 setState(
                                     () => uploadedFileUrl = downloadUrls.first);
                                 showUploadMessage(
@@ -187,11 +190,26 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                suffixIcon: bookNameController.text.isNotEmpty
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: bookNameController!.text.isNotEmpty
                                     ? InkWell(
-                                        onTap: () => setState(
-                                          () => bookNameController?.clear(),
-                                        ),
+                                        onTap: () async {
+                                          bookNameController?.clear();
+                                          setState(() {});
+                                        },
                                         child: Icon(
                                           Icons.clear,
                                           color: FlutterFlowTheme.of(context)
@@ -239,11 +257,27 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                suffixIcon: bookAuthorController.text.isNotEmpty
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: bookAuthorController!
+                                        .text.isNotEmpty
                                     ? InkWell(
-                                        onTap: () => setState(
-                                          () => bookAuthorController?.clear(),
-                                        ),
+                                        onTap: () async {
+                                          bookAuthorController?.clear();
+                                          setState(() {});
+                                        },
                                         child: Icon(
                                           Icons.clear,
                                           color: FlutterFlowTheme.of(context)
@@ -291,11 +325,26 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                suffixIcon: bookLinkController.text.isNotEmpty
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: bookLinkController!.text.isNotEmpty
                                     ? InkWell(
-                                        onTap: () => setState(
-                                          () => bookLinkController?.clear(),
-                                        ),
+                                        onTap: () async {
+                                          bookLinkController?.clear();
+                                          setState(() {});
+                                        },
                                         child: Icon(
                                           Icons.clear,
                                           color: FlutterFlowTheme.of(context)
@@ -330,9 +379,9 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                 logFirebaseEvent('Button_Backend-Call');
 
                 final bookListCreateData = createBookListRecordData(
-                  bookName: bookNameController.text,
-                  bookAuthor: bookAuthorController.text,
-                  amazonLink: bookLinkController.text,
+                  bookName: bookNameController!.text,
+                  bookAuthor: bookAuthorController!.text,
+                  amazonLink: bookLinkController!.text,
                   bookImage: uploadedFileUrl,
                 );
                 await BookListRecord.collection.doc().set(bookListCreateData);
@@ -367,7 +416,7 @@ class _AddBooksWidgetState extends State<AddBooksWidget> {
                   color: Colors.transparent,
                   width: 1,
                 ),
-                borderRadius: 8,
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),

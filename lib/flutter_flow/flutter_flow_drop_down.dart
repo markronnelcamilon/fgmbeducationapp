@@ -5,29 +5,29 @@ class FlutterFlowDropDown extends StatefulWidget {
   const FlutterFlowDropDown({
     this.initialOption,
     this.hintText,
-    @required this.options,
-    @required this.onChanged,
+    required this.options,
+    required this.onChanged,
     this.icon,
     this.width,
     this.height,
     this.fillColor,
-    this.textStyle,
-    this.elevation,
-    this.borderWidth,
-    this.borderRadius,
-    this.borderColor,
-    this.margin,
+    required this.textStyle,
+    required this.elevation,
+    required this.borderWidth,
+    required this.borderRadius,
+    required this.borderColor,
+    required this.margin,
     this.hidesUnderline = false,
   });
 
-  final String initialOption;
-  final String hintText;
+  final String? initialOption;
+  final String? hintText;
   final List<String> options;
-  final Function(String) onChanged;
-  final Widget icon;
-  final double width;
-  final double height;
-  final Color fillColor;
+  final Function(String?) onChanged;
+  final Widget? icon;
+  final double? width;
+  final double? height;
+  final Color? fillColor;
   final TextStyle textStyle;
   final double elevation;
   final double borderWidth;
@@ -41,7 +41,7 @@ class FlutterFlowDropDown extends StatefulWidget {
 }
 
 class _FlutterFlowDropDownState extends State<FlutterFlowDropDown> {
-  String dropDownValue;
+  String? dropDownValue;
   List<String> get effectiveOptions =>
       widget.options.isEmpty ? ['[Option]'] : widget.options;
 
@@ -56,7 +56,7 @@ class _FlutterFlowDropDownState extends State<FlutterFlowDropDown> {
     final dropdownWidget = DropdownButton<String>(
       value: effectiveOptions.contains(dropDownValue) ? dropDownValue : null,
       hint: widget.hintText != null
-          ? Text(widget.hintText, style: widget.textStyle)
+          ? Text(widget.hintText!, style: widget.textStyle)
           : null,
       items: effectiveOptions
           .map((e) => DropdownMenuItem(

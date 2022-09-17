@@ -16,7 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CompleteProfileWidget extends StatefulWidget {
-  const CompleteProfileWidget({Key key}) : super(key: key);
+  const CompleteProfileWidget({Key? key}) : super(key: key);
 
   @override
   _CompleteProfileWidgetState createState() => _CompleteProfileWidgetState();
@@ -24,17 +24,21 @@ class CompleteProfileWidget extends StatefulWidget {
 
 class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
     with TickerProviderStateMixin {
-  DateTime datePicked;
+  TextEditingController? yourAddressController;
+
+  TextEditingController? yourNameController;
+
+  TextEditingController? yourTitleController;
+
   String uploadedFileUrl = '';
-  TextEditingController yourTitleController;
-  TextEditingController yourNameController;
-  TextEditingController yourAddressController;
+  DateTime? datePicked;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'circleImageOnPageLoadAnimation': AnimationInfo(
       curve: Curves.bounceOut,
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 19),
@@ -49,6 +53,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 50,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 20),
@@ -64,6 +69,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 400,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 40),
@@ -152,11 +158,11 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                           await uploadData(
                                               m.storagePath, m.bytes))))
                                   .where((u) => u != null)
+                                  .map((u) => u!)
                                   .toList();
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
-                              if (downloadUrls != null &&
-                                  downloadUrls.length == selectedMedia.length) {
+                              if (downloadUrls.length == selectedMedia.length) {
                                 setState(
                                     () => uploadedFileUrl = downloadUrls.first);
                                 showUploadMessage(
@@ -187,7 +193,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                           ),
                         ).animated(
-                            [animationsMap['circleImageOnPageLoadAnimation']]),
+                            [animationsMap['circleImageOnPageLoadAnimation']!]),
                       ),
                       Text(
                         'Upload a photo for us to easily identify you.',
@@ -195,7 +201,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.of(context).primaryText,
                             ),
-                      ).animated([animationsMap['textOnPageLoadAnimation']]),
+                      ).animated([animationsMap['textOnPageLoadAnimation']!]),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                         child: TextFormField(
@@ -228,6 +234,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -255,7 +275,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                     ),
-                            hintText: 'Please enter a valid number...',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -275,6 +294,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -285,7 +318,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               .bodyText1
                               .override(
                                 fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
                               ),
                         ),
                       ),
@@ -302,7 +336,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                     ),
-                            hintText: 'Your Address',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -318,6 +351,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).alternate,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -398,7 +445,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                           l.name ==
                                           FFLocalizations.of(context)
                                               .languageCode,
-                                      orElse: null,
+                                      orElse: () => LocaleType.en,
                                     ),
                                   );
                                 },
@@ -410,7 +457,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                         child: StreamBuilder<UsersRecord>(
-                          stream: UsersRecord.getDocument(currentUserReference),
+                          stream:
+                              UsersRecord.getDocument(currentUserReference!),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -426,7 +474,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                 ),
                               );
                             }
-                            final buttonLoginUsersRecord = snapshot.data;
+                            final buttonLoginUsersRecord = snapshot.data!;
                             return FFButtonWidget(
                               onPressed: () async {
                                 logFirebaseEvent(
@@ -434,10 +482,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                 logFirebaseEvent('Button-Login_Backend-Call');
 
                                 final usersUpdateData = createUsersRecordData(
-                                  displayName: yourNameController.text,
-                                  userTitle: yourTitleController.text,
+                                  displayName: yourNameController!.text,
+                                  userTitle: yourTitleController!.text,
                                   birthday: datePicked,
-                                  address: yourAddressController.text,
+                                  address: yourAddressController!.text,
                                   photoUrl: uploadedFileUrl,
                                 );
                                 await buttonLoginUsersRecord.reference
@@ -468,7 +516,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 30,
+                                borderRadius: BorderRadius.circular(30),
                               ),
                             );
                           },
@@ -477,7 +525,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: StreamBuilder<UsersRecord>(
-                          stream: UsersRecord.getDocument(currentUserReference),
+                          stream:
+                              UsersRecord.getDocument(currentUserReference!),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -493,7 +542,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                 ),
                               );
                             }
-                            final buttonLoginUsersRecord = snapshot.data;
+                            final buttonLoginUsersRecord = snapshot.data!;
                             return FFButtonWidget(
                               onPressed: () async {
                                 logFirebaseEvent(
@@ -523,10 +572,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 30,
+                                borderRadius: BorderRadius.circular(30),
                               ),
                             ).animated(
-                                [animationsMap['buttonOnPageLoadAnimation']]);
+                                [animationsMap['buttonOnPageLoadAnimation']!]);
                           },
                         ),
                       ),

@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 
 // Begin custom action code
 Future addToTotalNoOfNeeds(
-  double value,
-  double totalNoNeeds,
+  double? value,
+  double? totalNoNeeds,
 ) async {
-  var total = value + totalNoNeeds;
+  var total = value! + totalNoNeeds!;
   return total;
 }

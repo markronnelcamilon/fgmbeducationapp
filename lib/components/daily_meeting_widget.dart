@@ -13,19 +13,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DailyMeetingWidget extends StatefulWidget {
   const DailyMeetingWidget({
-    Key key,
-    this.date,
+    Key? key,
+    this.dailySuccessPlannerRR,
   }) : super(key: key);
 
-  final DateTime date;
+  final DocumentReference? dailySuccessPlannerRR;
 
   @override
   _DailyMeetingWidgetState createState() => _DailyMeetingWidgetState();
 }
 
 class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
-  DateTime datePicked;
-  TextEditingController meetingTFController;
+  TextEditingController? meetingTFController;
+
+  DateTime? datePicked;
 
   @override
   void initState() {
@@ -85,15 +86,30 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                  child: Text(
-                    dateTimeFormat('jm', datePicked),
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                      child: Text(
+                        'Time',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                      child: Text(
+                        dateTimeFormat('jm', datePicked),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
                 FlutterFlowIconButton(
                   borderColor: Colors.transparent,
@@ -118,7 +134,7 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
                       locale: LocaleType.values.firstWhere(
                         (l) =>
                             l.name == FFLocalizations.of(context).languageCode,
-                        orElse: null,
+                        orElse: () => LocaleType.en,
                       ),
                     );
                   },
@@ -144,27 +160,36 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
                         color: FlutterFlowTheme.of(context).alternate,
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).alternate,
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
                       ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                    suffixIcon: meetingTFController.text.isNotEmpty
+                    suffixIcon: meetingTFController!.text.isNotEmpty
                         ? InkWell(
-                            onTap: () => setState(
-                              () => meetingTFController?.clear(),
-                            ),
+                            onTap: () async {
+                              meetingTFController?.clear();
+                              setState(() {});
+                            },
                             child: Icon(
                               Icons.clear,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -188,12 +213,22 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
                   logFirebaseEvent('Button_Backend-Call');
 
                   final meetingsCreateData = createMeetingsRecordData(
-                    userId: currentUserUid,
-                    dateTime: datePicked,
-                    meetingDetails: meetingTFController.text,
-                    date: widget.date,
+                    time: datePicked,
+                    meetingDetails: meetingTFController!.text,
                   );
-                  await MeetingsRecord.collection.doc().set(meetingsCreateData);
+                  await MeetingsRecord.createDoc(widget.dailySuccessPlannerRR!)
+                      .set(meetingsCreateData);
+                  logFirebaseEvent('Button_Show-Snack-Bar');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Meeting successfully added',
+                        style: TextStyle(),
+                      ),
+                      duration: Duration(milliseconds: 4000),
+                      backgroundColor: Color(0x00000000),
+                    ),
+                  );
                   logFirebaseEvent('Button_Navigate-Back');
                   Navigator.pop(context);
                 },
@@ -210,7 +245,7 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -235,7 +270,7 @@ class _DailyMeetingWidgetState extends State<DailyMeetingWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

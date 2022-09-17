@@ -73,38 +73,6 @@
       ]
     },
     {
-      "collectionGroup": "quarterly_goals",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "date",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "meetings",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "userId",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "date",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "dateTime",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "daily_financial_transaction",
       "queryScope": "COLLECTION",
       "fields": [

@@ -11,15 +11,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GoalDetailWidget extends StatefulWidget {
   const GoalDetailWidget({
-    Key key,
+    Key? key,
     this.userID,
     this.goalID,
     this.date,
   }) : super(key: key);
 
-  final String userID;
-  final String goalID;
-  final DateTime date;
+  final String? userID;
+  final String? goalID;
+  final DateTime? date;
 
   @override
   _GoalDetailWidgetState createState() => _GoalDetailWidgetState();
@@ -120,7 +120,7 @@ class _GoalDetailWidgetState extends State<GoalDetailWidget> {
               ),
             );
           }
-          List<GoalsRecord> mainContainerGoalsRecordList = snapshot.data;
+          List<GoalsRecord> mainContainerGoalsRecordList = snapshot.data!;
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -145,14 +145,14 @@ class _GoalDetailWidgetState extends State<GoalDetailWidget> {
                   ],
                   child: ListTile(
                     title: Text(
-                      mainContainerGoalsRecord.goalDetails,
+                      mainContainerGoalsRecord.goalDetails!,
                       style: FlutterFlowTheme.of(context).subtitle1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                     ),
                     subtitle: Text(
-                      dateTimeFormat('yMMMd', mainContainerGoalsRecord.date),
+                      dateTimeFormat('yMMMd', mainContainerGoalsRecord.date!),
                       style: FlutterFlowTheme.of(context).subtitle2.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).secondaryText,

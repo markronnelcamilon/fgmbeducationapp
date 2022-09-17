@@ -12,7 +12,7 @@ Future quarterlyGoals() async {
   // Add your function code here!
   final firestoreInstance = FirebaseFirestore.instance;
   final firebaseAuth = FirebaseAuth.instance;
-  final uid = firebaseAuth.currentUser.uid.toString();
+  final uid = firebaseAuth.currentUser!.uid.toString();
 
   for (int i = 1; i <= 4; i++) {
     firestoreInstance.collection("quarterly_goals").add({

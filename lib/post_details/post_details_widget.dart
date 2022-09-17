@@ -14,20 +14,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PostDetailsWidget extends StatefulWidget {
   const PostDetailsWidget({
-    Key key,
+    Key? key,
     this.postReference,
     this.userRecord,
   }) : super(key: key);
 
-  final DocumentReference postReference;
-  final UsersRecord userRecord;
+  final DocumentReference? postReference;
+  final UsersRecord? userRecord;
 
   @override
   _PostDetailsWidgetState createState() => _PostDetailsWidgetState();
 }
 
 class _PostDetailsWidgetState extends State<PostDetailsWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,7 +41,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserPostRecord>(
-      stream: UserPostRecord.getDocument(widget.postReference),
+      stream: UserPostRecord.getDocument(widget.postReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -55,7 +56,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
             ),
           );
         }
-        final postDetailsUserPostRecord = snapshot.data;
+        final postDetailsUserPostRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -80,7 +81,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Image.network(
-                                  postDetailsUserPostRecord.postPhoto,
+                                  postDetailsUserPostRecord.postPhoto!,
                                   width: MediaQuery.of(context).size.width,
                                   height: 430,
                                   fit: BoxFit.cover,
@@ -119,9 +120,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                         },
                                       ),
                                     ),
-                                    if (!(postDetailsUserPostRecord
-                                            .postOwner) ??
-                                        true)
+                                    if (!postDetailsUserPostRecord.postOwner!)
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
                                         borderRadius: 30,
@@ -185,7 +184,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      widget.userRecord.photoUrl,
+                                      widget.userRecord!.photoUrl!,
                                       fit: BoxFit.fitWidth,
                                     ),
                                   ),
@@ -197,7 +196,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        widget.userRecord.displayName,
+                                        widget.userRecord!.displayName!,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -211,7 +210,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                         dateTimeFormat(
                                             'relative',
                                             postDetailsUserPostRecord
-                                                .timePosted),
+                                                .timePosted!),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -235,7 +234,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    postDetailsUserPostRecord.postDescription,
+                                    postDetailsUserPostRecord.postDescription!,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -270,7 +269,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                   currentUserReference;
                                               final likesUpdate =
                                                   postDetailsUserPostRecord
-                                                          .likes
+                                                          .likes!
                                                           .toList()
                                                           .contains(
                                                               likesElement)
@@ -286,7 +285,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                   .update(userPostUpdateData);
                                             },
                                             value: postDetailsUserPostRecord
-                                                .likes
+                                                .likes!
                                                 .toList()
                                                 .contains(currentUserReference),
                                             onIcon: Icon(
@@ -336,7 +335,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                   4, 0, 0, 0),
                                           child: Text(
                                             postDetailsUserPostRecord
-                                                .numComments
+                                                .numComments!
                                                 .toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
@@ -429,7 +428,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                       }
                                       List<PostCommentsRecord>
                                           columnPostCommentsRecordList =
-                                          snapshot.data;
+                                          snapshot.data!;
                                       return Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: List.generate(
@@ -445,7 +444,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                             child: StreamBuilder<UsersRecord>(
                                               stream: UsersRecord.getDocument(
                                                   columnPostCommentsRecord
-                                                      .user),
+                                                      .user!),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
@@ -464,7 +463,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                   );
                                                 }
                                                 final containerUsersRecord =
-                                                    snapshot.data;
+                                                    snapshot.data!;
                                                 return Container(
                                                   width: MediaQuery.of(context)
                                                       .size
@@ -508,7 +507,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                           ),
                                                           child: Image.network(
                                                             containerUsersRecord
-                                                                .photoUrl,
+                                                                .photoUrl!,
                                                           ),
                                                         ),
                                                         Padding(
@@ -544,7 +543,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                               ),
                                                               Text(
                                                                 columnPostCommentsRecord
-                                                                    .comment,
+                                                                    .comment!,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
@@ -587,7 +586,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                                                     dateTimeFormat(
                                                                         'relative',
                                                                         columnPostCommentsRecord
-                                                                            .timePosted),
+                                                                            .timePosted!),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -666,6 +665,26 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
@@ -686,7 +705,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                   final postCommentsCreateData =
                                       createPostCommentsRecordData(
                                     timePosted: getCurrentTimestamp,
-                                    comment: textController.text,
+                                    comment: textController!.text,
                                     user: currentUserReference,
                                     post: postDetailsUserPostRecord.reference,
                                   );
@@ -719,7 +738,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget> {
                                     color: Colors.transparent,
                                     width: 1,
                                   ),
-                                  borderRadius: 12,
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                             ],

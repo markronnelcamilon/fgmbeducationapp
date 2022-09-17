@@ -13,11 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditQuarterlyGoalsWidget extends StatefulWidget {
   const EditQuarterlyGoalsWidget({
-    Key key,
+    Key? key,
     this.date,
   }) : super(key: key);
 
-  final DateTime date;
+  final DateTime? date;
 
   @override
   _EditQuarterlyGoalsWidgetState createState() =>
@@ -25,8 +25,9 @@ class EditQuarterlyGoalsWidget extends StatefulWidget {
 }
 
 class _EditQuarterlyGoalsWidgetState extends State<EditQuarterlyGoalsWidget> {
-  String quarterDropDownValue;
-  TextEditingController textController;
+  TextEditingController? textController;
+
+  String? quarterDropDownValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -134,16 +135,31 @@ class _EditQuarterlyGoalsWidgetState extends State<EditQuarterlyGoalsWidget> {
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         filled: true,
                         fillColor:
                             FlutterFlowTheme.of(context).secondaryBackground,
                         contentPadding:
                             EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                        suffixIcon: textController.text.isNotEmpty
+                        suffixIcon: textController!.text.isNotEmpty
                             ? InkWell(
-                                onTap: () => setState(
-                                  () => textController?.clear(),
-                                ),
+                                onTap: () async {
+                                  textController?.clear();
+                                  setState(() {});
+                                },
                                 child: Icon(
                                   Icons.clear,
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -172,7 +188,7 @@ class _EditQuarterlyGoalsWidgetState extends State<EditQuarterlyGoalsWidget> {
                         final quarterlyGoalsCreateData =
                             createQuarterlyGoalsRecordData(
                           uid: currentUserUid,
-                          goals: textController.text,
+                          goals: textController!.text,
                           label: quarterDropDownValue,
                           date: getCurrentTimestamp,
                         );
@@ -196,7 +212,7 @@ class _EditQuarterlyGoalsWidgetState extends State<EditQuarterlyGoalsWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 12,
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),

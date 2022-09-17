@@ -10,16 +10,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageWidget extends StatefulWidget {
-  const LoginPageWidget({Key key}) : super(key: key);
+  const LoginPageWidget({Key? key}) : super(key: key);
 
   @override
   _LoginPageWidgetState createState() => _LoginPageWidgetState();
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-  TextEditingController emailAddressLoginController;
-  TextEditingController passwordLoginController;
-  bool passwordLoginVisibility;
+  TextEditingController? emailAddressLoginController;
+
+  TextEditingController? passwordLoginController;
+
+  late bool passwordLoginVisibility;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -61,8 +64,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           Stack(
                             children: [
                               if (Theme.of(context).brightness ==
-                                      Brightness.dark ??
-                                  true)
+                                  Brightness.dark)
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: 250,
@@ -74,16 +76,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20, 60, 20, 60),
                                     child: Image.asset(
-                                      'assets/images/9hsjc_2.png',
-                                      width: 130,
-                                      height: 130,
-                                      fit: BoxFit.contain,
+                                      'assets/images/Ideal_(4).png',
+                                      width: 120,
+                                      height: 120,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
                               if (!(Theme.of(context).brightness ==
-                                      Brightness.dark) ??
-                                  true)
+                                  Brightness.dark))
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: 250,
@@ -93,12 +94,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 60, 20, 60),
+                                        20, 60, 20, 0),
                                     child: Image.asset(
-                                      'assets/images/FGMB_DarkMode.png',
-                                      width: 130,
-                                      height: 130,
-                                      fit: BoxFit.contain,
+                                      'assets/images/Ideal_(2).png',
+                                      width: 120,
+                                      height: 120,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
@@ -185,6 +186,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   filled: true,
                                   fillColor: FlutterFlowTheme.of(context)
                                       .primaryBackground,
@@ -235,6 +250,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -308,7 +337,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         color: Colors.transparent,
                                         width: 1,
                                       ),
-                                      borderRadius: 8,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
                                 ),
@@ -320,8 +349,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
                                     final user = await signInWithEmail(
                                       context,
-                                      emailAddressLoginController.text,
-                                      passwordLoginController.text,
+                                      emailAddressLoginController!.text,
+                                      passwordLoginController!.text,
                                     );
                                     if (user == null) {
                                       return;
@@ -354,7 +383,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       color: Colors.transparent,
                                       width: 1,
                                     ),
-                                    borderRadius: 30,
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                 ),
                               ],
@@ -425,7 +454,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
-                                          borderRadius: 12,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
                                       ),
                                     ],

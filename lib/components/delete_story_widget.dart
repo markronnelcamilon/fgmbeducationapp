@@ -9,11 +9,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DeleteStoryWidget extends StatefulWidget {
   const DeleteStoryWidget({
-    Key key,
+    Key? key,
     this.storyDetails,
   }) : super(key: key);
 
-  final UserStoriesRecord storyDetails;
+  final UserStoriesRecord? storyDetails;
 
   @override
   _DeleteStoryWidgetState createState() => _DeleteStoryWidgetState();
@@ -52,7 +52,7 @@ class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
                 onPressed: () async {
                   logFirebaseEvent('DELETE_STORY_DELETE_STORY_BTN_ON_TAP');
                   logFirebaseEvent('Button_Backend-Call');
-                  await widget.storyDetails.reference.delete();
+                  await widget.storyDetails!.reference.delete();
                   logFirebaseEvent('Button_Navigate-To');
                   await Navigator.push(
                     context,
@@ -75,7 +75,7 @@ class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -100,7 +100,7 @@ class _DeleteStoryWidgetState extends State<DeleteStoryWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

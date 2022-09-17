@@ -11,42 +11,31 @@ abstract class UserStoriesRecord
   static Serializer<UserStoriesRecord> get serializer =>
       _$userStoriesRecordSerializer;
 
-  @nullable
-  DocumentReference get user;
+  DocumentReference? get user;
 
-  @nullable
-  String get storyVideo;
+  String? get storyVideo;
 
-  @nullable
-  String get storyPhoto;
+  String? get storyPhoto;
 
-  @nullable
-  String get storyDescription;
+  String? get storyDescription;
 
-  @nullable
-  DateTime get storyPostedAt;
+  DateTime? get storyPostedAt;
 
-  @nullable
-  BuiltList<DocumentReference> get likes;
+  BuiltList<DocumentReference>? get likes;
 
-  @nullable
-  int get numComments;
+  int? get numComments;
 
-  @nullable
-  bool get isOwner;
+  bool? get isOwner;
 
-  @nullable
-  String get privacy;
+  String? get privacy;
 
-  @nullable
-  DateTime get storyEndAt;
+  DateTime? get storyEndAt;
 
-  @nullable
-  bool get dayCompleted;
+  bool? get dayCompleted;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UserStoriesRecordBuilder builder) => builder
     ..storyVideo = ''
@@ -63,11 +52,11 @@ abstract class UserStoriesRecord
 
   static Stream<UserStoriesRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<UserStoriesRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UserStoriesRecord._();
   factory UserStoriesRecord([void Function(UserStoriesRecordBuilder) updates]) =
@@ -76,32 +65,38 @@ abstract class UserStoriesRecord
   static UserStoriesRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createUserStoriesRecordData({
-  DocumentReference user,
-  String storyVideo,
-  String storyPhoto,
-  String storyDescription,
-  DateTime storyPostedAt,
-  int numComments,
-  bool isOwner,
-  String privacy,
-  DateTime storyEndAt,
-  bool dayCompleted,
-}) =>
-    serializers.toFirestore(
-        UserStoriesRecord.serializer,
-        UserStoriesRecord((u) => u
-          ..user = user
-          ..storyVideo = storyVideo
-          ..storyPhoto = storyPhoto
-          ..storyDescription = storyDescription
-          ..storyPostedAt = storyPostedAt
-          ..likes = null
-          ..numComments = numComments
-          ..isOwner = isOwner
-          ..privacy = privacy
-          ..storyEndAt = storyEndAt
-          ..dayCompleted = dayCompleted));
+  DocumentReference? user,
+  String? storyVideo,
+  String? storyPhoto,
+  String? storyDescription,
+  DateTime? storyPostedAt,
+  int? numComments,
+  bool? isOwner,
+  String? privacy,
+  DateTime? storyEndAt,
+  bool? dayCompleted,
+}) {
+  final firestoreData = serializers.toFirestore(
+    UserStoriesRecord.serializer,
+    UserStoriesRecord(
+      (u) => u
+        ..user = user
+        ..storyVideo = storyVideo
+        ..storyPhoto = storyPhoto
+        ..storyDescription = storyDescription
+        ..storyPostedAt = storyPostedAt
+        ..likes = null
+        ..numComments = numComments
+        ..isOwner = isOwner
+        ..privacy = privacy
+        ..storyEndAt = storyEndAt
+        ..dayCompleted = dayCompleted,
+    ),
+  );
+
+  return firestoreData;
+}

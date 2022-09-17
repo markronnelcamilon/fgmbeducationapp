@@ -24,8 +24,8 @@ export 'subscribe_daily_success_planner/subscribe_daily_success_planner_widget.d
 export 'subscribe_financial_planner/subscribe_financial_planner_widget.dart'
     show SubscribeFinancialPlannerWidget;
 export 'create_story/create_story_widget.dart' show CreateStoryWidget;
-export 'goal_detail/goal_detail_widget.dart' show GoalDetailWidget;
 export 'goal_book/goal_book_widget.dart' show GoalBookWidget;
+export 'goal_detail/goal_detail_widget.dart' show GoalDetailWidget;
 export 'daily_success_planner/daily_success_planner_widget.dart'
     show DailySuccessPlannerWidget;
 export 'daily_success_planner_detail/daily_success_planner_detail_widget.dart'
@@ -62,3 +62,5 @@ export 'goal_writing/goal_writing_widget.dart' show GoalWritingWidget;
 export 'newsletter_list/newsletter_list_widget.dart' show NewsletterListWidget;
 export 'newsletter/newsletter_widget.dart' show NewsletterWidget;
 export 'add_books/add_books_widget.dart' show AddBooksWidget;
+export 'daily_time_record/daily_time_record_widget.dart'
+    show DailyTimeRecordWidget;

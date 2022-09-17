@@ -12,11 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DayChallengeMenuWidget extends StatefulWidget {
   const DayChallengeMenuWidget({
-    Key key,
+    Key? key,
     this.dayChallengeDocID,
   }) : super(key: key);
 
-  final String dayChallengeDocID;
+  final String? dayChallengeDocID;
 
   @override
   _DayChallengeMenuWidgetState createState() => _DayChallengeMenuWidgetState();
@@ -47,9 +47,9 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
           );
         }
         List<ChallengeDay21Record> containerChallengeDay21RecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final containerChallengeDay21Record =
@@ -100,7 +100,7 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
                         ninetyDays: true,
                         list21: 90,
                       );
-                      await containerChallengeDay21Record.reference
+                      await containerChallengeDay21Record!.reference
                           .update(challengeDay21UpdateData);
                       logFirebaseEvent('Button_Navigate-To');
                       await Navigator.push(
@@ -128,7 +128,7 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
@@ -137,14 +137,14 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent('DAY_CHALLENGE_MENU_ARCHIVE_BTN_ON_TAP');
-                      if (containerChallengeDay21Record.taskDone) {
+                      if (containerChallengeDay21Record!.taskDone!) {
                         logFirebaseEvent('Button_Backend-Call');
 
                         final challengeDay21UpdateData =
                             createChallengeDay21RecordData(
                           isArchive: true,
                         );
-                        await containerChallengeDay21Record.reference
+                        await containerChallengeDay21Record!.reference
                             .update(challengeDay21UpdateData);
                         logFirebaseEvent('Button_Show-Snack-Bar');
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -172,7 +172,7 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
                             createChallengeDay21RecordData(
                           isArchive: false,
                         );
-                        await containerChallengeDay21Record.reference
+                        await containerChallengeDay21Record!.reference
                             .update(challengeDay21UpdateData);
                         logFirebaseEvent('Button_Show-Snack-Bar');
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -210,7 +210,7 @@ class _DayChallengeMenuWidgetState extends State<DayChallengeMenuWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribeDailySuccessPlannerWidget extends StatefulWidget {
-  const SubscribeDailySuccessPlannerWidget({Key key}) : super(key: key);
+  const SubscribeDailySuccessPlannerWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribeDailySuccessPlannerWidgetState createState() =>
@@ -84,9 +84,10 @@ class _SubscribeDailySuccessPlannerWidgetState
                   ),
                 );
               }
-              List<SystemDataRecord> columnSystemDataRecordList = snapshot.data;
+              List<SystemDataRecord> columnSystemDataRecordList =
+                  snapshot.data!;
               // Return an empty Container when the document does not exist.
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data!.isEmpty) {
                 return Container();
               }
               final columnSystemDataRecord =
@@ -120,7 +121,7 @@ class _SubscribeDailySuccessPlannerWidgetState
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                     child: Text(
-                      columnSystemDataRecord.successPlanner,
+                      columnSystemDataRecord!.successPlanner!,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -178,7 +179,7 @@ class _SubscribeDailySuccessPlannerWidgetState
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 12,
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
@@ -214,7 +215,7 @@ class _SubscribeDailySuccessPlannerWidgetState
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 12,
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),

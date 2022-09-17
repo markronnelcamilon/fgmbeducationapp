@@ -11,27 +11,21 @@ abstract class AppointmentsRecord
   static Serializer<AppointmentsRecord> get serializer =>
       _$appointmentsRecordSerializer;
 
-  @nullable
-  String get appointmentName;
+  String? get appointmentName;
 
-  @nullable
-  String get appointmentDescription;
+  String? get appointmentDescription;
 
-  @nullable
-  DocumentReference get appointmentPerson;
+  DocumentReference? get appointmentPerson;
 
-  @nullable
-  DateTime get appointmentTime;
+  DateTime? get appointmentTime;
 
-  @nullable
-  String get appointmentType;
+  String? get appointmentType;
 
-  @nullable
-  String get appointmentEmail;
+  String? get appointmentEmail;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(AppointmentsRecordBuilder builder) => builder
     ..appointmentName = ''
@@ -44,11 +38,11 @@ abstract class AppointmentsRecord
 
   static Stream<AppointmentsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<AppointmentsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   AppointmentsRecord._();
   factory AppointmentsRecord(
@@ -58,23 +52,29 @@ abstract class AppointmentsRecord
   static AppointmentsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createAppointmentsRecordData({
-  String appointmentName,
-  String appointmentDescription,
-  DocumentReference appointmentPerson,
-  DateTime appointmentTime,
-  String appointmentType,
-  String appointmentEmail,
-}) =>
-    serializers.toFirestore(
-        AppointmentsRecord.serializer,
-        AppointmentsRecord((a) => a
-          ..appointmentName = appointmentName
-          ..appointmentDescription = appointmentDescription
-          ..appointmentPerson = appointmentPerson
-          ..appointmentTime = appointmentTime
-          ..appointmentType = appointmentType
-          ..appointmentEmail = appointmentEmail));
+  String? appointmentName,
+  String? appointmentDescription,
+  DocumentReference? appointmentPerson,
+  DateTime? appointmentTime,
+  String? appointmentType,
+  String? appointmentEmail,
+}) {
+  final firestoreData = serializers.toFirestore(
+    AppointmentsRecord.serializer,
+    AppointmentsRecord(
+      (a) => a
+        ..appointmentName = appointmentName
+        ..appointmentDescription = appointmentDescription
+        ..appointmentPerson = appointmentPerson
+        ..appointmentTime = appointmentTime
+        ..appointmentType = appointmentType
+        ..appointmentEmail = appointmentEmail,
+    ),
+  );
+
+  return firestoreData;
+}

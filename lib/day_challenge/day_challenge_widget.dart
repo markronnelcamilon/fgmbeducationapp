@@ -11,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DayChallengeWidget extends StatefulWidget {
-  const DayChallengeWidget({Key key}) : super(key: key);
+  const DayChallengeWidget({Key? key}) : super(key: key);
 
   @override
   _DayChallengeWidgetState createState() => _DayChallengeWidgetState();
@@ -50,9 +50,9 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
           );
         }
         List<ChallengeDay21Record> dayChallengeChallengeDay21RecordList =
-            snapshot.data;
+            snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final dayChallengeChallengeDay21Record =
@@ -143,7 +143,7 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
                                   .where('uid', isEqualTo: currentUserUid)
                                   .where('dayChallengeID',
                                       isEqualTo:
-                                          dayChallengeChallengeDay21Record
+                                          dayChallengeChallengeDay21Record!
                                               .dayChallengeID)
                                   .orderBy('label'),
                           limit: 21,
@@ -164,7 +164,7 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
                             );
                           }
                           List<DayChallenge21Record>
-                              gridViewDayChallenge21RecordList = snapshot.data;
+                              gridViewDayChallenge21RecordList = snapshot.data!;
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
@@ -184,8 +184,7 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'DAY_CHALLENGE_PAGE_Card_ulf7gb0f_ON_TAP');
-                                  if ((gridViewDayChallenge21Record
-                                          .completed) ==
+                                  if (gridViewDayChallenge21Record.completed ==
                                       true) {
                                     logFirebaseEvent('Card_Alert-Dialog');
                                     await showDialog(
@@ -248,9 +247,8 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
                                     children: [
                                       Stack(
                                         children: [
-                                          if (!(gridViewDayChallenge21Record
-                                                  .completed) ??
-                                              true)
+                                          if (!gridViewDayChallenge21Record
+                                              .completed!)
                                             Icon(
                                               Icons.lock_outlined,
                                               color:
@@ -269,7 +267,7 @@ class _DayChallengeWidgetState extends State<DayChallengeWidget> {
                                         ],
                                       ),
                                       Text(
-                                        gridViewDayChallenge21Record.label
+                                        gridViewDayChallenge21Record.label!
                                             .toString(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1

@@ -14,13 +14,12 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _day21 =
-        prefs.getStringList('ff_day21')?.map(int.parse)?.toList() ?? _day21;
+    _day21 = prefs.getStringList('ff_day21')?.map(int.parse).toList() ?? _day21;
     _taxPercentage = prefs.getDouble('ff_taxPercentage') ?? _taxPercentage;
     _checkAmout = prefs.getDouble('ff_checkAmout') ?? _checkAmout;
   }
 
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
 
   bool uploadToVisionBoard = false;
 
@@ -56,7 +55,7 @@ class FFAppState {
   }
 }
 
-LatLng _latLngFromString(String val) {
+LatLng? _latLngFromString(String? val) {
   if (val == null) {
     return null;
   }

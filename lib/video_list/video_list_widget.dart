@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VideoListWidget extends StatefulWidget {
-  const VideoListWidget({Key key}) : super(key: key);
+  const VideoListWidget({Key? key}) : super(key: key);
 
   @override
   _VideoListWidgetState createState() => _VideoListWidgetState();
@@ -93,7 +93,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                             );
                           }
                           List<VideoRecord> listViewVideoRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,
@@ -134,14 +134,14 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 4),
                                           child: Hero(
-                                            tag: listViewVideoRecord.thumbnail,
+                                            tag: listViewVideoRecord.thumbnail!,
                                             transitionOnUserGestures: true,
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: CachedNetworkImage(
                                                 imageUrl: listViewVideoRecord
-                                                    .thumbnail,
+                                                    .thumbnail!,
                                                 width: 128,
                                                 height: 72,
                                                 fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                           ),
                                         ),
                                         AutoSizeText(
-                                          listViewVideoRecord.videoTitle
+                                          listViewVideoRecord.videoTitle!
                                               .maybeHandleOverflow(
                                                   maxChars: 30),
                                           textAlign: TextAlign.start,
@@ -166,7 +166,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                               ),
                                         ),
                                         Text(
-                                          listViewVideoRecord.videoTitle
+                                          listViewVideoRecord.videoTitle!
                                               .maybeHandleOverflow(
                                                   maxChars: 40),
                                           textAlign: TextAlign.start,
@@ -231,7 +231,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                           ),
                         );
                       }
-                      List<VideoRecord> columnVideoRecordList = snapshot.data;
+                      List<VideoRecord> columnVideoRecordList = snapshot.data!;
                       return Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +273,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           child: Image.network(
-                                            columnVideoRecord.thumbnail,
+                                            columnVideoRecord.thumbnail!,
                                             width: 128,
                                             height: 72,
                                             fit: BoxFit.cover,
@@ -291,7 +291,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                columnVideoRecord.videoTitle,
+                                                columnVideoRecord.videoTitle!,
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .subtitle2
@@ -305,7 +305,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                                               ),
                                               Text(
                                                 columnVideoRecord
-                                                    .videoDesription
+                                                    .videoDesription!
                                                     .maybeHandleOverflow(
                                                         maxChars: 40),
                                                 style: FlutterFlowTheme.of(

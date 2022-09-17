@@ -12,7 +12,7 @@ Future dailySuccessPlanner() async {
   // Add your function code here!
   final firestoreInstance = FirebaseFirestore.instance;
   final firebaseAuth = FirebaseAuth.instance;
-  final uid = firebaseAuth.currentUser.uid.toString();
+  final uid = firebaseAuth.currentUser!.uid.toString();
 
   var today = DateTime.now();
 
@@ -31,23 +31,12 @@ Future dailySuccessPlanner() async {
       "target03": false,
       "target04": false,
       "target05": false,
+      "quarterly_goals": "",
       "target_detail01": "Tap here to change your target...",
       "target_detail02": "Tap here to change your target...",
       "target_detail03": "Tap here to change your target...",
       "target_detail04": "Tap here to change your target...",
       "target_detail05": "Tap here to change your target...",
-      "": "",
     });
-
-    //for (int x = 0; x <= 4; x++) {
-    //firestoreInstance.collection('targets').add(
-    //{
-    //"uid" : uid,
-    //"date" : today.add(Duration(days: i)),
-    //"target_detail":"Tap here to change your target...",
-    //"target_done":false,
-    //}
-    //);
-    //}
   }
 }

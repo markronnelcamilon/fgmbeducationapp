@@ -10,19 +10,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddPercentageWidget extends StatefulWidget {
   const AddPercentageWidget({
-    Key key,
+    Key? key,
     this.businessAllocationRR,
   }) : super(key: key);
 
-  final BusinessAllocationRecord businessAllocationRR;
+  final BusinessAllocationRecord? businessAllocationRR;
 
   @override
   _AddPercentageWidgetState createState() => _AddPercentageWidgetState();
 }
 
 class _AddPercentageWidgetState extends State<AddPercentageWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
+  TextEditingController? textController1;
+
+  TextEditingController? textController2;
 
   @override
   void initState() {
@@ -90,6 +91,26 @@ class _AddPercentageWidgetState extends State<AddPercentageWidget> {
                       topRight: Radius.circular(4.0),
                     ),
                   ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
                   contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 ),
                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -125,6 +146,26 @@ class _AddPercentageWidgetState extends State<AddPercentageWidget> {
                       topRight: Radius.circular(4.0),
                     ),
                   ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                  ),
                   contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 ),
                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -144,10 +185,10 @@ class _AddPercentageWidgetState extends State<AddPercentageWidget> {
                   final businessAllocationCreateData =
                       createBusinessAllocationRecordData(
                     allocationDeductionPercentage:
-                        double.parse(textController2.text),
+                        double.parse(textController2!.text),
                     uid: currentUserUid,
                     amount: 0.0,
-                    allocationDeduction: textController1.text,
+                    allocationDeduction: textController1!.text,
                   );
                   await BusinessAllocationRecord.collection
                       .doc()
@@ -168,7 +209,7 @@ class _AddPercentageWidgetState extends State<AddPercentageWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -193,7 +234,7 @@ class _AddPercentageWidgetState extends State<AddPercentageWidget> {
                     color: Colors.transparent,
                     width: 1,
                   ),
-                  borderRadius: 12,
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

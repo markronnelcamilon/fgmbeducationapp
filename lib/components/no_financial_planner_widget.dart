@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NoFinancialPlannerWidget extends StatefulWidget {
-  const NoFinancialPlannerWidget({Key key}) : super(key: key);
+  const NoFinancialPlannerWidget({Key? key}) : super(key: key);
 
   @override
   _NoFinancialPlannerWidgetState createState() =>

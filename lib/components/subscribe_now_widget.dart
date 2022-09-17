@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubscribeNowWidget extends StatefulWidget {
-  const SubscribeNowWidget({Key key}) : super(key: key);
+  const SubscribeNowWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribeNowWidgetState createState() => _SubscribeNowWidgetState();
@@ -83,7 +83,7 @@ class _SubscribeNowWidgetState extends State<SubscribeNowWidget> {
                       color: Colors.transparent,
                       width: 1,
                     ),
-                    borderRadius: 12,
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),

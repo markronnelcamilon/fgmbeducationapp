@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddTransactionWidget extends StatefulWidget {
-  const AddTransactionWidget({Key key}) : super(key: key);
+  const AddTransactionWidget({Key? key}) : super(key: key);
 
   @override
   _AddTransactionWidgetState createState() => _AddTransactionWidgetState();

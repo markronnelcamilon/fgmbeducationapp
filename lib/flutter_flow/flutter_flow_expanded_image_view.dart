@@ -3,7 +3,7 @@ import 'package:photo_view/photo_view.dart';
 
 class FlutterFlowExpandedImageView extends StatelessWidget {
   const FlutterFlowExpandedImageView({
-    @required this.image,
+    required this.image,
     this.allowRotation = false,
     this.useHeroAnimation = true,
     this.tag,
@@ -12,7 +12,7 @@ class FlutterFlowExpandedImageView extends StatelessWidget {
   final Widget image;
   final bool allowRotation;
   final bool useHeroAnimation;
-  final Object tag;
+  final Object? tag;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,11 @@ class FlutterFlowExpandedImageView extends StatelessWidget {
                 minScale: 1.0,
                 maxScale: 3.0,
                 enableRotation: allowRotation,
-                heroAttributes:
-                    useHeroAnimation ? PhotoViewHeroAttributes(tag: tag) : null,
+                heroAttributes: useHeroAnimation
+                    ? PhotoViewHeroAttributes(tag: tag!)
+                    : null,
                 onScaleEnd: (context, details, value) {
-                  if (value.scale < 0.3) {
+                  if (value.scale! < 0.3) {
                     Navigator.pop(context);
                   }
                 },

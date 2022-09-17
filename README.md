@@ -1,4 +1,4 @@
-# FGMB Education
+# Ideal
 
 A new Flutter project.
 

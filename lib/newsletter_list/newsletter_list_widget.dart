@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewsletterListWidget extends StatefulWidget {
-  const NewsletterListWidget({Key key}) : super(key: key);
+  const NewsletterListWidget({Key? key}) : super(key: key);
 
   @override
   _NewsletterListWidgetState createState() => _NewsletterListWidgetState();
@@ -80,7 +80,7 @@ class _NewsletterListWidgetState extends State<NewsletterListWidget> {
             );
           }
           List<NewsletterRecord> mainContainerNewsletterRecordList =
-              snapshot.data;
+              snapshot.data!;
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: List.generate(mainContainerNewsletterRecordList.length,
@@ -109,7 +109,7 @@ class _NewsletterListWidgetState extends State<NewsletterListWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          mainContainerNewsletterRecord.image,
+                          mainContainerNewsletterRecord.image!,
                           width: 60,
                           height: 60,
                           fit: BoxFit.cover,
@@ -121,7 +121,7 @@ class _NewsletterListWidgetState extends State<NewsletterListWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          mainContainerNewsletterRecord.title,
+                          mainContainerNewsletterRecord.title!,
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(
@@ -131,7 +131,7 @@ class _NewsletterListWidgetState extends State<NewsletterListWidget> {
                         ),
                         Text(
                           dateTimeFormat(
-                              'relative', mainContainerNewsletterRecord.date),
+                              'relative', mainContainerNewsletterRecord.date!),
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',

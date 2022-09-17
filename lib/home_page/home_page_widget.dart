@@ -20,7 +20,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key key}) : super(key: key);
+  const HomePageWidget({Key? key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -64,18 +64,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       Stack(
                         children: [
                           if (!(Theme.of(context).brightness ==
-                                  Brightness.dark) ??
-                              true)
+                              Brightness.dark))
                             Image.asset(
-                              'assets/images/FGMB_Placeholders.png',
+                              'assets/images/Ideal_(2).png',
                               width: 100,
                               height: 50,
                               fit: BoxFit.cover,
                             ),
-                          if (Theme.of(context).brightness == Brightness.dark ??
-                              true)
+                          if (Theme.of(context).brightness == Brightness.dark)
                             Image.asset(
-                              'assets/images/fgmb_logo_white.png',
+                              'assets/images/Ideal_(4).png',
                               width: 100,
                               height: 50,
                               fit: BoxFit.cover,
@@ -222,7 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   }
                                   List<ChallengeDay21Record>
                                       rowChallengeDay21RecordList =
-                                      snapshot.data;
+                                      snapshot.data!;
                                   if (rowChallengeDay21RecordList.isEmpty) {
                                     return Center(
                                       child: Container(
@@ -248,7 +246,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             logFirebaseEvent(
                                                 'HOME_PAGE_PAGE_Container_a3exilgr_ON_TAP');
                                             if (rowChallengeDay21Record
-                                                .ninetyDays) {
+                                                .ninetyDays!) {
                                               logFirebaseEvent(
                                                   'Container_Navigate-To');
                                               await Navigator.push(
@@ -305,7 +303,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       0, 0, 0),
                                                           child: Text(
                                                             rowChallengeDay21Record
-                                                                .counter
+                                                                .counter!
                                                                 .toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -345,7 +343,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       0, 5, 0),
                                                           child: Text(
                                                             rowChallengeDay21Record
-                                                                .list21
+                                                                .list21!
                                                                 .toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -410,7 +408,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             dateTimeFormat(
                                                                 'yMMMd',
                                                                 rowChallengeDay21Record
-                                                                    .startDate),
+                                                                    .startDate!),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .subtitle1
@@ -473,7 +471,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   dateTimeFormat(
                                                                       'yMMMd',
                                                                       rowChallengeDay21Record
-                                                                          .endDate90),
+                                                                          .endDate90!),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .subtitle1
@@ -489,9 +487,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       ),
                                                                 ),
                                                               ),
-                                                            if (!(rowChallengeDay21Record
-                                                                    .ninetyDays) ??
-                                                                true)
+                                                            if (!rowChallengeDay21Record
+                                                                .ninetyDays!)
                                                               Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
@@ -504,7 +501,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   dateTimeFormat(
                                                                       'yMMMd',
                                                                       rowChallengeDay21Record
-                                                                          .endDate21),
+                                                                          .endDate21!),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .subtitle1
@@ -555,7 +552,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               Color(0xFFF1F4F8),
                                                           center: Text(
                                                             rowChallengeDay21Record
-                                                                .counter
+                                                                .counter!
                                                                 .toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -569,9 +566,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 ),
                                                           ),
                                                         ),
-                                                      if (!(rowChallengeDay21Record
-                                                              .ninetyDays) ??
-                                                          true)
+                                                      if (!rowChallengeDay21Record
+                                                          .ninetyDays!)
                                                         CircularPercentIndicator(
                                                           percent: functions
                                                               .getProgress(
@@ -588,7 +584,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               Color(0xFFF1F4F8),
                                                           center: Text(
                                                             rowChallengeDay21Record
-                                                                .counter
+                                                                .counter!
                                                                 .toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -652,9 +648,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }
                         List<DailyFinancialPlannerRecord>
                             containerDailyFinancialPlannerRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
+                        if (snapshot.data!.isEmpty) {
                           return Container();
                         }
                         final containerDailyFinancialPlannerRecord =
@@ -714,9 +710,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 }
                                 List<DailyFinancialPlannerRecord>
                                     rowDailyFinancialPlannerRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 // Return an empty Container when the document does not exist.
-                                if (snapshot.data.isEmpty) {
+                                if (snapshot.data!.isEmpty) {
                                   return Container();
                                 }
                                 final rowDailyFinancialPlannerRecord =
@@ -752,8 +748,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           Text(
                                             formatNumber(
-                                              containerDailyFinancialPlannerRecord
-                                                  .startingBalance,
+                                              containerDailyFinancialPlannerRecord!
+                                                  .startingBalance!,
                                               formatType: FormatType.decimal,
                                               decimalType:
                                                   DecimalType.periodDecimal,
@@ -789,8 +785,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     0, 4, 0, 0),
                                             child: Text(
                                               formatNumber(
-                                                containerDailyFinancialPlannerRecord
-                                                    .totalSpending,
+                                                containerDailyFinancialPlannerRecord!
+                                                    .totalSpending!,
                                                 formatType: FormatType.decimal,
                                                 decimalType:
                                                     DecimalType.periodDecimal,
@@ -857,9 +853,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }
                         List<DailyFinancialPlannerRecord>
                             containerDailyFinancialPlannerRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
+                        if (snapshot.data!.isEmpty) {
                           return Container();
                         }
                         final containerDailyFinancialPlannerRecord =
@@ -919,9 +915,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 }
                                 List<DailyFinancialPlannerRecord>
                                     rowDailyFinancialPlannerRecordList =
-                                    snapshot.data;
+                                    snapshot.data!;
                                 // Return an empty Container when the document does not exist.
-                                if (snapshot.data.isEmpty) {
+                                if (snapshot.data!.isEmpty) {
                                   return Container();
                                 }
                                 final rowDailyFinancialPlannerRecord =
@@ -957,8 +953,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                           Text(
                                             formatNumber(
-                                              containerDailyFinancialPlannerRecord
-                                                  .allowcationBusiness,
+                                              containerDailyFinancialPlannerRecord!
+                                                  .allowcationBusiness!,
                                               formatType: FormatType.decimal,
                                               decimalType:
                                                   DecimalType.periodDecimal,
@@ -995,8 +991,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     0, 4, 0, 0),
                                             child: Text(
                                               formatNumber(
-                                                containerDailyFinancialPlannerRecord
-                                                    .allocationPersonal,
+                                                containerDailyFinancialPlannerRecord!
+                                                    .allocationPersonal!,
                                                 formatType: FormatType.decimal,
                                                 decimalType:
                                                     DecimalType.periodDecimal,
@@ -1048,8 +1044,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     children: [
                       Stack(
                         children: [
-                          if ((valueOrDefault(
-                                  currentUserDocument?.isSubscribed, false)) ==
+                          if (valueOrDefault<bool>(
+                                  currentUserDocument?.isSubscribed, false) ==
                               false)
                             AuthUserStreamWidget(
                               child: InkWell(
@@ -1079,8 +1075,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 child: SubscribeNowWidget(),
                               ),
                             ),
-                          if ((valueOrDefault(
-                                  currentUserDocument?.isSubscribed, false)) ==
+                          if (valueOrDefault<bool>(
+                                  currentUserDocument?.isSubscribed, false) ==
                               true)
                             Padding(
                               padding:

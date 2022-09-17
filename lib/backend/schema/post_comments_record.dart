@@ -11,21 +11,17 @@ abstract class PostCommentsRecord
   static Serializer<PostCommentsRecord> get serializer =>
       _$postCommentsRecordSerializer;
 
-  @nullable
-  DateTime get timePosted;
+  DateTime? get timePosted;
 
-  @nullable
-  String get comment;
+  String? get comment;
 
-  @nullable
-  DocumentReference get user;
+  DocumentReference? get user;
 
-  @nullable
-  DocumentReference get post;
+  DocumentReference? get post;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(PostCommentsRecordBuilder builder) =>
       builder..comment = '';
@@ -35,11 +31,11 @@ abstract class PostCommentsRecord
 
   static Stream<PostCommentsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<PostCommentsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   PostCommentsRecord._();
   factory PostCommentsRecord(
@@ -49,19 +45,25 @@ abstract class PostCommentsRecord
   static PostCommentsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createPostCommentsRecordData({
-  DateTime timePosted,
-  String comment,
-  DocumentReference user,
-  DocumentReference post,
-}) =>
-    serializers.toFirestore(
-        PostCommentsRecord.serializer,
-        PostCommentsRecord((p) => p
-          ..timePosted = timePosted
-          ..comment = comment
-          ..user = user
-          ..post = post));
+  DateTime? timePosted,
+  String? comment,
+  DocumentReference? user,
+  DocumentReference? post,
+}) {
+  final firestoreData = serializers.toFirestore(
+    PostCommentsRecord.serializer,
+    PostCommentsRecord(
+      (p) => p
+        ..timePosted = timePosted
+        ..comment = comment
+        ..user = user
+        ..post = post,
+    ),
+  );
+
+  return firestoreData;
+}

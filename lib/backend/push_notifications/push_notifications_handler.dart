@@ -13,7 +13,8 @@ import '../../index.dart';
 import '../../main.dart';
 
 class PushNotificationsHandler extends StatefulWidget {
-  const PushNotificationsHandler({Key key, this.child}) : super(key: key);
+  const PushNotificationsHandler({Key? key, required this.child})
+      : super(key: key);
 
   final Widget child;
 
@@ -66,14 +67,11 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   Widget build(BuildContext context) => _loading
       ? Container(
-          color: Colors.white,
-          child: Center(
-            child: Builder(
-              builder: (context) => Image.asset(
-                'assets/images/FGMB_Logo.png',
-                width: 250,
-                fit: BoxFit.contain,
-              ),
+          color: Colors.transparent,
+          child: Builder(
+            builder: (context) => Image.asset(
+              'assets/images/Ideal_(2).png',
+              fit: BoxFit.contain,
             ),
           ),
         )
@@ -106,12 +104,12 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'subscribeFinancialPlanner': (data) async =>
       SubscribeFinancialPlannerWidget(),
   'createStory': (data) async => CreateStoryWidget(),
+  'goalBook': (data) async => GoalBookWidget(),
   'goalDetail': (data) async => GoalDetailWidget(
         userID: getParameter(data, 'userID'),
         goalID: getParameter(data, 'goalID'),
         date: getParameter(data, 'date'),
       ),
-  'goalBook': (data) async => GoalBookWidget(),
   'dailySuccessPlanner': (data) async => DailySuccessPlannerWidget(),
   'dailySuccessPlannerDetail': (data) async => DailySuccessPlannerDetailWidget(
         dailySuccessPlannerRR: getParameter(data, 'dailySuccessPlannerRR'),
@@ -164,6 +162,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         newsletterDetail: getParameter(data, 'newsletterDetail'),
       ),
   'AddBooks': (data) async => AddBooksWidget(),
+  'dailyTimeRecord': (data) async => DailyTimeRecordWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

@@ -11,11 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class NewsletterWidget extends StatefulWidget {
   const NewsletterWidget({
-    Key key,
+    Key? key,
     this.newsletterDetail,
   }) : super(key: key);
 
-  final DocumentReference newsletterDetail;
+  final DocumentReference? newsletterDetail;
 
   @override
   _NewsletterWidgetState createState() => _NewsletterWidgetState();
@@ -50,9 +50,9 @@ class _NewsletterWidgetState extends State<NewsletterWidget> {
             ),
           );
         }
-        List<NewsletterRecord> newsletterNewsletterRecordList = snapshot.data;
+        List<NewsletterRecord> newsletterNewsletterRecordList = snapshot.data!;
         // Return an empty Container when the document does not exist.
-        if (snapshot.data.isEmpty) {
+        if (snapshot.data!.isEmpty) {
           return Container();
         }
         final newsletterNewsletterRecord =
@@ -104,7 +104,7 @@ class _NewsletterWidgetState extends State<NewsletterWidget> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        newsletterNewsletterRecord.title,
+                        newsletterNewsletterRecord!.title!,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).subtitle1.override(
                               fontFamily: 'Lexend Deca',
@@ -114,7 +114,7 @@ class _NewsletterWidgetState extends State<NewsletterWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                         child: Image.network(
-                          newsletterNewsletterRecord.image,
+                          newsletterNewsletterRecord!.image!,
                           width: 100,
                           height: 200,
                           fit: BoxFit.contain,
@@ -123,7 +123,7 @@ class _NewsletterWidgetState extends State<NewsletterWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                         child: Text(
-                          newsletterNewsletterRecord.body,
+                          newsletterNewsletterRecord!.body!,
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(
@@ -156,7 +156,7 @@ class _NewsletterWidgetState extends State<NewsletterWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 12,
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),

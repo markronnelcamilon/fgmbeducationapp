@@ -16,7 +16,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ImageUploadWidget extends StatefulWidget {
-  const ImageUploadWidget({Key key}) : super(key: key);
+  const ImageUploadWidget({Key? key}) : super(key: key);
 
   @override
   _ImageUploadWidgetState createState() => _ImageUploadWidgetState();
@@ -88,8 +88,7 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
                     children: [
                       Stack(
                         children: [
-                          if (!(functions.hasUploadedMedia(uploadedFileUrl)) ??
-                              true)
+                          if (!functions.hasUploadedMedia(uploadedFileUrl))
                             InkWell(
                               onTap: () async {
                                 logFirebaseEvent(
@@ -116,12 +115,12 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
                                               await uploadData(
                                                   m.storagePath, m.bytes))))
                                       .where((u) => u != null)
+                                      .map((u) => u!)
                                       .toList();
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
-                                  if (downloadUrls != null &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
+                                  if (downloadUrls.length ==
+                                      selectedMedia.length) {
                                     setState(() =>
                                         uploadedFileUrl = downloadUrls.first);
                                     showUploadMessage(
@@ -160,8 +159,7 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
                                 ),
                               ),
                             ),
-                          if (functions.hasUploadedMedia(uploadedFileUrl) ??
-                              true)
+                          if (functions.hasUploadedMedia(uploadedFileUrl))
                             FlutterFlowMediaDisplay(
                               path: uploadedFileUrl,
                               imageBuilder: (path) => Image.network(
@@ -274,7 +272,7 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
                   color: Colors.transparent,
                   width: 1,
                 ),
-                borderRadius: 8,
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),

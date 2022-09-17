@@ -11,21 +11,17 @@ abstract class VisionBoardRecord
   static Serializer<VisionBoardRecord> get serializer =>
       _$visionBoardRecordSerializer;
 
-  @nullable
-  String get userID;
+  String? get userID;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  bool get isAchievement;
+  bool? get isAchievement;
 
-  @nullable
-  DateTime get date;
+  DateTime? get date;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(VisionBoardRecordBuilder builder) => builder
     ..userID = ''
@@ -37,11 +33,11 @@ abstract class VisionBoardRecord
 
   static Stream<VisionBoardRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<VisionBoardRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   VisionBoardRecord._();
   factory VisionBoardRecord([void Function(VisionBoardRecordBuilder) updates]) =
@@ -50,19 +46,25 @@ abstract class VisionBoardRecord
   static VisionBoardRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createVisionBoardRecordData({
-  String userID,
-  String image,
-  bool isAchievement,
-  DateTime date,
-}) =>
-    serializers.toFirestore(
-        VisionBoardRecord.serializer,
-        VisionBoardRecord((v) => v
-          ..userID = userID
-          ..image = image
-          ..isAchievement = isAchievement
-          ..date = date));
+  String? userID,
+  String? image,
+  bool? isAchievement,
+  DateTime? date,
+}) {
+  final firestoreData = serializers.toFirestore(
+    VisionBoardRecord.serializer,
+    VisionBoardRecord(
+      (v) => v
+        ..userID = userID
+        ..image = image
+        ..isAchievement = isAchievement
+        ..date = date,
+    ),
+  );
+
+  return firestoreData;
+}
